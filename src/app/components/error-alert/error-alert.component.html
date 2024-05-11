@@ -1,0 +1,9 @@
+<div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" role="alert">
+  <h5 class="text-center">
+    {{requestService.errorAlert.error}}
+  </h5>
+  <p class="text-center">
+    {{"Status: "+requestService.errorAlert.status}}, {{requestService.errorAlert.message}}
+  </p>
+  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close" (click)="closeAlert()"></button>
+</div>
