@@ -22,9 +22,7 @@ export class AuthService {
     public requestService: RequestService,
     private cookieService: CookieService,
     private router: Router,
-  ) {
-
-  }
+  ) {}
 
   login(username: string, password: string): Observable<LoginResponse | HttpErrorResponse> {
     const body = { username, password };
@@ -73,9 +71,24 @@ export class AuthService {
     return this.usuarioLogado;
   }
 
+  renewToken(): Observable<any> {
+    return this.refreshToken().pipe(
+      switchMap((token) => {
+        this.cookieService.set('jwtToken', token.token, undefined, '/', '', true, 'Strict');
+        this.cookieService.set('jwtTokenRefresh', token.refreshToken, undefined, '/', '', true, 'Strict');
+        return this.setUsuarioLogado();
+      }),
+      catchError((error) => {
+        return throwError(()=> error);
+      })
+      );
+  }
+
   private refreshToken():Observable<LoginResponse> {
     let token = this.cookieService.get('jwtTokenRefresh');
     let body = { token };
     return this.http.post<LoginResponse>(`${this.apiUrl}/auth/refreshToken`, body);
   }
+
+
 }

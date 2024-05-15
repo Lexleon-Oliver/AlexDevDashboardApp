@@ -46,7 +46,7 @@ export class LoginPageComponent implements OnInit {
           this.authService.login(username, password).subscribe({
             next:  (response) => {
               this.requestService.hideLoading();
-              this.router.navigate(['/application']);
+              // this.router.navigate(['/application']);
             },
 
             error: (error) => {
