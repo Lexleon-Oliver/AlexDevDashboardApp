@@ -90,5 +90,17 @@ export class AuthService {
     return this.http.post<LoginResponse>(`${this.apiUrl}/auth/refreshToken`, body);
   }
 
+  getFirstAndLastName(): string {
+    const names = this.usuarioLogado.username.split('.');
+    const firstName =  names[0].replace(/[@]/g, '');
+    const lastName = names[1];
+    return `${firstName} ${lastName}`;
+  }
+
+  getJobTitle():string{
+    return this.usuarioLogado.jobTitle;
+  }
+
+
 
 }

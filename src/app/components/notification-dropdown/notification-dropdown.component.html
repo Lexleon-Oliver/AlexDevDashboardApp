@@ -1,0 +1,18 @@
+<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+  <li class="dropdown-header">
+    Você possui {{notificationsService.getNotificationsSize()}} novas notificações
+    <a class="elemento-clicavel"><span class="badge rounded-pill bg-primary p-2 ms-2">Ver todas</span></a>
+  </li>
+  <li>
+    <hr class="dropdown-divider">
+  </li>
+
+  @for (notification of notificationList; track $index) {
+    <app-notification-item [notification]="notification"></app-notification-item>
+  }
+
+  <li class="dropdown-footer">
+    <a href="#">Mostrar Todas</a>
+  </li>
+
+</ul>

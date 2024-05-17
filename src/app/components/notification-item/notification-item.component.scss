@@ -1,0 +1,23 @@
+
+.notification-item {
+  display: flex;
+  align-items: center;
+  padding: 15px 10px;
+  transition: 0.3s;
+}
+
+i {
+  margin: 0 20px 0 10px;
+  font-size: 24px;
+}
+
+h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+p {
+  font-size: 13px;
+  margin-bottom: 3px;
+}

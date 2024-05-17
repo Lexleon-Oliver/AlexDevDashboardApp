@@ -1,0 +1,11 @@
+<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+  <li class="dropdown-header text-capitalize">
+    <h6 >{{authService.getFirstAndLastName()}}</h6>
+    <span>{{authService.getJobTitle()}}</span>
+  </li>
+
+  @for (menu of ProfileMenuList; track $index) {
+    <app-profile-item [menu]="menu"></app-profile-item>
+  }
+
+</ul>
