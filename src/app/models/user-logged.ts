@@ -14,6 +14,7 @@ export class UserLogged {
   notifications!: MyNotification[];
   roles!: string[];
   isActive!:boolean;
+  theme!: string;
 
   constructor(data?: Partial<UserLogged>) {
     if (data) {

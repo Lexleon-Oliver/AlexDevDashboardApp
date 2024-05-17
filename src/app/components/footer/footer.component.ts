@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-footer',
@@ -7,6 +7,20 @@ import { Component } from '@angular/core';
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss'
 })
-export class FooterComponent {
+export class FooterComponent implements OnInit {
 
+  constructor() { }
+
+  ngOnInit(): void {
+    // Obtém o elemento onde o ano será exibido
+    const yearElement = document.getElementById('year');
+
+    // Obtém o ano atual
+    const currentYear = new Date().getFullYear();
+
+    // Define o ano atual no elemento HTML
+    if (yearElement) {
+      yearElement.textContent = currentYear.toString();
+    }
+  }
 }

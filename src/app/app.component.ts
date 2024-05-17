@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { TemplateComponent } from './components/template/template.component';
+import { ThemeItem } from './models/theme-item';
+import { ThemesService } from './services/themes.service';
 
 @Component({
   selector: 'app-root',
@@ -16,13 +18,12 @@ import { TemplateComponent } from './components/template/template.component';
 })
 export class AppComponent {
 
-  title = 'AlexDevDashApp';
+  defaultTheme!: ThemeItem;
 
   constructor(
-    public authService: AuthService
-  ){}
-
-  logout() {
-    this.authService.logout();
+    public authService: AuthService,
+  ){
   }
+
+
 }
