@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, map, switchMap, throwError } from 'rxjs';
 import { LoginResponse } from '../models/login-response';
 import { RequestService } from './request.service';
-import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../../environments/environment';
 import { UserLogged } from '../models/user-logged';
+import { MyNotification } from '../models/my-notification';
 
 @Injectable({
   providedIn: 'root'
@@ -15,13 +15,12 @@ export class AuthService {
 
   private readonly apiUrl = environment.apiUrl;
   private dadosCarregados: boolean = false;
-  private usuarioLogado!: UserLogged;
+  private usuarioLogado!: UserLogged | undefined;
 
   constructor(
     private http: HttpClient,
     public requestService: RequestService,
     private cookieService: CookieService,
-    private router: Router,
   ) {}
 
   login(username: string, password: string): Observable<LoginResponse | HttpErrorResponse> {
@@ -52,6 +51,8 @@ export class AuthService {
   logout(): void {
     this.cookieService.delete('jwtToken', '/');
     this.cookieService.delete('jwtTokenRefresh', '/');
+    this.usuarioLogado = undefined;
+    this.dadosCarregados = false;
   }
 
   setUsuarioLogado(): Observable<UserLogged> {
@@ -67,7 +68,7 @@ export class AuthService {
     return !!token;
   }
 
-  getUsuarioLogado(): UserLogged {
+  getUsuarioLogado(): UserLogged | undefined {
     return this.usuarioLogado;
   }
 
@@ -91,14 +92,47 @@ export class AuthService {
   }
 
   getFirstAndLastName(): string {
+    if (!this.usuarioLogado) {
+      return '';
+    }
     const names = this.usuarioLogado.username.split('.');
     const firstName =  names[0].replace(/[@]/g, '');
-    const lastName = names[1];
+    const lastName = names[1] ?? '';
     return `${firstName} ${lastName}`;
   }
 
   getJobTitle():string{
-    return this.usuarioLogado.jobTitle;
+    return this.usuarioLogado?.jobTitle ?? "";
+  }
+
+  getTheme():string{
+    return this.usuarioLogado?.theme ?? "Claro";
+  }
+
+  getNotifications(): MyNotification[]{
+    return this.usuarioLogado?.notifications ?? [];
+  }
+
+  executeAfterReload(){
+    if(!this.requestService.isLoading){
+      this.requestService.showLoading();
+    }
+
+    if(this.isAuthenticatedUser()){
+      this.setUsuarioLogado().subscribe({
+        next: (usuarioLogado) => {
+          this.usuarioLogado = usuarioLogado;
+          this.dadosCarregados = true;
+          this.requestService.hideLoading();
+
+        },
+        error: (error) => {
+          this.requestService.hideLoading();
+          console.error("Erro ao carregar: ", error)
+            // this.logout();
+        }
+      });
+    }
   }
 
 

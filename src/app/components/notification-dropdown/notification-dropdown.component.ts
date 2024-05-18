@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { NotificationItem } from '../../models/notification-item';
 import { NotificationsService } from '../../services/notifications.service';
 import { NotificationItemComponent } from '../notification-item/notification-item.component';
+import { MyNotification } from '../../models/my-notification';
 
 @Component({
   selector: 'app-notification-dropdown',
@@ -14,7 +14,7 @@ import { NotificationItemComponent } from '../notification-item/notification-ite
 })
 export class NotificationDropdownComponent {
 
-  notificationList!: NotificationItem[];
+  notificationList!: MyNotification[];
 
   constructor(
     public notificationsService: NotificationsService

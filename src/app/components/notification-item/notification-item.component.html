@@ -2,7 +2,7 @@
   <i class={{notification.icon}}></i>
   <div>
     <h4>{{notification.title}}</h4>
-    <p>{{ notification.content.length > 34 ? (notification.content | slice:0:34) + '...' : notification.content }}</p>
+    <p>{{ notification.message.length > 34 ? (notification.message | slice:0:34) + '...' : notification.message }}</p>
     <p>{{notification.createdAt}}</p>
   </div>
 </li>

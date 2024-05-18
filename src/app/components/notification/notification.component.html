@@ -2,7 +2,9 @@
 
   <a class="nav-link nav-icon elemento-clicavel"  data-bs-toggle="dropdown">
     <i class="bi bi-bell"></i>
-    <span class="badge bg-primary badge-number">{{notificationsService.getNotificationsSize()}}</span>
+    @if (notificationsService.getNotificationsSize()>0) {
+      <span class="badge bg-primary badge-number">{{notificationsService.getNotificationsSize()}}</span>
+    }
   </a>
 
   <app-notification-dropdown></app-notification-dropdown>

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NotificationsService } from '../../services/notifications.service';
 import { NotificationDropdownComponent } from '../notification-dropdown/notification-dropdown.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-notification',
@@ -14,7 +15,10 @@ import { NotificationDropdownComponent } from '../notification-dropdown/notifica
 export class NotificationComponent {
 
   constructor(
-    public notificationsService: NotificationsService
-  ){}
+    public notificationsService: NotificationsService,
+    private authService: AuthService
+  ){
+    notificationsService.setNotifications(authService.getNotifications())
+  }
 
 }

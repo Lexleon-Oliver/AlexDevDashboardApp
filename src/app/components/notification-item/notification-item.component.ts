@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { NotificationItem } from '../../models/notification-item';
 import { SlicePipe } from '@angular/common';
+import { MyNotification } from '../../models/my-notification';
 
 @Component({
   selector: 'app-notification-item',
@@ -13,7 +13,7 @@ import { SlicePipe } from '@angular/common';
 })
 export class NotificationItemComponent {
 
-  @Input() notification!: NotificationItem;
+  @Input() notification!: MyNotification;
 
   constructor() {
 
