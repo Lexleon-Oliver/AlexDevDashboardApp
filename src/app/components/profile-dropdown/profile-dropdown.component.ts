@@ -22,17 +22,17 @@ export class ProfileDropdownComponent {
       {
         icon:"bi bi-person",
         label:"Perfil",
-        url: "/profile"
+        url: "/users/profile"
       },
       {
-        icon:"bi bi-gear",
-        label:"Configurações",
-        url: "/configurations"
+        icon: 'bi bi-bell',
+        label: 'Minhas notificações',
+        url: '/users/notifications'
       },
       {
-        icon:"bi bi-question-circle",
-        label:"Precisa de ajuda?",
-        url: "/help"
+        icon: 'bi bi-list-task',
+        label: 'Minhas tarefas',
+        url: '/users/tasks'
       },
       {
         icon:"bi bi-box-arrow-right",

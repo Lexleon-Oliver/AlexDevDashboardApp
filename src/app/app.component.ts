@@ -1,10 +1,7 @@
 import { AuthService } from './services/auth.service';
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { TemplateComponent } from './components/template/template.component';
-import { ThemeItem } from './models/theme-item';
-import { ThemesService } from './services/themes.service';
 
 @Component({
   selector: 'app-root',
@@ -16,13 +13,16 @@ import { ThemesService } from './services/themes.service';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
-
-  defaultTheme!: ThemeItem;
+export class AppComponent implements OnInit{
 
   constructor(
     public authService: AuthService,
   ){
+  }
+  ngOnInit(): void {
+    if(this.authService.isAuthenticatedUser()){
+      this.authService.executeAfterReload();
+    }
   }
 
 

@@ -4,6 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { RequestService } from '../../services/request.service';
 import { ErrorAlertComponent } from '../../components/error-alert/error-alert.component';
+import { ThemesService } from '../../services/themes.service';
 
 @Component({
   selector: 'app-login-page',
@@ -23,8 +24,8 @@ export class LoginPageComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService:AuthService,
-    private router: Router,
     public requestService: RequestService,
+    private themeService: ThemesService
   ){
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required], // Define os controles do FormGroup
@@ -46,6 +47,7 @@ export class LoginPageComponent implements OnInit {
           this.authService.login(username, password).subscribe({
             next:  (response) => {
               this.requestService.hideLoading();
+
               // this.router.navigate(['/application']);
             },
 
