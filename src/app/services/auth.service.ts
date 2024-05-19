@@ -73,10 +73,20 @@ export class AuthService {
   }
 
   renewToken(): Observable<any> {
-    return this.refreshToken().pipe(
+    let refreshToken = this.cookieService.get('jwtTokenRefresh');
+    console.log("refreshToken: ["+refreshToken+"]");
+
+    if (!refreshToken) {
+        // Se o token de refresh não estiver presente, lançar um erro
+        return throwError(() => new Error('Refresh token not found'));
+    }
+
+    return this.refreshToken(refreshToken).pipe(
       switchMap((token) => {
         this.cookieService.set('jwtToken', token.token, undefined, '/', '', true, 'Strict');
         this.cookieService.set('jwtTokenRefresh', token.refreshToken, undefined, '/', '', true, 'Strict');
+        console.log("Novos tokens armazenados");
+
         return this.setUsuarioLogado();
       }),
       catchError((error) => {
@@ -85,9 +95,9 @@ export class AuthService {
       );
   }
 
-  private refreshToken():Observable<LoginResponse> {
-    let token = this.cookieService.get('jwtTokenRefresh');
-    let body = { token };
+  private refreshToken(refreshToken: string): Observable<LoginResponse> {
+    let body = { token: refreshToken };
+    // Enviando a requisição para renovar o token
     return this.http.post<LoginResponse>(`${this.apiUrl}/auth/refreshToken`, body);
   }
 
