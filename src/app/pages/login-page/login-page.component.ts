@@ -35,30 +35,20 @@ export class LoginPageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit(){
-    if (this.loginForm) {
-      const usernameControl = this.loginForm.get('username');
-      const passwordControl = this.loginForm.get('password');
-      if (usernameControl && passwordControl) {
-        if (this.loginForm.valid) {
-          const username = "@"+usernameControl.value;
-          const password = passwordControl.value;
-          this.requestService.showLoading();
-          this.authService.login(username, password).subscribe({
-            next:  (response) => {
-              this.requestService.hideLoading();
-
-              // this.router.navigate(['/application']);
-            },
-
-            error: (error) => {
-              console.error("Erro no login");
-              this.requestService.trataErro(error)
-
-            }
-          });
+  onSubmit() {
+    if (this.loginForm?.valid) {
+      const { username, password } = this.loginForm.value;
+      const formattedUsername = `@${username}`;
+      this.requestService.showLoading();
+      this.authService.login(formattedUsername, password).subscribe({
+        next: (response) => {
+          this.requestService.hideLoading();
+          // Navegação ou outras ações pós-login
+        },
+        error: (error) => {
+          this.requestService.trataErro(error);
         }
-      }
+      });
     }
   }
 }

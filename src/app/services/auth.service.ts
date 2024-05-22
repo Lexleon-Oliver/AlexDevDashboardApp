@@ -23,7 +23,7 @@ export class AuthService {
     private cookieService: CookieService,
   ) {}
 
-  login(username: string, password: string): Observable<LoginResponse | HttpErrorResponse> {
+  login(username: string, password: string): Observable<LoginResponse> {
     const body = { username, password };
     return this.http.post<LoginResponse>(`${this.apiUrl}/auth/login`, body).pipe(
       switchMap((response) => {
@@ -35,14 +35,9 @@ export class AuthService {
             this.dadosCarregados = true;
             return response;
           }),
-          catchError((error) => {
-            console.error("Erro em setUsuarioLogado "+error);
-            return throwError(() => error);
-          })
         );
       }),
       catchError((error) => {
-        console.error("Erro em Login "+error);
         return throwError(() => error);
       })
     );
@@ -74,7 +69,6 @@ export class AuthService {
 
   renewToken(): Observable<any> {
     let refreshToken = this.cookieService.get('jwtTokenRefresh');
-    console.log("refreshToken: ["+refreshToken+"]");
 
     if (!refreshToken) {
         // Se o token de refresh não estiver presente, lançar um erro
@@ -85,7 +79,6 @@ export class AuthService {
       switchMap((token) => {
         this.cookieService.set('jwtToken', token.token, undefined, '/', '', true, 'Strict');
         this.cookieService.set('jwtTokenRefresh', token.refreshToken, undefined, '/', '', true, 'Strict');
-        console.log("Novos tokens armazenados");
 
         return this.setUsuarioLogado();
       }),

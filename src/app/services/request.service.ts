@@ -44,15 +44,17 @@ export class RequestService {
   }
 
   trataErro(erro:any){
-    let messageText= erro.error?.mensagem || erro.error?.message || 'o backend não está respondendo. Contate o suporte!';
-    let errorText= erro.error?.erro || erro.headers?.name || 'Erro na solicitação';
+    const messageText = erro.error?.mensagem || erro.error?.message || 'O backend não está respondendo. Contate o suporte!';
+    const errorText = erro.error?.erro || erro.headers?.name || 'Erro na solicitação';
 
     this.hideLoading()
 
-    this.errorAlert.show = true;
-    this.errorAlert.error = errorText;
-    this.errorAlert.message = messageText;
-    this.errorAlert.status = erro.status ? erro.status : 'Status desconhecido';
+    this.errorAlert = {
+      show: true,
+      error: errorText,
+      message: messageText,
+      status: erro.status || 'Status desconhecido'
+    };
   }
 
 }
