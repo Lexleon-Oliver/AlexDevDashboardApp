@@ -129,12 +129,13 @@
 }
 
 .light-theme .sidebar-nav .nav-content a:hover,
-.sidebar-nav .nav-content a.active {
+.light-theme .sidebar-nav .nav-content a.active {
   color: var(--tertiary-color-light);
 }
 
 .light-theme .sidebar-nav .nav-content a {
   color: var(--azul-marinho);
+  text-decoration: none;
 }
 
 .light-theme .sidebar-nav .nav-link:hover i {

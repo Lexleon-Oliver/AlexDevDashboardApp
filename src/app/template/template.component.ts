@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { HeaderComponent } from '../header/header.component';
-import { SidebarComponent } from '../sidebar/sidebar.component';
+import { HeaderComponent } from '../components/header/header.component';
+import { SidebarComponent } from '../components/sidebar/sidebar.component';
 import { RouterOutlet } from '@angular/router';
-import { FooterComponent } from '../footer/footer.component';
-import { ButtonUpComponent } from '../button-up/button-up.component';
+import { FooterComponent } from '../components/footer/footer.component';
+import { ButtonUpComponent } from '../components/button-up/button-up.component';
 
 @Component({
   selector: 'app-template',

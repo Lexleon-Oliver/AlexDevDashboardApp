@@ -1,7 +1,7 @@
 import { AuthService } from './services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
-import { TemplateComponent } from './components/template/template.component';
+import { TemplateComponent } from './template/template.component';
 
 @Component({
   selector: 'app-root',

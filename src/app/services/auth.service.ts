@@ -138,6 +138,17 @@ export class AuthService {
     }
   }
 
+  userHasPermissions(requiredPermissions: string[]): boolean {
+    if (this.dadosCarregados) {
+      return requiredPermissions.every(permission => this.usuarioLogado?.roles.includes(permission));
+    } else {
+      setTimeout(() => {
+        this.userHasPermissions(requiredPermissions);
+      }, 100);
+      return false;
+    }
+  }
+
 
 
 }
