@@ -33,7 +33,9 @@
               "src/styles.scss",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/bootstrap-icons/font/bootstrap-icons.min.css",
-              "src/assets/themes/light.scss"
+              "src/assets/themes/light.scss",
+              "src/assets/themes/dark.scss",
+              "src/assets/themes/blue.scss"
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"

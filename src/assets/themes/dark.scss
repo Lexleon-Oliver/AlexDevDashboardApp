@@ -1,0 +1,306 @@
+:root {
+  --primary-color-dark: #1e1e1e; /* Um azul escuro profundo */
+  --secondary-color-dark: #cccccc; /* Um cinza claro */
+  --tertiary-color-dark: #24408c; /* Um azul médio */
+  --quaternary-color-dark: #4d5dab; /* Um azul escuro */
+  --quinary-color-dark:  #7685c5; /* Um azul ainda mais escuro */
+  --sixthary-color-dark: #6d6d6d; /* Um cinza médio */
+
+  --box-shadow-dropdown-menu-dark: rgba(0, 0, 0, 0.2); /* Sombra mais escura */
+  --box-shadow-header-dark: rgba(255, 255, 255, 0.1); /* Sombra mais clara */
+
+  --preto-puro-dark: #000000; /* Preto */
+  --cinza-pastel-dark: #434343; /* Um cinza escuro */
+  --azul-claro-dark: #789cc0; /* Um azul claro */
+}
+
+.dark-theme h1,
+.dark-theme h2,
+.dark-theme h3,
+.dark-theme h4,
+.dark-theme h5,
+.dark-theme h6 {
+  color: white;
+}
+
+
+.dark-theme{
+  background-color: var(--primary-color-dark);
+  color: var(--secondary-color-dark);
+}
+
+.dark-theme a{
+  color: var(--tertiary-color-dark);
+}
+
+.dark-theme a:hover{
+  color: var(--quaternary-color-dark);
+}
+
+.dark-theme .dropdown-menu{
+  box-shadow: var(--box-shadow-dropdown-menu-dark);
+  background-color: var(--primary-color-dark);
+  color: var(--secondary-color-dark);
+}
+
+.dark-theme .dropdown-menu .dropdown-footer a {
+  color: var(--secondary-color-dark);
+}
+
+.dark-theme .dropdown-menu .dropdown-divider {
+  color: var(--quinary-color-dark)
+}
+
+.dark-theme .dropdown-menu .dropdown-item {
+  color: var(--secondary-color-dark);
+}
+
+@media (min-width: 768px) {
+  .dark-theme .dropdown-menu-arrow::before {
+
+    background: var(--preto-puro-dark);
+    border-top: var(--cinza-pastel-dark);
+    border-left: var(--cinza-pastel-dark);
+  }
+}
+
+.dark-theme .header .toggle-sidebar-btn {
+  color: var(--azul-claro-dark);
+}
+
+.dark-theme .header {
+  background-color: var(--preto-puro-dark);
+  box-shadow: var(--box-shadow-header-dark)
+}
+
+.dark-theme .logo img {
+  border:solid var(--azul-claro-dark);
+  background-color: var(--secondary-color-dark);
+}
+
+.dark-theme .logo span {
+  color: var(--azul-claro-dark);
+}
+
+.dark-theme .header-nav .nav-icon {
+  color: var(--azul-claro-dark);
+
+}
+
+.dark-theme .notification-item p {
+  color: var(--sixthary-color-dark);
+}
+
+.dark-theme .nav-profile {
+  color: var(--azul-claro-dark);
+}
+
+.dark-theme .profile .dropdown-header h6 {
+  color: var(--secondary-color-dark);
+}
+
+.dark-theme .bi-palette{
+  color: var(--azul-claro-dark);
+}
+
+.dark-theme .header-nav .nav-link:hover {
+  color: var(--quaternary-color-dark);
+}
+
+.dark-theme .header-nav .nav-item i:hover {
+  color: var(--quaternary-color-dark);
+}
+
+.dark-theme .toggle-sidebar-btn:hover{
+  color: var(--quaternary-color-dark);
+}
+
+.dark-theme .dropdown-menu .dropdown-item:hover {
+  background-color: var(--preto-puro-dark);
+}
+
+.dark-theme .notification-item:hover {
+  background-color: var(--preto-puro-dark);
+}
+
+
+.dark-theme .sidebar{
+  background-color: var(--preto-puro-dark);
+}
+
+.dark-theme .sidebar::-webkit-scrollbar {
+  background-color: var(--preto-puro-dark);
+}
+
+.dark-theme .sidebar::-webkit-scrollbar-thumb {
+  background-color: var(--sixthary-color-dark);
+}
+
+.dark-theme .sidebar-nav .nav-content a.active i {
+  background-color: var(--tertiary-color-dark);
+}
+
+.dark-theme .sidebar-nav .nav-content a:hover,
+.dark-theme .sidebar-nav .nav-content a.active {
+  color: var(--tertiary-color-dark);
+}
+
+.dark-theme .sidebar-nav .nav-content a {
+  color: var(--azul-claro-dark);
+  text-decoration: none;
+}
+
+.dark-theme .sidebar-nav .nav-link:hover i {
+  color: var(--tertiary-color-dark);
+}
+
+.dark-theme .sidebar-nav .nav-link:hover {
+  color: var(--tertiary-color-dark);
+  background: var(--primary-color-dark);
+}
+
+.dark-theme .sidebar-nav .nav-link.collapsed i {
+  color: var(--quinary-color-dark);
+}
+
+.dark-theme .sidebar-nav .nav-link.collapsed {
+  color: var(--azul-claro-dark);
+  background: var(--preto-puro-dark);
+}
+
+.dark-theme .sidebar-nav .nav-link.collapsed:hover {
+  color: var(--tertiary-color-dark);
+  background: var(--primary-color-dark);
+}
+
+.dark-theme .sidebar-nav .nav-link i {
+   color: var(--tertiary-color-dark);
+  // background: var(--primary-color-dark);
+}
+
+.dark-theme .sidebar-nav .nav-link {
+  color: var(--tertiary-color-dark);
+}
+
+.dark-theme .sidebar-nav .nav-heading {
+  color: var(--quinary-color-dark);
+}
+
+.dark-theme .footer .copyright {
+  color: var(--azul-claro-dark);
+}
+
+.dark-theme .footer a {
+  color: var(--tertiary-color-dark);
+}
+
+.dark-theme #title {
+  color:var(--preto-puro-dark);
+}
+
+.dark-theme .circles p {
+	color: var(--preto-puro-dark);
+}
+
+.dark-theme .circles .circle.small {
+	background: var(--tertiary-color-dark);
+}
+
+.dark-theme .circles .circle.med {
+	background: var(--tertiary-color-dark);
+}
+
+.dark-theme .circles .circle.big {
+	background: var(--tertiary-color-dark);
+}
+
+.dark-theme .back-to-top {
+  background: var(--azul-claro-dark);
+}
+
+.dark-theme .back-to-top i {
+  color: var(--preto-puro-dark);
+}
+
+.dark-theme .back-to-top:hover {
+  background: var(--tertiary-color-dark);
+  color: var(--preto-puro-dark);
+}
+
+.dark-theme .pagetitle h1 {
+  color: var(--azul-claro-dark);
+}
+
+.dark-theme .breadcrumb a:hover {
+  color: var(--quinary-color-dark);
+}
+
+.dark-theme .breadcrumb .active {
+  color: var(--azul-claro-dark);
+}
+
+.dark-theme .breadcrumb .breadcrumb-item::before {
+  color: var(--sixthary-color-dark);
+}
+
+.dark-theme .breadcrumb {
+  color: var(--secondary-color-dark);
+}
+
+.dark-theme .breadcrumb a {
+  color: var(--secondary-color-dark);
+}
+
+.dark-theme .item-notification{
+  color: var(--sixthary-color-dark);
+}
+
+
+.dark-theme .not-lida p,
+.dark-theme .not-lida small {
+  color: var(--tertiary-color-dark);
+}
+
+.dark-theme .card-title {
+  color: var(--azul-claro-dark);
+}
+
+.dark-theme .card-header,
+.dark-theme .card-body,
+.dark-theme .card-footer {
+  border-color: var(--cinza-pastel-dark);
+  background-color: var(--preto-puro-dark);
+  color: var(--quinary-color-dark);
+}
+
+.dark-theme .card {
+  box-shadow: 0px 0 30px var(--box-shadow-header);
+}
+
+.dark-theme .card-subtitle-custom{
+  color: var(--secondary-color-dark);
+}
+
+.dark-theme .item-notification{
+  background-color: var(--preto-puro-dark);
+}
+
+
+.dark-theme .nav-item .nav-link {
+  color: var(--quinary-color-dark);
+}
+.dark-theme .nav-item .nav-link.active {
+  color: var(--tertiary-color-dark);
+  background-color: var(--primary-color-dark);
+}
+.dark-theme .nav-item .nav-link:hover {
+  color: var(--tertiary-color-dark);
+}
+
+
+
+
+
+
+
+
