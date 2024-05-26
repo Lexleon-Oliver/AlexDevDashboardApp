@@ -24,9 +24,7 @@ export class LoginPageComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService:AuthService,
-    public requestService: RequestService,
-    private themeService: ThemesService
-  ){
+    public requestService: RequestService  ){
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required], // Define os controles do FormGroup
       password: ['', Validators.required],

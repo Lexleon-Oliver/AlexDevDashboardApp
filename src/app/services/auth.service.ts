@@ -7,6 +7,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../../environments/environment';
 import { UserLogged } from '../models/user-logged';
 import { MyNotification } from '../models/my-notification';
+import { ThemesService } from './themes.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,7 @@ export class AuthService {
     private http: HttpClient,
     public requestService: RequestService,
     private cookieService: CookieService,
+    private themeService: ThemesService,
   ) {}
 
   login(username: string, password: string): Observable<LoginResponse> {
@@ -32,6 +34,7 @@ export class AuthService {
         return this.setUsuarioLogado().pipe(
           map((usuarioLogado) => {
             this.usuarioLogado = usuarioLogado;
+            this.themeService.setInitialTheme(this.getTheme());
             this.dadosCarregados = true;
             return response;
           }),
@@ -125,6 +128,7 @@ export class AuthService {
       this.setUsuarioLogado().subscribe({
         next: (usuarioLogado) => {
           this.usuarioLogado = usuarioLogado;
+          this.themeService.setInitialTheme(this.getTheme());
           this.dadosCarregados = true;
           this.requestService.hideLoading();
 

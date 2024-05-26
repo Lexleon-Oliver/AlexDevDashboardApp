@@ -3,7 +3,7 @@
     <app-login-page></app-login-page>
   </div>
 }
-@if (authService.isAuthenticatedUser()) {
+@if (authService.isAuthenticatedUser() && authService.dadosUsuarioCarregados()) {
   <app-template></app-template>
 
 }

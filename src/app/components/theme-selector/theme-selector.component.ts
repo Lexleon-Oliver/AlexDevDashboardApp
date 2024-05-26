@@ -16,12 +16,7 @@ import { AuthService } from '../../services/auth.service';
 export class ThemeSelectorComponent {
 
   constructor(
-    private themeService: ThemesService,
-    private authService: AuthService
   ){
-    let theme: ThemeItem = themeService.getThemeByText(authService.getTheme());
-    themeService.setSelectedTheme(theme);
-
   }
 
 }
