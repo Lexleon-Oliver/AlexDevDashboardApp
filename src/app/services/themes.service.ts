@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { ThemeItem } from '../models/theme-item';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { RequestService } from './request.service';
+import { RequestResponse } from '../models/request-response';
 
 @Injectable({
   providedIn: 'root'
@@ -20,19 +22,20 @@ export class ThemesService {
 
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private requestService: RequestService
   ) {
   }
 
   setSelectedTheme(theme: ThemeItem): void {
     this.selectedTheme = theme;
     this.applyTheme(theme);
-    this.http.put(`${this.apiUrl}/users/mydetails/themes`, { theme: theme.text }).subscribe({
-      next: (data) => {
-        console.log('Tema atualizado com sucesso:', data);
+    this.http.put<RequestResponse>(`${this.apiUrl}/users/mydetails/themes`, { theme: theme.text }).subscribe({
+      next: (data: RequestResponse) => {
+        this.requestService.trataSucesso(data);
       },
       error: (error) => {
-        console.error('Erro ao enviar o tema para o servidor:', error);
+        this.requestService.trataErro(error)
       }
     });
   }

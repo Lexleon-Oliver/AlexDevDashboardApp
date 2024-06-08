@@ -1,0 +1,39 @@
+<app-page-title
+  [pageTitle]="{
+    titulo: 'Perfil',
+    itemMenu:'Usuário',
+    itemSubmenu:'Perfil',
+    alignment:'center',
+    homeIcon: true,
+    homeText: 'Início',
+  }"
+  divisor="'•'"
+></app-page-title>
+<section class="section profile">
+  <div class="row">
+    <div class="col-xl-4">
+      <app-profile-card></app-profile-card>
+    </div>
+    <div class="col-xl-8">
+
+      <div class="card">
+        <div class="card-body pt-3">
+
+          <app-bordered-tabs></app-bordered-tabs>
+          <div class="tab-content pt-2">
+
+            <div class="tab-pane fade show active profile-overview" id="profile-overview">
+              <app-profile-overview></app-profile-overview>
+            </div>
+            <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+              <app-edit-profile></app-edit-profile>
+            </div>
+            <div class="tab-pane fade change-password pt-3" id="profile-change-password">
+              <app-change-password></app-change-password>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -307,3 +307,21 @@
 .blue-theme .nav-item .nav-link:hover {
   color: var(--tertiary-color-blue);
 }
+
+.blue-theme .modal-content{
+  background-color: var(--primary-color-blue);
+  border: var(--secondary-color-blue) Inset;
+}
+.blue-theme .modal-body{
+  color: var(--golden-blue);
+}
+
+.blue-theme .modal-footer .btn-secondary,
+.blue-theme .modal-header .btn-close{
+  color: var(--tertiary-color-blue);
+  background-color: var(--secondary-color-blue);
+}
+
+.blue-theme label{
+  color: var(--cinza-pastel-blue);
+}

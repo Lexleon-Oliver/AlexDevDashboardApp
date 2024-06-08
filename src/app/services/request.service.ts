@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RequestResponse } from '../models/request-response';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -44,7 +45,7 @@ export class RequestService {
   }
 
   trataErro(erro:any){
-    const messageText = erro.error?.mensagem || erro.error?.message || 'O backend não está respondendo. Contate o suporte!';
+    const messageText = erro.error?.mensagem || erro.error?.message || 'Erro interno no servidor. Contate o suporte!';
     const errorText = erro.error?.erro || erro.headers?.name || 'Erro na solicitação';
 
     this.hideLoading()
@@ -53,8 +54,9 @@ export class RequestService {
       show: true,
       error: errorText,
       message: messageText,
-      status: erro.status || 'Status desconhecido'
+      status: erro.status || 500
     };
+
   }
 
 }

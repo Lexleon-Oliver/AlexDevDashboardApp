@@ -20,6 +20,6 @@ export class SidebarItemSubmenuComponent {
 
   redirect() {
     this.sidebarService.setActiveSubmenu(this.submenu.url);
-    // this.sidebarService.goToUrl(this.submenu.url);
+    this.sidebarService.goToUrl(this.submenu.url);
   }
 }

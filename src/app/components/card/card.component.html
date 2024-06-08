@@ -1,0 +1,17 @@
+<div class="card">
+  @if (card.header) {
+    <div class="card-header">{{card.header}}</div>
+  }
+  <div class="card-body">
+    <h5 class="card-title">{{card.title}}</h5>
+    @if (card.subtitle) {
+      <h6 class="card-subtitle-custom mb-2">{{card.subtitle}}</h6>
+    }
+    {{card.content}}
+  </div>
+  @if (card.footer) {
+    <div class="card-footer">
+      {{card.footer}}
+    </div>
+  }
+</div>

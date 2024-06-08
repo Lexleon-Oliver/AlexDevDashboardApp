@@ -5,6 +5,6 @@ export class MyNotification{
   title!: string;
   message!: string;
   createdAt!: string;
-  readedAt!: boolean;
+  readedAt!: string;
   isActive!:boolean;
 }

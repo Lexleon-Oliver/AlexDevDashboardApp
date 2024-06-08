@@ -1,0 +1,12 @@
+@if (notificacaoService.getSelectedNotification()!==undefined) {
+  <app-card
+  [card]="{
+    header: '',
+    title: notificacaoService.getSelectedNotification().title,
+    subtitle: '',
+    content: notificacaoService.getSelectedNotification().message,
+    footer: notificacaoService.getSelectedNotification().createdAt
+  }"
+  ></app-card>
+
+}

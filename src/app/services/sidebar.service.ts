@@ -34,17 +34,6 @@ export class SidebarService {
         }
       ]
     },
-    {
-      id:"components-nav",
-      label: "Componentes",
-      icon: "bi bi-menu-button-wide",
-      submenus:[
-        {
-          label: "Cards",
-          url: "/components/cards"
-        }
-      ]
-    },
 
   ];
 

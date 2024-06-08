@@ -19,7 +19,8 @@ export const AuthInterceptor: HttpInterceptorFn = (req, next): Observable<HttpEv
 
   return next(modifiedReq).pipe(
     catchError((error) => {
-      if(error.error.tipo=="AuthenticationException"){
+
+      if(error.error.tipo=="Authentication Exception"){
         return authService.renewToken().pipe(
           switchMap(() => {
             const newAuthToken = cookieService.get('jwtToken');

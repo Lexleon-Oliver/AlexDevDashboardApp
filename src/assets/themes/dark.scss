@@ -297,6 +297,21 @@
   color: var(--tertiary-color-dark);
 }
 
+.dark-theme .modal-content{
+  background-color: var(--primary-color-dark);
+  border: var(--secondary-color-dark) Inset;
+}
+.dark-theme .modal-body{
+  color: var(--azul-claro-dark);
+}
+
+.dark-theme .modal-footer .btn-secondary,
+.dark-theme .modal-header .btn-close{
+  color: var(--preto-puro-dark);
+  background-color: var(--cinza-pastel-dark);
+}
+
+
 
 
 

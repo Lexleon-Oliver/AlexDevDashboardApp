@@ -1,0 +1,21 @@
+<div class="form-floating">
+  <input
+    type="text"
+    class="form-control"
+    [id]="id"
+    [placeholder]="placeholder"
+    [formControl]="control"
+    [ngClass]="getClass()"
+  >
+  <label [for]="id">{{ label }}</label>
+</div>
+@if (control?.invalid && control?.touched) {
+  <div class="invalid-validation">
+    <div *ngIf="control.errors as errors">
+      <div *ngFor="let error of getErrorKeys(errors)" class="error-message">
+        {{ errorMessages[error] || 'Erro desconhecido' }}
+      </div>
+    </div>
+  </div>
+
+}
