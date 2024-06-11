@@ -10,6 +10,7 @@ import { passwordLowerValidator } from '../../../validators/password-lower.valid
 import { passwordUpperValidator } from '../../../validators/password-upper.validator';
 import { passwordCharValidator } from '../../../validators/password-char.validator';
 import { passwordNumberValidator } from '../../../validators/password-number.validator';
+import { RequestService } from '../../../services/request.service';
 
 @Component({
   selector: 'app-change-password',
@@ -28,6 +29,7 @@ export class ChangePasswordComponent implements OnInit {
     private formBuilder: FormBuilder,
     private location: Location,
     private authService: AuthService,
+    private requestService: RequestService
   ) {
     this.formChangePassword = this.formBuilder.group({
       currentPassword: ['', [ Validators.required, passwordLengthValidator, passwordLowerValidator, passwordUpperValidator, passwordCharValidator, passwordNumberValidator]],
@@ -52,7 +54,36 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   onAdd(){
+    if (this.formChangePassword.valid) {
+      const currentPassword = this.formChangePassword.get('currentPassword')?.value;
+      const newPassword = this.formChangePassword.get('newPassword')?.value;
+      const renewPassword = this.formChangePassword.get('renewPassword')?.value;
 
+      if (newPassword !== renewPassword) {
+        // Apenas uma verificação adicional, embora já haja validação no formulário
+        alert('New password and re-entered password do not match.');
+        return;
+      }
+      this.requestService.showLoading();
+
+      this.authService.changePassword(currentPassword, newPassword).subscribe({
+        next: (response) => {
+          // Sucesso na troca de senha
+          this.requestService.trataSucesso(response)
+          this.resetForm();
+          setTimeout(() => {
+            this.onCancel();
+          }, 3000);
+        },
+        error: (error) => {
+          // Falha na troca de senha
+          this.requestService.trataErro(error);
+        }
+      });
+    } else {
+      // O formulário é inválido
+      alert('Please ensure all fields are filled out correctly.');
+    }
   }
 
   matchingPasswords(form: FormGroup): ValidatorFn {

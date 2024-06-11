@@ -1,4 +1,4 @@
-<app-page-layout
+<app-page-layout-nocolumn
   divisor="'•'"
   [pageTitle]="{
     titulo: 'Dashboard',
@@ -8,8 +8,26 @@
     homeIcon: true,
     homeText: 'Início',
   }"
-  [columnClass]="'col-lg-6'"
 >
-  <!-- <app-modal></app-modal> -->
+<!-- lado esquerdo do dashboard -->
+  <div class="col-lg-6">
 
-</app-page-layout>
+    <app-simple-card
+    title="Lista de Tarefas"
+    >
+      <div class="d-flex justify-content-end">
+        <a (click)="criarTarefa()" class="bi bi-plus-circle me-2 text-success elemento-clicavel"></a>
+        <a (click)="irParaTarefas()" class="bi bi-list-task blue-custom elemento-clicavel" [class.disabled]="linkTaskDisabled"></a>
+      </div>
+      <app-todo-list *ngIf="tasks$ | async as tasks"
+      [items]="tasksToDashboard"
+      ></app-todo-list>
+    </app-simple-card>
+
+  </div>
+  <!-- lado direito do dashboard -->
+  <div class="col-lg-6">
+
+  </div>
+
+</app-page-layout-nocolumn>

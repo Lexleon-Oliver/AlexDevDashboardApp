@@ -311,6 +311,16 @@
   background-color: var(--cinza-pastel-dark);
 }
 
+.dark-theme .table-custom th,
+.dark-theme .table-custom td {
+  background-color: var(--primary-color-dark); /* Define a cor de fundo para cabeçalhos e células de dados */
+  color: white; /* Define a cor do texto para branco ou outra cor clara para contraste */
+}
+
+.dark-theme .color-label{
+  color: white;
+}
+
 
 
 

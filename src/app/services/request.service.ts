@@ -56,7 +56,8 @@ export class RequestService {
       message: messageText,
       status: erro.status || 500
     };
-
+    console.log("Erro: ", erro)
+    console.log("Erro Alert: ", this.errorAlert)
   }
 
 }

@@ -15,7 +15,7 @@ export class ProfileCardComponent {
 constructor(
   private authService: AuthService
 ){
-  this.dadosUsuario.nome= authService.getFirstAndLastName();
+  this.dadosUsuario.nome= authService.getFirstAndLastName().toUpperCase();
   this.dadosUsuario.cargo= authService.getJobTitle();
 }
 }

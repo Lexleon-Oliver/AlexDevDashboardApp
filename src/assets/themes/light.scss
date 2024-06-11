@@ -295,5 +295,16 @@
   color: var(--tertiary-color-light);
 }
 
+.light-theme .table-custom th,
+.light-theme .table-custom td,
+.light-theme .registerLabel {
+  background-color: var(--primary-color-light); /* Define a cor de fundo para cabeçalhos e células de dados */
+  color: var(--azul-marinho); /* Define a cor do texto para branco ou outra cor clara para contraste */
+}
+
+.light-theme .color-label{
+  color: var(--azul-marinho);
+}
+
 
 

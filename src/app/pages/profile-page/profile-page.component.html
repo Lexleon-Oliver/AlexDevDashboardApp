@@ -32,6 +32,15 @@
               <app-change-password></app-change-password>
             </div>
           </div>
+        @if (requestService.isLoading) {
+          <app-loading></app-loading>
+        }
+        @if (requestService.errorAlert.show) {
+          <app-modal></app-modal>
+        }
+        @if (requestService.sucessoAlert.exibir) {
+          <app-success-alert></app-success-alert>
+        }
         </div>
       </div>
     </div>

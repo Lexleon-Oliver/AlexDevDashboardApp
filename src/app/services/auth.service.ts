@@ -8,6 +8,7 @@ import { environment } from '../../environments/environment';
 import { UserLogged } from '../models/user-logged';
 import { MyNotification } from '../models/my-notification';
 import { ThemesService } from './themes.service';
+import { RequestResponse } from '../models/request-response';
 
 @Injectable({
   providedIn: 'root'
@@ -151,6 +152,15 @@ export class AuthService {
       }, 100);
       return false;
     }
+  }
+
+  updateUserProfile(updatedUser: Partial<UserLogged>): Observable<RequestResponse> {
+    return this.http.put<RequestResponse>(`${this.apiUrl}/users/mydetails`, updatedUser);
+  }
+
+  changePassword(currentPassword: string, newPassword: string) {
+    const body = { currentPassword, newPassword };
+    return this.http.post<RequestResponse>(`${this.apiUrl}/users/changepassword`, body);
   }
 
 

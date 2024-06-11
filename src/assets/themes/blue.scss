@@ -310,7 +310,7 @@
 
 .blue-theme .modal-content{
   background-color: var(--primary-color-blue);
-  border: var(--secondary-color-blue) Inset;
+  border: var(--golden-blue) Inset;
 }
 .blue-theme .modal-body{
   color: var(--golden-blue);
@@ -325,3 +325,14 @@
 .blue-theme label{
   color: var(--cinza-pastel-blue);
 }
+
+.blue-theme .table-custom th,
+.blue-theme .table-custom td {
+  background-color: var(--primary-color-blue); /* Define a cor de fundo para cabeçalhos e células de dados */
+  color: white; /* Define a cor do texto para branco ou outra cor clara para contraste */
+}
+
+.blue-theme .color-label{
+  color: white;
+}
+

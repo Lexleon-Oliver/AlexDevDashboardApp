@@ -8,6 +8,8 @@ import { FormComponent } from '../../form/form.component';
 import { InputFormComponent } from '../../input-form/input-form.component';
 import { InputPhoneFormComponent } from '../../input-phone-form/input-phone-form.component';
 import { TextAreaFormComponent } from '../../text-area-form/text-area-form.component';
+import { RequestResponse } from '../../../models/request-response';
+import { RequestService } from '../../../services/request.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -32,6 +34,7 @@ export class EditProfileComponent {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private location: Location,
+    private requestService:RequestService
   ){
     this.usuario=authService.getUsuarioLogado()
     if(this.usuario){
@@ -53,8 +56,35 @@ export class EditProfileComponent {
     );
   }
 
-  onAdd(){
+  onAdd() {
+    if (this.formEditProfile.valid) {
+      const updatedUser: Partial<UserLogged> = {
+        id: this.authService.getUsuarioLogado()?.id,
+        username:this.authService.getUsuarioLogado()?.username,
+        jobTitle: this.formEditProfile.value.cargoUsuario,
+        city: this.formEditProfile.value.cidadeUsuario,
+        company: this.formEditProfile.value.empresaUsuario,
+        address: this.formEditProfile.value.enderecoUsuario,
+        about: this.formEditProfile.value.sobrePerfil,
+        name: this.formEditProfile.value.nomeUsuario,
+        email: this.formEditProfile.value.emailUsuario,
+        phone: this.formEditProfile.value.telefoneUsuario,
+      };
 
+      this.authService.updateUserProfile(updatedUser).subscribe({
+        next: (response: RequestResponse) => {
+          this.requestService.trataSucesso(response);
+          this.location.back();
+        },
+        error: (error: any) => {
+          this.requestService.trataErro(error);
+          // Trate o erro, exiba uma mensagem de erro, etc.
+        }
+      });
+    } else {
+      console.error('Form is not valid');
+      // Opcional: exiba uma mensagem de erro informando que o formulário não é válido
+    }
   }
 
   onCancel() {
