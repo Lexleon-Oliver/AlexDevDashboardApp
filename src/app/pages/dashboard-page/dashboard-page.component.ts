@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 import { CheckboxItem } from '../../models/checkbox-item';
 import { BadgeValue } from '../../models/badge-value';
 import { SimpleCardComponent } from '../../components/simple-card/simple-card.component';
-import { TodoListComponent } from '../../components/todo-list/todo-list.component';
+import { TodoListComponent } from '../../components/dashboard-page/todo-list/todo-list.component';
 import { CommonModule } from '@angular/common';
 
 @Component({

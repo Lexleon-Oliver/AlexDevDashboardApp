@@ -1,17 +1,19 @@
 import { Component, Input } from '@angular/core';
-import { CheckboxItem } from '../../models/checkbox-item';
+import { CheckboxItem } from '../../../models/checkbox-item';
 import { Router } from '@angular/router';
-import { TasksService } from '../../services/tasks.service';
-import { AuthService } from '../../services/auth.service';
-import { RequestService } from '../../services/request.service';
-import { Task } from '../../models/task';
-import { BadgeItemPillComponent } from '../badge-item-pill/badge-item-pill.component';
+import { TasksService } from '../../../services/tasks.service';
+import { AuthService } from '../../../services/auth.service';
+import { RequestService } from '../../../services/request.service';
+import { Task } from '../../../models/task';
+import { BadgeItemPillComponent } from '../../badge-item-pill/badge-item-pill.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-todo-list',
   standalone: true,
   imports: [
     BadgeItemPillComponent,
+    CommonModule,
   ],
   templateUrl: './todo-list.component.html',
   styleUrl: './todo-list.component.scss'

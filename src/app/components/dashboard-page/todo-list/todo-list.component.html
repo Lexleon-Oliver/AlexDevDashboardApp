@@ -13,14 +13,21 @@
         >
 
         <label class="form-check-label elemento-clicavel" (click)="onCheckboxChange(item)" [for]="item.id" [class.completed]="item.checked">
-          {{ item.label }}
+          <span class="label-task">
+            {{ item.label }}
+
+          </span>
         </label>
         <div class="d-flex mt-2 ">
           <app-badge-item-pill class="me-3 badge-expiration" *ngIf="!item.checked"
           [tipoSelo]="item.tipoSelo"
           [text]="item.textSelo"
           ></app-badge-item-pill>
-          <div class="date-expiration me-3">{{item.expiration}}</div>
+          <div class="date-expiration me-3">
+            <span class="label-expiration-task">
+              {{item.expiration}}
+            </span>
+          </div>
           <i class="mdi mdi-flag ms-2 flag-color"></i>
         </div>
       </div>

@@ -306,5 +306,18 @@
   color: var(--azul-marinho);
 }
 
+.light-theme .form-check-input{
+  border-color: var(--azul-marinho);
+}
+
+.light-theme .label-task,
+.light-theme .label-expiration-task{
+  color: var(--azul-marinho);
+}
+
+.light-theme .completed{
+  text-decoration: line-through;
+  text-decoration-color: var(--secondary-color-light);
+}
 
 

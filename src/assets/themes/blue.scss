@@ -332,7 +332,15 @@
   color: white; /* Define a cor do texto para branco ou outra cor clara para contraste */
 }
 
-.blue-theme .color-label{
+.blue-theme .color-label,
+.blue-theme .label-task,
+.blue-theme .label-expiration-task{
   color: white;
+}
+
+
+.blue-theme .completed{
+  text-decoration: line-through;
+  text-decoration-color: var(--golden-blue);
 }
 

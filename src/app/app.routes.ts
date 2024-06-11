@@ -37,4 +37,8 @@ export const routes: Routes = [
     resolve: {task:TaskResolver}
 
   },
+  { path: 'users/tasks/:id/edit',
+    component: TaskFormComponent,
+    resolve:{task:TaskResolver},
+  },
 ];

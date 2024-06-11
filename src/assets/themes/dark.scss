@@ -322,6 +322,18 @@
 }
 
 
+.dark-theme .label-task,
+.dark-theme .label-expiration-task{
+  color: var(--azul-claro-dark);
+}
+
+.dark-theme .completed{
+  text-decoration: line-through;
+  text-decoration-color: var(--secondary-color-dark);
+}
+
+
+
 
 
 
