@@ -33,7 +33,7 @@
       (removeItem)="onRemove($event)"
     >
     </app-table>
-<!-- <app-modal
+<app-confirm-modal
   [modal]="{
     id: 'removerItemTable',
     title: 'Excluir Tarefa',
@@ -44,7 +44,7 @@
     confirmClass: 'danger'
   }"
   (confirmacaoAcao)="executarRemocao()"
-></app-modal> -->
+></app-confirm-modal>
 <ng-template #loading>
   <app-loading></app-loading>
 </ng-template>

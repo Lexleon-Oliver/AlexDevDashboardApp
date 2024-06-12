@@ -57,7 +57,6 @@ export class TaskFormComponent  implements OnInit {
       this.requestService.hideLoading();
     }
     const taskData: Task = this.route.snapshot.data['task'];
-    console.log("Task: ", taskData);
 
     if (taskData.id!==0) {
       this.task = new Task(taskData);

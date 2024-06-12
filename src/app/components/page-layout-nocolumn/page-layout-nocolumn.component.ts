@@ -3,8 +3,8 @@ import { RequestService } from '../../services/request.service';
 import { PageTitleComponent } from '../page-title/page-title.component';
 import { LoadingComponent } from '../loading/loading.component';
 import { SuccessAlertComponent } from '../success-alert/success-alert.component';
-import { ModalComponent } from '../modal/modal.component';
 import { SectionPageNocolumnComponent } from '../section-page-nocolumn/section-page-nocolumn.component';
+import { ErrorModalComponent } from '../error-modal/error-modal.component';
 
 @Component({
   selector: 'app-page-layout-nocolumn',
@@ -13,7 +13,7 @@ import { SectionPageNocolumnComponent } from '../section-page-nocolumn/section-p
     PageTitleComponent,
     LoadingComponent,
     SuccessAlertComponent,
-    ModalComponent,
+    ErrorModalComponent,
     SectionPageNocolumnComponent,
   ],
   templateUrl: './page-layout-nocolumn.component.html',

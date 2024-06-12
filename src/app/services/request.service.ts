@@ -45,8 +45,9 @@ export class RequestService {
   }
 
   trataErro(erro:any){
-    const messageText = erro.error?.mensagem || erro.error?.message || 'Erro interno no servidor. Contate o suporte!';
-    const errorText = erro.error?.erro || erro.headers?.name || 'Erro na solicitação';
+
+    const messageText = erro.error?.mensagem || 'Erro interno no servidor. Contate o suporte!';
+    const errorText = erro.error?.erro || 'Erro na solicitação';
 
     this.hideLoading()
 
@@ -56,8 +57,6 @@ export class RequestService {
       message: messageText,
       status: erro.status || 500
     };
-    console.log("Erro: ", erro)
-    console.log("Erro Alert: ", this.errorAlert)
   }
 
 }

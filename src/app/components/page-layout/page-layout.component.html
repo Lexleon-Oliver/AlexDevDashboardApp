@@ -3,7 +3,7 @@
   <ng-content></ng-content>
 </app-section-page>
 @if (requestService.errorAlert.show) {
-  <app-modal></app-modal>
+  <app-error-modal></app-error-modal>
 }
 @if (requestService.isLoading) {
   <app-loading></app-loading>

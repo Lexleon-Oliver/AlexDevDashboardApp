@@ -4,8 +4,7 @@ import { SectionPageComponent } from '../section-page/section-page.component';
 import { RequestService } from '../../services/request.service';
 import { LoadingComponent } from '../loading/loading.component';
 import { SuccessAlertComponent } from '../success-alert/success-alert.component';
-import { ErrorAlertComponent } from '../error-alert/error-alert.component';
-import { ModalComponent } from '../modal/modal.component';
+import { ErrorModalComponent } from '../error-modal/error-modal.component';
 
 @Component({
   selector: 'app-page-layout',
@@ -15,7 +14,7 @@ import { ModalComponent } from '../modal/modal.component';
     SectionPageComponent,
     LoadingComponent,
     SuccessAlertComponent,
-    ModalComponent
+    ErrorModalComponent
   ],
   templateUrl: './page-layout.component.html',
   styleUrl: './page-layout.component.scss'

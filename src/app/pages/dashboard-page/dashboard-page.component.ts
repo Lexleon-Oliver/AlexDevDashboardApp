@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { PageLayoutComponent } from '../../components/page-layout/page-layout.component';
-import { ModalComponent } from '../../components/modal/modal.component';
 import { PageLayoutNocolumnComponent } from '../../components/page-layout-nocolumn/page-layout-nocolumn.component';
 import { Observable, catchError, of, tap } from 'rxjs';
 import { Task } from '../../models/task';
@@ -12,12 +11,12 @@ import { BadgeValue } from '../../models/badge-value';
 import { SimpleCardComponent } from '../../components/simple-card/simple-card.component';
 import { TodoListComponent } from '../../components/dashboard-page/todo-list/todo-list.component';
 import { CommonModule } from '@angular/common';
+import { ErrorModalComponent } from '../../components/error-modal/error-modal.component';
 
 @Component({
   selector: 'app-dashboard-page',
   standalone: true,
   imports: [
-    ModalComponent,
     PageLayoutNocolumnComponent,
     SimpleCardComponent,
     TodoListComponent,

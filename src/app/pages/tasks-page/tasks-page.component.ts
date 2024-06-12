@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PageLayoutComponent } from '../../components/page-layout/page-layout.component';
 import { ButtonComponent } from '../../components/button/button.component';
-import { CardComponent } from '../../components/card/card.component';
 import { TableComponent } from '../../components/table/table.component';
 import { Observable, catchError, of, tap } from 'rxjs';
 import { TableColumn } from '../../models/table-column';
@@ -13,6 +12,8 @@ import { TasksService } from '../../services/tasks.service';
 import { LoadingComponent } from '../../components/loading/loading.component';
 import { CommonModule } from '@angular/common';
 import { SimpleCardComponent } from '../../components/simple-card/simple-card.component';
+import { ConfirmModalComponent } from '../../components/confirm-modal/confirm-modal.component';
+import { ModalService } from '../../services/modal.service';
 
 @Component({
   selector: 'app-tasks-page',
@@ -24,6 +25,7 @@ import { SimpleCardComponent } from '../../components/simple-card/simple-card.co
     TableComponent,
     LoadingComponent,
     CommonModule,
+    ConfirmModalComponent,
   ],
   templateUrl: './tasks-page.component.html',
   styleUrl: './tasks-page.component.scss'
@@ -45,6 +47,7 @@ export class TasksPageComponent implements OnInit {
   constructor(
     private router: Router,
     public requestService:RequestService,
+    private modalService:ModalService,
     private tasksServices:TasksService,
   ) {
     this.buttonsAction.push(
@@ -80,7 +83,9 @@ export class TasksPageComponent implements OnInit {
   }
 
   onRemove(task:Task){
+
     this.taskToRemove = task;
+    this.modalService.openModal('removerItemTable');
   }
 
   executarRemocao() {
@@ -89,9 +94,11 @@ export class TasksPageComponent implements OnInit {
         next: (response) => {
           this.requestService.trataSucesso(response);
           this.setTasks();
+          this.modalService.cancelAction()
           this.taskToRemove = new Task();
         },
         error: (err) => {
+          this.modalService.cancelAction()
           this.requestService.trataErro(err);
         }
       });

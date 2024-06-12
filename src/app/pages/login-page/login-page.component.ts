@@ -3,8 +3,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { RequestService } from '../../services/request.service';
-import { ErrorAlertComponent } from '../../components/error-alert/error-alert.component';
-import { ThemesService } from '../../services/themes.service';
+import { ErrorModalComponent } from '../../components/error-modal/error-modal.component';
 
 @Component({
   selector: 'app-login-page',
@@ -12,7 +11,7 @@ import { ThemesService } from '../../services/themes.service';
   imports: [
     FormsModule,
     ReactiveFormsModule,
-    ErrorAlertComponent,
+    ErrorModalComponent,
   ],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.scss'

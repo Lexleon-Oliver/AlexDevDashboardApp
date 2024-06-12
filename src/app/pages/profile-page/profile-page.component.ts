@@ -7,8 +7,8 @@ import { ProfileOverviewComponent } from '../../components/profile-page/profile-
 import { EditProfileComponent } from '../../components/profile-page/edit-profile/edit-profile.component';
 import { RequestService } from '../../services/request.service';
 import { LoadingComponent } from '../../components/loading/loading.component';
-import { ModalComponent } from '../../components/modal/modal.component';
 import { SuccessAlertComponent } from '../../components/success-alert/success-alert.component';
+import { ErrorModalComponent } from '../../components/error-modal/error-modal.component';
 
 @Component({
   selector: 'app-profile-page',
@@ -21,7 +21,7 @@ import { SuccessAlertComponent } from '../../components/success-alert/success-al
     EditProfileComponent,
     ChangePasswordComponent,
     LoadingComponent,
-    ModalComponent,
+    ErrorModalComponent,
     SuccessAlertComponent,
   ],
   templateUrl: './profile-page.component.html',

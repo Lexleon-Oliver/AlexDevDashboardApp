@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ErrorAlertComponent } from './error-alert.component';
+import { ConfirmModalComponent } from './confirm-modal.component';
 
-describe('ErrorAlertComponent', () => {
-  let component: ErrorAlertComponent;
-  let fixture: ComponentFixture<ErrorAlertComponent>;
+describe('ConfirmModalComponent', () => {
+  let component: ConfirmModalComponent;
+  let fixture: ComponentFixture<ConfirmModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ErrorAlertComponent]
+      imports: [ConfirmModalComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(ErrorAlertComponent);
+    fixture = TestBed.createComponent(ConfirmModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
