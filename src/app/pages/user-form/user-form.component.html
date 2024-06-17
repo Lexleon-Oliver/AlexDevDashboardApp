@@ -1,0 +1,75 @@
+<app-page-layout
+  divisor="'•'"
+  [columnClass]="'col-lg-12'"
+  [pageTitle]="
+  {
+    titulo: 'Novo Usuário',
+    itemMenu:'Usuários',
+    itemSubmenu:'Novo',
+    alignment:'center',
+    homeIcon: true,
+    homeText: 'Início',
+  }"
+>
+  <app-simple-card
+    title="Formulário de Novo Usuário"
+  >
+    <app-form [form]="formUser"
+      [buttons]="formButtons"
+    >
+      <app-input-form
+        label="Username (@+nome+sobrenome)"
+        placeholder="Username"
+        [control]="this.formUser.get('username')"
+        id="floatingUsername"
+        [errorMessages]="{
+          required: 'O campo username é obrigatório.',
+          minlength: 'O campo username deve ter no mínimo 3 caracteres',
+          maxlength: 'O campo username deve ter no máximo 50 caracteres',
+        }"
+        class="col-md-6"
+      >
+      </app-input-form>
+      <app-input-form
+        label="Cargo"
+        placeholder="Cargo"
+        [control]="this.formUser.get('cargo')"
+        id="floatingCargo"
+        [errorMessages]="{
+          required: 'O campo cargo é obrigatório.',
+          minlength: 'O campo cargo deve ter no mínimo 3 caracteres',
+          maxlength: 'O campo cargo deve ter no máximo 50 caracteres',
+        }"
+        class="col-md-6"
+      >
+      </app-input-form>
+      <app-input-form
+        label="Nome Completo"
+        placeholder="Nome Completo"
+        [control]="this.formUser.get('nome')"
+        id="floatingNomeCompleto"
+        [errorMessages]="{
+          required: 'O campo nome é obrigatório.',
+          minlength: 'O campo nome deve ter no mínimo 3 caracteres',
+          maxlength: 'O campo nome deve ter no máximo 100 caracteres',
+        }"
+        class="col-md-12"
+      >
+      </app-input-form>
+      <app-input-form
+        label="E-mail"
+        placeholder="E-mail"
+        [control]="this.formUser.get('email')"
+        id="floatingEmail"
+        [errorMessages]="{
+          required: 'O campo e-mail é obrigatório.',
+          maxlength: 'O campo e-mail deve ter no máximo 50 caracteres',
+          email: 'O texto informado não é um e-mail válido.'
+        }"
+        class="col-md-12"
+      >
+      </app-input-form>
+
+    </app-form>
+  </app-simple-card>
+</app-page-layout>

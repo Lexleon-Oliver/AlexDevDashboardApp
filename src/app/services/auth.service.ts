@@ -9,6 +9,7 @@ import { UserLogged } from '../models/user-logged';
 import { MyNotification } from '../models/my-notification';
 import { ThemesService } from './themes.service';
 import { RequestResponse } from '../models/request-response';
+import { Register } from '../models/register';
 
 @Injectable({
   providedIn: 'root'
@@ -163,6 +164,12 @@ export class AuthService {
     return this.http.post<RequestResponse>(`${this.apiUrl}/users/changepassword`, body);
   }
 
-
+  register(registerData: Register): Observable<RequestResponse> {
+    return this.http.post<RequestResponse>(`${this.apiUrl}/auth/register`, registerData).pipe(
+      catchError((error) => {
+        return throwError(() => error);
+      })
+    );
+  }
 
 }

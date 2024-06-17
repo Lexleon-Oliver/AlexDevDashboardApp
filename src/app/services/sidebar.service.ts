@@ -31,7 +31,26 @@ export class SidebarService {
         {
           label: "Tarefas",
           url: "/users/tasks"
+        },
+        {
+          label: 'Adicionar Novo',
+          url: '/users/new',
         }
+      ]
+    },
+    {
+      id:"inventory-nav",
+      label: "Estoque",
+      icon: "bi bi-archive",
+      submenus:[
+        {
+          label: "Placas-mãe",
+          url: "/inventory/motherboards"
+        },
+        {
+          label: "Processadores",
+          url: "/inventory/processors"
+        },
       ]
     },
 

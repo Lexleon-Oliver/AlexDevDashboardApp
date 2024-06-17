@@ -1,0 +1,84 @@
+<app-page-layout
+  divisor="'•'"
+  [columnClass]="'col-lg-12'"
+  [pageTitle]="processor.id !== 0 && processor.id > 0 ?
+  {
+    titulo: 'Editar Processador',
+    itemMenu:'Processador',
+    itemSubmenu:processor.id.toString(),
+    alignment:'center',
+    homeIcon: true,
+    homeText: 'Início',
+  }:
+  {
+    titulo: 'Novo Processador',
+    itemMenu:'Processador',
+    itemSubmenu:'Novo',
+    alignment:'center',
+    homeIcon: true,
+    homeText: 'Início',
+  }"
+>
+  <app-simple-card
+    title="Formulário de Novo Processador"
+  >
+    <app-form [form]="form"
+      [buttons]="formButtons"
+    >
+      <app-input-form
+        label="Fabricante"
+        placeholder="Fabricante"
+        [control]="this.form.get('manufacturer')"
+        id="floatingName"
+        [errorMessages]="{
+          required: 'O campo de fabricante é obrigatório.',
+          minlength: 'O campo de fabricante deve ter no mínimo 3 caracteres',
+          maxlength: 'O campo de fabricante deve ter no máximo 255 caracteres',
+        }"
+        class="col-md-6"
+      >
+      </app-input-form>
+      <app-input-form
+        label="Modelo"
+        placeholder="Modelo"
+        [control]="this.form.get('model')"
+        id="floatingName"
+        [errorMessages]="{
+          required: 'O campo de modelo é obrigatório.',
+          minlength: 'O campo de modelo deve ter no mínimo 3 caracteres',
+          maxlength: 'O campo de modelo deve ter no máximo 255 caracteres',
+        }"
+        class="col-md-6"
+      >
+      </app-input-form>
+
+      <app-select-form
+        class="col-md-6"
+        [options]="cpuTypeOptions"
+        label="Tipo de CPU"
+        id="cpuTypeSelect"
+        [control]="form.get('cpuType')"
+      ></app-select-form>
+
+      <app-select-form
+        class="col-md-6"
+        [options]="cpuFrequencyOptions"
+        label="Frequências de CPU"
+        id="cpuFrequencySelect"
+        [control]="form.get('frequency')"
+      ></app-select-form>
+
+      <app-select-form
+        class="col-md-6"
+        [options]="[
+          { value: true, label: 'Sim' },
+          { value: false, label: 'Não' },
+        ]"
+        label="Em uso"
+        id="selectId"
+        [control]="this.form.get('inUse')"
+      ></app-select-form>
+    </app-form>
+  </app-simple-card>
+</app-page-layout>
+
