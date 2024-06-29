@@ -1,19 +1,16 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { Task } from '../models/task';
-import { Observable, catchError, first, of } from 'rxjs';
-import { RequestResponse } from '../models/request-response';
 import { RequestService } from './request.service';
-import { Motherboard } from '../models/motherboard';
-import { Processor } from '../models/processor';
+import { Observable, catchError, first, of } from 'rxjs';
+import { Memory } from '../models/memory';
+import { RequestResponse } from '../models/request-response';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProcessorsService {
-
-  private readonly API = environment.apiUrl +'/inventory/cpus';
+export class MemoriesService {
+  private readonly API = environment.apiUrl +'/inventory/memories';
 
   constructor(
     private httpClient: HttpClient,
@@ -21,21 +18,21 @@ export class ProcessorsService {
   ) {
   }
 
-  listProcessors(): Observable<Processor[]> {
-    return this.httpClient.get<Processor[]>(this.API)
+  listMemories(): Observable<Memory[]> {
+    return this.httpClient.get<Memory[]>(this.API)
     .pipe(
       first(),
-      catchError(this.handleError<Processor[]>('listProcessors', []))
+      catchError(this.handleError<Memory[]>('listMemories', []))
     );
   }
 
-  loadById(id:number): Observable<Processor> {
-    return this.httpClient.get<Processor>(`${this.API}/${id}`).pipe(
-      catchError(this.handleError<Processor>(`loadById id=${id}`))
+  loadById(id:number): Observable<Memory> {
+    return this.httpClient.get<Memory>(`${this.API}/${id}`).pipe(
+      catchError(this.handleError<Memory>(`loadById id=${id}`))
     );
   }
 
-  save(registro: Processor): Observable<RequestResponse> {
+  save(registro: Memory): Observable<RequestResponse> {
     if (!registro.id) {
       return this.create(registro);
     }
@@ -48,13 +45,13 @@ export class ProcessorsService {
     );
   }
 
-  private create(registro: Processor): Observable<RequestResponse> {
+  private create(registro: Memory): Observable<RequestResponse> {
     return this.httpClient.post<RequestResponse>(this.API, registro).pipe(
       catchError(this.handleError<RequestResponse>('create'))
     );
   }
 
-  private update(registro: Processor): Observable<RequestResponse> {
+  private update(registro: Memory): Observable<RequestResponse> {
     return this.httpClient.put<RequestResponse>(`${this.API}/${registro.id}`, registro).pipe(
       catchError(this.handleError<RequestResponse>('update'))
     );

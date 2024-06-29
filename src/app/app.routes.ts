@@ -15,6 +15,10 @@ import { ProcessorsPageComponent } from './pages/processors-page/processors-page
 import { ProcessorResolver } from './resolvers/processor.resolver';
 import { ProcessorFormComponent } from './pages/processor-form/processor-form.component';
 import { UserFormComponent } from './pages/user-form/user-form.component';
+import { MemoriesPageComponent } from './pages/memories-page/memories-page.component';
+import { MemoriesResolver } from './resolvers/memories.resolver';
+import { MemoryResolver } from './resolvers/memory.resolver';
+import { MemoryFormComponent } from './pages/memory-form/memory-form.component';
 
 export const routes: Routes = [
   {
@@ -69,18 +73,33 @@ export const routes: Routes = [
     resolve: {motherboard:MotherboardResolver},
   },
   {
-    path: 'inventory/processors',
+    path: 'inventory/cpus',
     component: ProcessorsPageComponent,
     resolve:{processors:ProcessorsResolver},
   },
   {
-    path: 'inventory/processors/new',
+    path: 'inventory/cpus/new',
     component: ProcessorFormComponent,
     resolve: {processor:ProcessorResolver},
   },
   {
-    path: 'inventory/processors/:id/edit',
+    path: 'inventory/cpus/:id/edit',
     component: ProcessorFormComponent,
     resolve: {processor:ProcessorResolver},
+  },
+  {
+    path: 'inventory/memories',
+    component: MemoriesPageComponent,
+    resolve:{memories:MemoriesResolver},
+  },
+  {
+    path: 'inventory/memories/new',
+    component: MemoryFormComponent,
+    resolve: {memory:MemoryResolver},
+  },
+  {
+    path: 'inventory/memories/:id/edit',
+    component: MemoryFormComponent,
+    resolve: {memory:MemoryResolver},
   },
 ];

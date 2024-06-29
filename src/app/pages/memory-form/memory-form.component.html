@@ -1,0 +1,71 @@
+<app-page-layout
+  divisor="'•'"
+  [columnClass]="'col-lg-12'"
+  [pageTitle]="memory.id !== 0 && memory.id > 0 ?
+  {
+    titulo: 'Editar Memória',
+    itemMenu:'Memória',
+    itemSubmenu:memory.id.toString(),
+    alignment:'center',
+    homeIcon: true,
+    homeText: 'Início',
+  }:
+  {
+    titulo: 'Nova Memória',
+    itemMenu:'Memória',
+    itemSubmenu:'Novo',
+    alignment:'center',
+    homeIcon: true,
+    homeText: 'Início',
+  }"
+>
+  <app-simple-card
+    title="Formulário de Novo Processador"
+  >
+    <app-form [form]="form"
+      [buttons]="formButtons"
+    >
+      <app-input-number-form
+        label="Capacidade em MB"
+        placeholder="Capacidade"
+        [control]="this.form.get('capacity')"
+        id="floatingName"
+        [errorMessages]="{
+          required: 'O campo de capacidade é obrigatório.',
+          min: 'O campo de capacidade deve ter no mínimo 100 MB',
+          max: 'O campo de capacidade deve ter no máximo 90.000 MB',
+        }"
+        class="col-md-6"
+      >
+      </app-input-number-form>
+      <app-select-form
+        class="col-md-6"
+        [options]="memoryTypeOptions"
+        label="Tipo de Memória"
+        id="memoryTypeSelect"
+        [control]="form.get('type')"
+      ></app-select-form>
+
+      <app-select-form
+        class="col-md-6"
+        [options]="memoryFrequencyOptions"
+        label="Frequências de Memória"
+        id="memoryFrequencySelect"
+        [control]="form.get('frequency')"
+      ></app-select-form>
+
+      <app-select-form
+        class="col-md-6"
+        [options]="[
+          { value: true, label: 'Sim' },
+          { value: false, label: 'Não' },
+        ]"
+        label="Em uso"
+        id="selectId"
+        [control]="this.form.get('inUse')"
+      ></app-select-form>
+    </app-form>
+  </app-simple-card>
+</app-page-layout>
+
+

@@ -7,16 +7,16 @@ import { ConfirmModalComponent } from '../../components/confirm-modal/confirm-mo
 import { LoadingComponent } from '../../components/loading/loading.component';
 import { CommonModule } from '@angular/common';
 import { Observable, catchError, of, tap } from 'rxjs';
-import { Processor } from '../../models/processor';
 import { TableColumn } from '../../models/table-column';
 import { ButtonModel } from '../../models/button-model';
 import { Router } from '@angular/router';
 import { RequestService } from '../../services/request.service';
 import { ModalService } from '../../services/modal.service';
-import { ProcessorsService } from '../../services/processors.service';
+import { Memory } from '../../models/memory';
+import { MemoriesService } from '../../services/memories.service';
 
 @Component({
-  selector: 'app-processors-page',
+  selector: 'app-memories-page',
   standalone: true,
   imports: [
     PageLayoutComponent,
@@ -27,30 +27,30 @@ import { ProcessorsService } from '../../services/processors.service';
     LoadingComponent,
     CommonModule,
   ],
-  templateUrl: './processors-page.component.html',
-  styleUrl: './processors-page.component.scss'
+  templateUrl: './memories-page.component.html',
+  styleUrl: './memories-page.component.scss'
 })
-export class ProcessorsPageComponent implements OnInit {
+export class MemoriesPageComponent implements OnInit{
+
   rounded: boolean=true;
   disabled: boolean= false;
-  processors$!: Observable<Processor[]>;
-  _processors: Processor[] = []
-  columns: TableColumn<Processor>[] = [
+  memories$!: Observable<Memory[]>;
+  _memories: Memory[] = []
+  columns: TableColumn<Memory>[] = [
     { value: 'id', label: '#' },
-    { value: 'manufacturer', label: 'Fabricante' },
-    { value: 'model', label: 'Modelo' },
-    { value: 'cpuType', label: 'Socket' },
+    { value: 'capacity', label: 'Capacidade' },
+    { value: 'type', label: 'Tipo' },
     { value: 'frequency', label: 'Velocidade' },
     { value: 'inUse', label: 'Em uso' },
   ];
   buttonsAction: ButtonModel[]=[]
-  processorToRemove!:Processor;
+  memoryToRemove!:Memory;
 
   constructor(
     private router: Router,
     public requestService:RequestService,
     private modalService:ModalService,
-    private processorsServices:ProcessorsService,
+    private memoriesServices:MemoriesService,
   ) {
     this.buttonsAction.push(
       new ButtonModel('', 'bi bi-pencil-square', 'default', 'warning', 'small', false, false, this.onEdit.bind(this)),
@@ -59,18 +59,18 @@ export class ProcessorsPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.setProcessors();
+    this.setMemories();
 
   }
 
   onAdd(){
-    this.router.navigate(['/inventory/cpus/new']);
+    this.router.navigate(['/inventory/memories/new']);
   }
 
-  private setProcessors():void{
-    this.processors$ = this.processorsServices.listProcessors().pipe(
+  private setMemories():void{
+    this.memories$ = this.memoriesServices.listMemories().pipe(
       tap((items) => {
-        this._processors = items;
+        this._memories = items;
       }),
       catchError((err) => {
         this.requestService.trataErro(err);
@@ -79,25 +79,25 @@ export class ProcessorsPageComponent implements OnInit {
     );
   }
 
-  onEdit(processor:Processor){
+  onEdit(memory:Memory){
     this.requestService.showLoading();
-    this.router.navigate(['/inventory/cpus', processor.id, 'edit']);
+    this.router.navigate(['/inventory/memories', memory.id, 'edit']);
   }
 
-  onRemove(processor:Processor){
+  onRemove(memory:Memory){
 
-    this.processorToRemove = processor;
+    this.memoryToRemove = memory;
     this.modalService.openModal('removerItemTable');
   }
 
   executarRemocao() {
-    if (this.processorToRemove) {
-      this.processorsServices.delete(this.processorToRemove.id).subscribe({
+    if (this.memoryToRemove) {
+      this.memoriesServices.delete(this.memoryToRemove.id).subscribe({
         next: (response) => {
           this.requestService.trataSucesso(response);
-          this.setProcessors();
+          this.setMemories();
           this.modalService.cancelAction()
-          this.processorToRemove = new Processor();
+          this.memoryToRemove = new Memory();
         },
         error: (err) => {
           this.modalService.cancelAction()
@@ -106,4 +106,5 @@ export class ProcessorsPageComponent implements OnInit {
       });
     }
   }
+
 }

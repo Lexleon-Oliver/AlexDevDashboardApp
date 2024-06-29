@@ -49,7 +49,11 @@ export class SidebarService {
         },
         {
           label: "Processadores",
-          url: "/inventory/processors"
+          url: "/inventory/cpus"
+        },
+        {
+          label: "Memórias",
+          url: "/inventory/memories"
         },
       ]
     },

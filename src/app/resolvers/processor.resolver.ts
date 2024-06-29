@@ -1,10 +1,7 @@
-import { inject, model } from "@angular/core";
+import { inject } from "@angular/core";
 import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from "@angular/router";
 import { Observable, of } from "rxjs";
-import { Motherboard } from "../models/motherboard";
 import { CPUType } from "../enums/cpu-type";
-import { MemoryType } from "../enums/memory-type";
-import { MotherboardsService } from "../services/motherboards.service";
 import { ProcessorsService } from "../services/processors.service";
 import { CPUFrequency } from "../enums/cpu-frequency";
 import { Processor } from "../models/processor";
