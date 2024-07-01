@@ -1,3 +1,5 @@
+import { PowerSupplyPageComponent } from './pages/power-supply-page/power-supply-page.component';
+import { PowerSupplyResolver } from './resolvers/power-supply.resolver';
 import { Routes } from '@angular/router';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
 import { NotificationsPageComponent } from './pages/notifications-page/notifications-page.component';
@@ -19,6 +21,8 @@ import { MemoriesPageComponent } from './pages/memories-page/memories-page.compo
 import { MemoriesResolver } from './resolvers/memories.resolver';
 import { MemoryResolver } from './resolvers/memory.resolver';
 import { MemoryFormComponent } from './pages/memory-form/memory-form.component';
+import { PowerSuppliesResolver } from './resolvers/power-supplies.resolver';
+import { PowerSupplyFormComponent } from './pages/power-supply-form/power-supply-form.component';
 
 export const routes: Routes = [
   {
@@ -101,5 +105,20 @@ export const routes: Routes = [
     path: 'inventory/memories/:id/edit',
     component: MemoryFormComponent,
     resolve: {memory:MemoryResolver},
+  },
+  {
+    path: 'inventory/powersupplies',
+    component: PowerSupplyPageComponent,
+    resolve:{powerSupplies:PowerSuppliesResolver},
+  },
+  {
+    path: 'inventory/powersupplies/new',
+    component: PowerSupplyFormComponent,
+    resolve: {powerSupply:PowerSupplyResolver},
+  },
+  {
+    path: 'inventory/powersupplies/:id/edit',
+    component: PowerSupplyFormComponent,
+    resolve: {powerSupply:PowerSupplyResolver},
   },
 ];

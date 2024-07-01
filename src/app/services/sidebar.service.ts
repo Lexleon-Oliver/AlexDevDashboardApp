@@ -55,6 +55,10 @@ export class SidebarService {
           label: "Memórias",
           url: "/inventory/memories"
         },
+        {
+          label: "Fontes de Energia",
+          url: "/inventory/powersupplies"
+        },
       ]
     },
 
