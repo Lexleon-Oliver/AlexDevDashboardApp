@@ -60,8 +60,9 @@ export class PowerSupplyFormComponent {
     const itemData: PowerSupply = this.route.snapshot.data['powerSupply'];
 
     if (itemData.id!==0) {
+      let power = this.getNumericalValueFromString(itemData.power);
+      itemData.power = power.toString();
       this.powerSupply = new PowerSupply(itemData);
-
       this.form.patchValue(itemData);
     }
   }
@@ -74,7 +75,9 @@ export class PowerSupplyFormComponent {
   onAdd() {
     this.requestService.showLoading()
     const formData = this.form.value;
+    let powerString = formData.power + "w"
     formData.model = formData.model.toUpperCase();
+    formData.power = powerString;
 
     Object.assign(this.powerSupply, formData);
     let itemData = new PowerSupply(this.powerSupply);
@@ -104,5 +107,10 @@ export class PowerSupplyFormComponent {
       value: enumType[key],
       label: enumType[key]
     }));
+  }
+
+  private getNumericalValueFromString(capacityString: string): number {
+    let numericalValue = parseFloat(capacityString.replace('w', ''));
+    return numericalValue;
   }
 }
