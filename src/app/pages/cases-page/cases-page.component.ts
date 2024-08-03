@@ -39,7 +39,7 @@ export class CasesPageComponent {
     { value: 'id', label: '#' },
     { value: 'color', label: 'Cor' },
     { value: 'numberOfBays', label: 'Número de Baias' },
-    { value: 'hasDvd', label: 'Tem Dvd' },
+    { value: 'hasDVD', label: 'DVD' },
     { value: 'inUse', label: 'Em uso' },
   ];
   buttonsAction: ButtonModel[]=[]
@@ -60,6 +60,7 @@ export class CasesPageComponent {
   ngOnInit() {
     this.setCases();
 
+
   }
 
   onAdd(){
@@ -76,6 +77,7 @@ export class CasesPageComponent {
         return of([]);
       })
     );
+
   }
 
   onEdit(item:Case){

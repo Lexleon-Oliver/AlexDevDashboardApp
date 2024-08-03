@@ -135,9 +135,9 @@ export const routes: Routes = [
     component: CaseFormComponent,
     resolve: {case:CaseResolver},
   },
-  // {
-  //   path: 'inventory/powersupplies/:id/edit',
-  //   component: PowerSupplyFormComponent,
-  //   resolve: {powerSupply:PowerSupplyResolver},
-  // },
+  {
+    path: 'inventory/cases/:id/edit',
+    component: CaseFormComponent,
+    resolve: {case:CaseResolver},
+  },
 ];

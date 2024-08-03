@@ -3,7 +3,7 @@ export class Case {
   id!: number;
   color!: string;
   numberOfBays!: number;
-  hasDvd!: boolean;
+  hasDVD!: boolean;
   inUse!: boolean;
 
   constructor(data?: Partial<Case>) {

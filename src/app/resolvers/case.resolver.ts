@@ -16,7 +16,7 @@ export const CaseResolver: ResolveFn<any> = (
       id:0,
       color: "",
       numberOfBays: 0,
-      hasDvd: false,
+      hasDVD: false,
       inUse: false,
     })
   }

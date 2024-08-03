@@ -9,6 +9,9 @@ import { ActivatedRoute } from '@angular/router';
 import { CasesService } from '../../services/cases.service';
 import { RequestService } from '../../services/request.service';
 import { Location } from '@angular/common';
+import { InputFormComponent } from '../../components/input-form/input-form.component';
+import { InputNumberFormComponent } from '../../components/input-number-form/input-number-form.component';
+import { SelectFormComponent } from '../../components/select-form/select-form.component';
 
 @Component({
   selector: 'app-case-form',
@@ -17,9 +20,9 @@ import { Location } from '@angular/common';
     PageLayoutComponent,
     SimpleCardComponent,
     FormComponent,
-    // InputFormComponent,
-    // InputNumberFormComponent,
-    // SelectFormComponent,
+    InputFormComponent,
+    InputNumberFormComponent,
+    SelectFormComponent,
   ],
   templateUrl: './case-form.component.html',
   styleUrl: './case-form.component.scss'
@@ -38,9 +41,9 @@ export class CaseFormComponent {
     this.form = this.formBuilder.group({
       id: 0,
       color: ['',[Validators.required,Validators.minLength(3), Validators.maxLength(255)]],
-      // power:['',[Validators.required,Validators.min(99), Validators.max(9999)]],
-      // inputVoltage:[Voltage.VOLTS_110],
-      // inUse: [false],
+      numberOfBays:['',[Validators.required,Validators.min(0), Validators.max(10)]],
+      hasDVD:[false],
+      inUse: [false],
     });
     this.formButtons.push(
       new ButtonModel('', 'bi bi-arrow-return-left', 'default', 'secondary', 'small', false, false, this.onCancel.bind(this)),
@@ -52,12 +55,11 @@ export class CaseFormComponent {
     if(this.requestService.isLoading){
       this.requestService.hideLoading();
     }
-    const itemData: PowerSupply = this.route.snapshot.data['powerSupply'];
+    const itemData: Case = this.route.snapshot.data['case'];
 
     if (itemData.id!==0) {
-      let power = this.getNumericalValueFromString(itemData.power);
-      itemData.power = power.toString();
-      this.powerSupply = new PowerSupply(itemData);
+
+      this.case = new Case(itemData);
       this.form.patchValue(itemData);
     }
   }
@@ -70,13 +72,10 @@ export class CaseFormComponent {
   onAdd() {
     this.requestService.showLoading()
     const formData = this.form.value;
-    let powerString = formData.power + "w"
-    formData.model = formData.model.toUpperCase();
-    formData.power = powerString;
 
-    Object.assign(this.powerSupply, formData);
-    let itemData = new PowerSupply(this.powerSupply);
-    this.powerSupplyService.save(itemData).subscribe({
+    Object.assign(this.case, formData);
+    let itemData = new Case(this.case);
+    this.casesService.save(itemData).subscribe({
       next:(res:any)=>{
         this.requestService.hideLoading()
         this.requestService.trataSucesso(res)
@@ -90,23 +89,5 @@ export class CaseFormComponent {
       }
     });
     console.log(itemData);
-
   }
-
-  get voltageOptions() {
-    return this.enumToOptions(Voltage);
-  }
-
-  private enumToOptions(enumType: any): { value: string, label: string }[] {
-    return Object.keys(enumType).map(key => ({
-      value: enumType[key],
-      label: enumType[key]
-    }));
-  }
-
-  private getNumericalValueFromString(capacityString: string): number {
-    let numericalValue = parseFloat(capacityString.replace('w', ''));
-    return numericalValue;
-  }
-
 }
