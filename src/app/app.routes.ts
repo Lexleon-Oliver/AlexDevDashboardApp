@@ -23,6 +23,10 @@ import { MemoryResolver } from './resolvers/memory.resolver';
 import { MemoryFormComponent } from './pages/memory-form/memory-form.component';
 import { PowerSuppliesResolver } from './resolvers/power-supplies.resolver';
 import { PowerSupplyFormComponent } from './pages/power-supply-form/power-supply-form.component';
+import { CasesPageComponent } from './pages/cases-page/cases-page.component';
+import { CasesResolver } from './resolvers/cases.resolver';
+import { CaseFormComponent } from './pages/case-form/case-form.component';
+import { CaseResolver } from './resolvers/case.resolver';
 
 export const routes: Routes = [
   {
@@ -121,4 +125,19 @@ export const routes: Routes = [
     component: PowerSupplyFormComponent,
     resolve: {powerSupply:PowerSupplyResolver},
   },
+  {
+    path: 'inventory/cases',
+    component: CasesPageComponent,
+    resolve:{cases:CasesResolver},
+  },
+  {
+    path: 'inventory/cases/new',
+    component: CaseFormComponent,
+    resolve: {case:CaseResolver},
+  },
+  // {
+  //   path: 'inventory/powersupplies/:id/edit',
+  //   component: PowerSupplyFormComponent,
+  //   resolve: {powerSupply:PowerSupplyResolver},
+  // },
 ];

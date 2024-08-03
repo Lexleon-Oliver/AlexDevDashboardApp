@@ -59,6 +59,10 @@ export class SidebarService {
           label: "Fontes de Energia",
           url: "/inventory/powersupplies"
         },
+        {
+          label: "Gabinetes",
+          url: "/inventory/cases"
+        },
       ]
     },
 
