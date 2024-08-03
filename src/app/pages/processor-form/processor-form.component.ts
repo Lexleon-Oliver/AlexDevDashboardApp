@@ -91,7 +91,6 @@ export class ProcessorFormComponent implements OnInit {
         this.requestService.trataErro(error );
       }
     });
-    console.log(processorData);
 
   }
 

@@ -63,6 +63,10 @@ export class SidebarService {
           label: "Gabinetes",
           url: "/inventory/cases"
         },
+        {
+          label: "Hds",
+          url: "/inventory/hds"
+        },
       ]
     },
 

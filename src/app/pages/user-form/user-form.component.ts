@@ -81,7 +81,6 @@ export class UserFormComponent {
   onAdd() {
     this.requestService.showLoading();
     const formData = this.formUser.value;
-    console.log(formData);
 
     const newRegister: Register = {
       username: formData.username,
@@ -91,7 +90,6 @@ export class UserFormComponent {
       roles:[""]
     };
 
-    console.log(newRegister);
 
     this.authService.register(newRegister).subscribe({
       next: (response) => {

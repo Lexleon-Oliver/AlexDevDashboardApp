@@ -1,18 +1,18 @@
 <app-page-layout
   divisor="'•'"
   [columnClass]="'col-lg-12'"
-  [pageTitle]="case.id !== 0 && case.id > 0 ?
+  [pageTitle]="hd.id !== 0 && hd.id > 0 ?
   {
-    titulo: 'Editar Gabinete',
-    itemMenu:'Gabinete',
-    itemSubmenu:case.id.toString(),
+    titulo: 'Editar HD',
+    itemMenu:'HD',
+    itemSubmenu:hd.id.toString(),
     alignment:'center',
     homeIcon: true,
     homeText: 'Início',
   }:
   {
-    titulo: 'Novo Gabinete',
-    itemMenu:'Gabinete',
+    titulo: 'Novo HD',
+    itemMenu:'HD',
     itemSubmenu:'Novo',
     alignment:'center',
     homeIcon: true,
@@ -20,47 +20,46 @@
   }"
 >
   <app-simple-card
-    title="Formulário de Gabinete"
+    title="Formulário de HD"
   >
     <app-form [form]="form"
       [buttons]="formButtons"
     >
       <app-input-form
-        label="Cor"
-        placeholder="Cor"
-        [control]="this.form.get('color')"
+        label="Marca"
+        placeholder="Marca"
+        [control]="this.form.get('brand')"
         id="floatingName"
         [errorMessages]="{
-          required: 'O campo de cor é obrigatório.',
-          minlength: 'O campo de cor deve ter no mínimo 3 caracteres',
-          maxlength: 'O campo de cor deve ter no máximo 255 caracteres',
+          required: 'O campo de marca é obrigatório.',
+          minlength: 'O campo de marca deve ter no mínimo 3 caracteres',
+          maxlength: 'O campo de marca deve ter no máximo 255 caracteres',
         }"
         class="col-md-6"
       >
       </app-input-form>
       <app-input-number-form
-        label="Número de Baias"
-        placeholder="Numero de Baias"
-        [control]="this.form.get('numberOfBays')"
+        label="Capacidade em GB"
+        placeholder="Capacidade"
+        [control]="this.form.get('capacity')"
         id="floatingName"
         [errorMessages]="{
-          required: 'O campo número de baias é obrigatório.',
-          min: 'O campo número de baias deve ter no mínimo 0',
-          max: 'O campo número de baias deve ter no máximo 10',
+          required: 'O campo de capacidade é obrigatório.',
+          min: 'O campo de capacidade deve ter no mínimo 1 GB',
+          max: 'O campo de capacidade deve ter no máximo 90 GB',
         }"
         class="col-md-6"
       >
       </app-input-number-form>
+
       <app-select-form
       class="col-md-6"
-      [options]="[
-        { value: true, label: 'Sim' },
-        { value: false, label: 'Não' },
-      ]"
-      label="Possui dvd"
-      id="selectId"
-      [control]="this.form.get('hasDVD')"
+      [options]="storageTypeOptions"
+      label="Tipo de armazenamento"
+      id="storageTypeSelect"
+      [control]="form.get('type')"
     ></app-select-form>
+
       <app-select-form
         class="col-md-6"
         [options]="[
@@ -74,6 +73,4 @@
     </app-form>
   </app-simple-card>
 </app-page-layout>
-
-
 

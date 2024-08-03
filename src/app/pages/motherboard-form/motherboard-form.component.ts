@@ -91,7 +91,6 @@ export class MotherboardFormComponent implements OnInit {
         this.requestService.trataErro(error );
       }
     });
-    console.log(motherboardData);
 
   }
 

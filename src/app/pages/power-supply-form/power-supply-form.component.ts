@@ -94,7 +94,6 @@ export class PowerSupplyFormComponent {
         this.requestService.trataErro(error );
       }
     });
-    console.log(itemData);
 
   }
 

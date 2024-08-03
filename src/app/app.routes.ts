@@ -27,6 +27,10 @@ import { CasesPageComponent } from './pages/cases-page/cases-page.component';
 import { CasesResolver } from './resolvers/cases.resolver';
 import { CaseFormComponent } from './pages/case-form/case-form.component';
 import { CaseResolver } from './resolvers/case.resolver';
+import { HdResolver } from './resolvers/hd.resolver';
+import { HdsResolver } from './resolvers/hds.resolver';
+import { HdsPageComponent } from './pages/hds-page/hds-page.component';
+import { HdFormComponent } from './pages/hd-form/hd-form.component';
 
 export const routes: Routes = [
   {
@@ -139,5 +143,20 @@ export const routes: Routes = [
     path: 'inventory/cases/:id/edit',
     component: CaseFormComponent,
     resolve: {case:CaseResolver},
+  },
+  {
+    path: 'inventory/hds',
+    component: HdsPageComponent,
+    resolve:{hds:HdsResolver},
+  },
+  {
+    path: 'inventory/hds/new',
+    component: HdFormComponent,
+    resolve: {hd:HdResolver},
+  },
+  {
+    path: 'inventory/hds/:id/edit',
+    component: HdFormComponent,
+    resolve: {hd:HdResolver},
   },
 ];

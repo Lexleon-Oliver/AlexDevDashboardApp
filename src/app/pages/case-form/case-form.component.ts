@@ -88,6 +88,5 @@ export class CaseFormComponent {
         this.requestService.trataErro(error );
       }
     });
-    console.log(itemData);
   }
 }

@@ -1,50 +1,50 @@
 import { Component } from '@angular/core';
-import { PageLayoutComponent } from '../../components/page-layout/page-layout.component';
-import { SimpleCardComponent } from '../../components/simple-card/simple-card.component';
 import { FormComponent } from '../../components/form/form.component';
 import { InputFormComponent } from '../../components/input-form/input-form.component';
+import { PageLayoutComponent } from '../../components/page-layout/page-layout.component';
 import { SelectFormComponent } from '../../components/select-form/select-form.component';
-import { Memory } from '../../models/memory';
+import { SimpleCardComponent } from '../../components/simple-card/simple-card.component';
+import { Hd } from '../../models/hd';
 import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { ButtonModel } from '../../models/button-model';
 import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-import { MemoriesService } from '../../services/memories.service';
+import { HdsService } from '../../services/hds.service';
 import { RequestService } from '../../services/request.service';
-import { MemoryType } from '../../enums/memory-type';
-import { MemoryFrequency } from '../../enums/memory-frequency';
+import { StorageType } from '../../enums/storage-type';
+import { Location } from '@angular/common';
 import { InputNumberFormComponent } from '../../components/input-number-form/input-number-form.component';
 
 @Component({
-  selector: 'app-memory-form',
+  selector: 'app-hd-form',
   standalone: true,
   imports: [
     PageLayoutComponent,
     SimpleCardComponent,
     FormComponent,
+    InputFormComponent,
     InputNumberFormComponent,
     SelectFormComponent,
   ],
-  templateUrl: './memory-form.component.html',
-  styleUrl: './memory-form.component.scss'
+  templateUrl: './hd-form.component.html',
+  styleUrl: './hd-form.component.scss'
 })
-export class MemoryFormComponent {
+export class HdFormComponent {
 
-  memory:Memory= new Memory();
+  hd:Hd= new Hd();
   form!: FormGroup;
   formButtons: ButtonModel[] = [];
   constructor(
     private route: ActivatedRoute,
     private formBuilder: NonNullableFormBuilder,
     private location: Location,
-    private memoryService: MemoriesService,
+    private hdService: HdsService,
     public requestService: RequestService,
   ) {
     this.form = this.formBuilder.group({
       id: 0,
-      capacity: ['',[Validators.required,Validators.min(1), Validators.max(99)]],
-      type:[MemoryType.DDR3],
-      frequency: [MemoryFrequency.FREQ_1333_MHZ],
+      brand: ['',[Validators.required,Validators.minLength(3), Validators.maxLength(255)]],
+      capacity:['',[Validators.required,Validators.minLength(3), Validators.maxLength(255)]],
+      type:[StorageType.HDD],
       inUse: [false],
     });
     this.formButtons.push(
@@ -57,13 +57,13 @@ export class MemoryFormComponent {
     if(this.requestService.isLoading){
       this.requestService.hideLoading();
     }
-    const memoryData: Memory = this.route.snapshot.data['memory'];
+    const hdData: Hd = this.route.snapshot.data['hd'];
 
-    if (memoryData.id!==0) {
-      let capacity = this.getNumericalValueFromString(memoryData.capacity);
-      memoryData.capacity = capacity.toString();
-      this.memory = new Memory(memoryData);
-      this.form.patchValue(memoryData);
+    if (hdData.id!==0) {
+      let capacity = this.getNumericalValueFromString(hdData.capacity);
+      hdData.capacity = capacity.toString();
+      this.hd = new Hd(hdData);
+      this.form.patchValue(hdData);
     }
   }
 
@@ -77,10 +77,11 @@ export class MemoryFormComponent {
     const formData = this.form.value;
     let capacityString = formData.capacity + " GB"
     formData.capacity = capacityString;
+    formData.brand = formData.brand.toUpperCase();
 
-    Object.assign(this.memory, formData);
-    let memoryData = new Memory(this.memory);
-    this.memoryService.save(memoryData).subscribe({
+    Object.assign(this.hd, formData);
+    let hdData = new Hd(this.hd);
+    this.hdService.save(hdData).subscribe({
       next:(res:any)=>{
         this.requestService.hideLoading()
         this.requestService.trataSucesso(res)
@@ -96,13 +97,10 @@ export class MemoryFormComponent {
 
   }
 
-  get memoryTypeOptions() {
-    return this.enumToOptions(MemoryType);
+  get storageTypeOptions() {
+    return this.enumToOptions(StorageType);
   }
 
-  get memoryFrequencyOptions() {
-    return this.enumToOptions(MemoryFrequency);
-  }
 
   private enumToOptions(enumType: any): { value: string, label: string }[] {
     return Object.keys(enumType).map(key => ({
@@ -111,20 +109,10 @@ export class MemoryFormComponent {
     }));
   }
 
-  // private convertMbToGb(mb: number): number {
-  //   const gb = mb / 1000;
-  //   return Math.round(gb * 100) / 100; // Arredonda para 2 casas decimais
-  // }
-
-  // private convertGbToMb(gb: number): number {
-  //   const mb = gb * 1000;
-  //   return Math.round(mb * 100) / 100; // Arredonda para 2 casas decimais
-  // }
-
-
   private getNumericalValueFromString(capacityString: string): number {
     // Remove " GB" da string e converte para número
     let numericalValue = parseFloat(capacityString.replace(' GB', ''));
     return numericalValue;
   }
+
 }
