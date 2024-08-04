@@ -1,22 +1,16 @@
-import { inject } from "@angular/core";
-import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from "@angular/router";
-import { TasksService } from "../services/tasks.service";
+import { ResolveFn } from "@angular/router";
 import { Task } from "../models/task";
-import { Observable, of } from "rxjs";
+import { createGenericResolver } from "./generic.resolver";
+import { inject } from "@angular/core";
+import { TasksService } from "../services/tasks.service";
 
-export const TaskResolver: ResolveFn<any> = (
-  route: ActivatedRouteSnapshot,
-  state: RouterStateSnapshot,
-  tasksService: TasksService = inject(TasksService)
-): Observable<Task> =>{
-  if (route.params && route.params['id']){
-    return tasksService.loadById(route.params['id']);
-  }
-    return of({
-      id:0,
-      description: "",
-      expirationDate: "",
-      isCompleted: false,
-      user: 0
-    })
-  }
+
+const defaultObject: Task = {
+  id:0,
+  description: "",
+  expirationDate: "",
+  isCompleted: false,
+  user: 0
+};
+
+export const TaskResolver: ResolveFn<Task> = createGenericResolver<Task>(() => inject(TasksService), defaultObject);

@@ -67,7 +67,7 @@ export class HdsPageComponent {
   }
 
   private setHds():void{
-    this.hds$ = this.hdsServices.listHds().pipe(
+    this.hds$ = this.hdsServices.list().pipe(
       tap((items) => {
         this._hds = items;
       }),

@@ -44,18 +44,6 @@ export class SidebarService {
       icon: "bi bi-archive",
       submenus:[
         {
-          label: "Placas-mãe",
-          url: "/inventory/motherboards"
-        },
-        {
-          label: "Processadores",
-          url: "/inventory/cpus"
-        },
-        {
-          label: "Memórias",
-          url: "/inventory/memories"
-        },
-        {
           label: "Fontes de Energia",
           url: "/inventory/powersupplies"
         },
@@ -66,6 +54,22 @@ export class SidebarService {
         {
           label: "Hds",
           url: "/inventory/hds"
+        },
+        {
+          label: "Memórias",
+          url: "/inventory/memories"
+        },
+        {
+          label: "Placas-mãe",
+          url: "/inventory/motherboards"
+        },
+        {
+          label: "Processadores",
+          url: "/inventory/cpus"
+        },
+        {
+          label: "Teclados",
+          url: "/inventory/keyboards"
         },
       ]
     },

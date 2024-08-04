@@ -21,7 +21,7 @@ export class ProcessorsService {
   ) {
   }
 
-  listProcessors(): Observable<Processor[]> {
+  list(): Observable<Processor[]> {
     return this.httpClient.get<Processor[]>(this.API)
     .pipe(
       first(),

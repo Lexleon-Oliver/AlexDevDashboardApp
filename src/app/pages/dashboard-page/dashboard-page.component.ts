@@ -42,7 +42,7 @@ export class DashboardPageComponent {
   }
 
   setTasks() {
-    this.tasks$ = this.tasksService.listTasks().pipe(
+    this.tasks$ = this.tasksService.list().pipe(
       tap((items) => {
         this.tasksToDashboard = items.map((task) => ({
           id: task.id,

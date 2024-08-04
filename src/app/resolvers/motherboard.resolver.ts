@@ -5,21 +5,15 @@ import { Motherboard } from "../models/motherboard";
 import { CPUType } from "../enums/cpu-type";
 import { MemoryType } from "../enums/memory-type";
 import { MotherboardsService } from "../services/motherboards.service";
+import { createGenericResolver } from "./generic.resolver";
 
-export const MotherboardResolver: ResolveFn<any> = (
-  route: ActivatedRouteSnapshot,
-  state: RouterStateSnapshot,
-  motherboardsService: MotherboardsService = inject(MotherboardsService)
-): Observable<Motherboard> =>{
-  if (route.params && route.params['id']){
-    return motherboardsService.loadById(route.params['id']);
-  }
-    return of({
-      id:0,
-      model: "",
-      manufacturer: "",
-      cpuType: CPUType.Intel_LGA_1151,
-      memoryType: MemoryType.DDR3,
-      inUse: false,
-    })
-  }
+const defaultObject: Motherboard = {
+  id:0,
+  model: "",
+  manufacturer: "",
+  cpuType: CPUType.Intel_LGA_1151,
+  memoryType: MemoryType.DDR3,
+  inUse: false,
+};
+
+export const MotherboardResolver: ResolveFn<Motherboard> = createGenericResolver<Motherboard>(() => inject(MotherboardsService), defaultObject);

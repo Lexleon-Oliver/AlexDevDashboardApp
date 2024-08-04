@@ -66,7 +66,7 @@ export class TasksPageComponent implements OnInit {
   }
 
   private setTasks():void{
-    this.tasks$ = this.tasksServices.listTasks().pipe(
+    this.tasks$ = this.tasksServices.list().pipe(
       tap((items) => {
         this._tasks = items;
       }),

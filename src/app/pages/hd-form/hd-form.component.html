@@ -3,16 +3,16 @@
   [columnClass]="'col-lg-12'"
   [pageTitle]="hd.id !== 0 && hd.id > 0 ?
   {
-    titulo: 'Editar HD',
-    itemMenu:'HD',
+    titulo: 'Editar Hd',
+    itemMenu:'Hd',
     itemSubmenu:hd.id.toString(),
     alignment:'center',
     homeIcon: true,
     homeText: 'Início',
   }:
   {
-    titulo: 'Novo HD',
-    itemMenu:'HD',
+    titulo: 'Novo Hd',
+    itemMenu:'Hd',
     itemSubmenu:'Novo',
     alignment:'center',
     homeIcon: true,
@@ -20,7 +20,7 @@
   }"
 >
   <app-simple-card
-    title="Formulário de HD"
+    title="Formulário de Hd"
   >
     <app-form [form]="form"
       [buttons]="formButtons"

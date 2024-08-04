@@ -68,7 +68,7 @@ export class CasesPageComponent {
   }
 
   private setCases():void{
-    this.cases$ = this.casesServices.listCases().pipe(
+    this.cases$ = this.casesServices.list().pipe(
       tap((items) => {
         this._cases = items;
       }),

@@ -19,7 +19,7 @@ export class MotherboardsService {
   ) {
   }
 
-  listMotherboards(): Observable<Motherboard[]> {
+  list(): Observable<Motherboard[]> {
     return this.httpClient.get<Motherboard[]>(this.API)
     .pipe(
       first(),

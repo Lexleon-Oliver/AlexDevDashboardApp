@@ -1,15 +1,8 @@
-import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from "@angular/router";
-import { TasksService } from "../services/tasks.service";
+import { ResolveFn } from "@angular/router";
+import { Observable } from "rxjs";
+import { Task } from "../models/task";
+import { createGenericListResolver } from "./generic-list.resolver";
 import { inject } from "@angular/core";
-import { Observable, catchError, of } from "rxjs";
+import { TasksService } from "../services/tasks.service";
 
-export const TasksResolver: ResolveFn<any> = (
-  route: ActivatedRouteSnapshot,
-  state: RouterStateSnapshot,
-  taskService: TasksService = inject(TasksService)
-): Observable<{}> =>
-  taskService.listTasks().pipe(
-    catchError((err) => {
-      return of('No data' + err);
-    })
-  );
+export const TasksResolver: ResolveFn<Task[]> = createGenericListResolver<Task>(() => inject(TasksService));

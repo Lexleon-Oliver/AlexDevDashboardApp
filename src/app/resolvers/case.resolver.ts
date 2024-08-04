@@ -1,22 +1,15 @@
 import { inject } from "@angular/core";
-import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from "@angular/router";
-import { Observable, of } from "rxjs";
+import { ResolveFn } from "@angular/router";
 import { CasesService } from "../services/cases.service";
 import { Case } from "../models/case";
+import { createGenericResolver } from "./generic.resolver";
 
-export const CaseResolver: ResolveFn<any> = (
-  route: ActivatedRouteSnapshot,
-  state: RouterStateSnapshot,
-  casesService: CasesService = inject(CasesService)
-): Observable<Case> =>{
-  if (route.params && route.params['id']){
-    return casesService.loadById(route.params['id']);
-  }
-    return of({
-      id:0,
-      color: "",
-      numberOfBays: 0,
-      hasDVD: false,
-      inUse: false,
-    })
-  }
+const defaultObject: Case = {
+  id: 0,
+  color: '',
+  numberOfBays: 0,
+  hasDVD: false,
+  inUse: false,
+};
+
+export const CaseResolver: ResolveFn<Case> = createGenericResolver<Case>(() => inject(CasesService), defaultObject);

@@ -18,7 +18,7 @@ export class PowerSuppliesService {
   ) {
   }
 
-  listPowerSupplies(): Observable<PowerSupply[]> {
+  list(): Observable<PowerSupply[]> {
     return this.httpClient.get<PowerSupply[]>(this.API)
     .pipe(
       first(),

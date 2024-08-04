@@ -18,7 +18,7 @@ export class MemoriesService {
   ) {
   }
 
-  listMemories(): Observable<Memory[]> {
+  list(): Observable<Memory[]> {
     return this.httpClient.get<Memory[]>(this.API)
     .pipe(
       first(),

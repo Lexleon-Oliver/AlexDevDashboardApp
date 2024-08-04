@@ -68,7 +68,7 @@ export class ProcessorsPageComponent implements OnInit {
   }
 
   private setProcessors():void{
-    this.processors$ = this.processorsServices.listProcessors().pipe(
+    this.processors$ = this.processorsServices.list().pipe(
       tap((items) => {
         this._processors = items;
       }),

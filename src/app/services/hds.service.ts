@@ -19,7 +19,7 @@ export class HdsService {
   ) {
   }
 
-  listHds(): Observable<Hd[]> {
+  list(): Observable<Hd[]> {
     return this.httpClient.get<Hd[]>(this.API)
     .pipe(
       first(),

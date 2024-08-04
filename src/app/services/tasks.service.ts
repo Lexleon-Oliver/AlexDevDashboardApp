@@ -19,7 +19,7 @@ export class TasksService {
   ) {
   }
 
-  listTasks(): Observable<Task[]> {
+  list(): Observable<Task[]> {
     return this.httpClient.get<Task[]>(this.API)
     .pipe(
       first(),

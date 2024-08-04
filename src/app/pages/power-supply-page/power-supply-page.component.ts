@@ -69,7 +69,7 @@ export class PowerSupplyPageComponent {
   }
 
   private setPowerSupplies():void{
-    this.powerSupplies$ = this.powerSuppliesServices.listPowerSupplies().pipe(
+    this.powerSupplies$ = this.powerSuppliesServices.list().pipe(
       tap((items) => {
         this._powerSupplies = items;
       }),

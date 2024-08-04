@@ -68,7 +68,7 @@ export class MotherboardsPageComponent implements OnInit {
   }
 
   private setMotherboards():void{
-    this.motherboards$ = this.motherboardsServices.listMotherboards().pipe(
+    this.motherboards$ = this.motherboardsServices.list().pipe(
       tap((items) => {
         this._motherboards = items;
       }),

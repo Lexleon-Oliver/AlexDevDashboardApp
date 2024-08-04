@@ -3,14 +3,7 @@ import { inject } from "@angular/core";
 import { Observable, catchError, of } from "rxjs";
 import { ProcessorsService } from "../services/processors.service";
 import { MemoriesService } from "../services/memories.service";
+import { Memory } from "../models/memory";
+import { createGenericListResolver } from "./generic-list.resolver";
 
-export const MemoriesResolver: ResolveFn<any> = (
-  route: ActivatedRouteSnapshot,
-  state: RouterStateSnapshot,
-  memoryService: MemoriesService = inject(MemoriesService)
-): Observable<{}> =>
-  memoryService.listMemories().pipe(
-    catchError((err) => {
-      return of('No data' + err);
-    })
-  );
+export const MemoriesResolver: ResolveFn<Memory[]> = createGenericListResolver<Memory>(() => inject(MemoriesService));

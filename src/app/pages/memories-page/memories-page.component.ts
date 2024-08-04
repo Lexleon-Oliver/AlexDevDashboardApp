@@ -68,7 +68,7 @@ export class MemoriesPageComponent implements OnInit{
   }
 
   private setMemories():void{
-    this.memories$ = this.memoriesServices.listMemories().pipe(
+    this.memories$ = this.memoriesServices.list().pipe(
       tap((items) => {
         this._memories = items;
       }),

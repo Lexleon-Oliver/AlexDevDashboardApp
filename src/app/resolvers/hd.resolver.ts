@@ -1,23 +1,16 @@
 import { inject } from "@angular/core";
-import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from "@angular/router";
-import { Observable, of } from "rxjs";
+import { ResolveFn } from "@angular/router";
 import { Hd } from "../models/hd";
 import { StorageType } from "../enums/storage-type";
 import { HdsService } from "../services/hds.service";
+import { createGenericResolver } from "./generic.resolver";
 
-export const HdResolver: ResolveFn<any> = (
-  route: ActivatedRouteSnapshot,
-  state: RouterStateSnapshot,
-  hdsService: HdsService = inject(HdsService)
-): Observable<Hd> =>{
-  if (route.params && route.params['id']){
-    return hdsService.loadById(route.params['id']);
-  }
-    return of({
-      id:0,
-      brand: "",
-      capacity: "",
-      type: StorageType.HDD,
-      inUse: false,
-    })
-  }
+const defaultObject: Hd = {
+  id: 0,
+  brand: '',
+  capacity: '',
+  type: StorageType.HDD,
+  inUse: false,
+};
+
+export const HdResolver: ResolveFn<Hd> = createGenericResolver<Hd>(() => inject(HdsService), defaultObject);

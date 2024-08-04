@@ -18,7 +18,7 @@ export class CasesService {
   ) {
   }
 
-  listCases(): Observable<Case[]> {
+  list(): Observable<Case[]> {
     return this.httpClient.get<Case[]>(this.API)
     .pipe(
       first(),
