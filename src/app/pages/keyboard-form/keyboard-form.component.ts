@@ -1,20 +1,22 @@
+
 import { Component } from '@angular/core';
-import { PageLayoutComponent } from '../../components/page-layout/page-layout.component';
-import { SimpleCardComponent } from '../../components/simple-card/simple-card.component';
 import { FormComponent } from '../../components/form/form.component';
-import { Case } from '../../models/case';
+import { InputFormComponent } from '../../components/input-form/input-form.component';
+import { InputNumberFormComponent } from '../../components/input-number-form/input-number-form.component';
+import { PageLayoutComponent } from '../../components/page-layout/page-layout.component';
+import { SelectFormComponent } from '../../components/select-form/select-form.component';
+import { SimpleCardComponent } from '../../components/simple-card/simple-card.component';
+import { Keyboard } from '../../models/keyboard';
 import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { ButtonModel } from '../../models/button-model';
 import { ActivatedRoute } from '@angular/router';
-import { CasesService } from '../../services/cases.service';
+import { KeyboardsService } from '../../services/keyboards.service';
 import { RequestService } from '../../services/request.service';
+import { InputConnectionType } from '../../enums/input-connection-type';
 import { Location } from '@angular/common';
-import { InputFormComponent } from '../../components/input-form/input-form.component';
-import { InputNumberFormComponent } from '../../components/input-number-form/input-number-form.component';
-import { SelectFormComponent } from '../../components/select-form/select-form.component';
 
 @Component({
-  selector: 'app-case-form',
+  selector: 'app-keyboard-form',
   standalone: true,
   imports: [
     PageLayoutComponent,
@@ -24,25 +26,24 @@ import { SelectFormComponent } from '../../components/select-form/select-form.co
     InputNumberFormComponent,
     SelectFormComponent,
   ],
-  templateUrl: './case-form.component.html',
-  styleUrl: './case-form.component.scss'
+  templateUrl: './keyboard-form.component.html',
+  styleUrl: './keyboard-form.component.scss'
 })
-export class CaseFormComponent {
-  case:Case= new Case();
+export class KeyboardFormComponent {
+  keyboard:Keyboard= new Keyboard();
   form!: FormGroup;
   formButtons: ButtonModel[] = [];
   constructor(
     private route: ActivatedRoute,
     private formBuilder: NonNullableFormBuilder,
     private location: Location,
-    private casesService: CasesService,
+    private keyboardService: KeyboardsService,
     public requestService: RequestService,
   ) {
     this.form = this.formBuilder.group({
       id: 0,
-      color: ['',[Validators.required,Validators.minLength(3), Validators.maxLength(255)]],
-      numberOfBays:['',[Validators.required,Validators.min(0), Validators.max(10)]],
-      hasDVD:[false],
+      model: ['',[Validators.required,Validators.minLength(3), Validators.maxLength(255)]],
+      connectionType:[InputConnectionType.USB],
       inUse: [false],
     });
     this.formButtons.push(
@@ -55,11 +56,10 @@ export class CaseFormComponent {
     if(this.requestService.isLoading){
       this.requestService.hideLoading();
     }
-    const itemData: Case = this.route.snapshot.data['case'];
+    const itemData: Keyboard = this.route.snapshot.data['keyboard'];
 
     if (itemData.id!==0) {
-
-      this.case = new Case(itemData);
+      this.keyboard = new Keyboard(itemData);
       this.form.patchValue(itemData);
     }
   }
@@ -72,11 +72,11 @@ export class CaseFormComponent {
   onAdd() {
     this.requestService.showLoading()
     const formData = this.form.value;
-    formData.color = formData.color.toUpperCase();
+    formData.model = formData.model.toUpperCase();
 
-    Object.assign(this.case, formData);
-    let itemData = new Case(this.case);
-    this.casesService.save(itemData).subscribe({
+    Object.assign(this.keyboard, formData);
+    let itemData = new Keyboard(this.keyboard);
+    this.keyboardService.save(itemData).subscribe({
       next:(res:any)=>{
         this.requestService.hideLoading()
         this.requestService.trataSucesso(res)
@@ -89,5 +89,18 @@ export class CaseFormComponent {
         this.requestService.trataErro(error );
       }
     });
+
   }
+
+  get inputConnectionsOptions() {
+    return this.enumToOptions(InputConnectionType);
+  }
+
+  private enumToOptions(enumType: any): { value: string, label: string }[] {
+    return Object.keys(enumType).map(key => ({
+      value: enumType[key],
+      label: enumType[key]
+    }));
+  }
+
 }

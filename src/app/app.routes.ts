@@ -31,6 +31,10 @@ import { HdResolver } from './resolvers/hd.resolver';
 import { HdsResolver } from './resolvers/hds.resolver';
 import { HdsPageComponent } from './pages/hds-page/hds-page.component';
 import { HdFormComponent } from './pages/hd-form/hd-form.component';
+import { KeyboardResolver } from './resolvers/keyboard.resolver';
+import { KeyboardsResolver } from './resolvers/keyboards.resolver';
+import { KeyboardsPageComponent } from './pages/keyboards-page/keyboards-page.component';
+import { KeyboardFormComponent } from './pages/keyboard-form/keyboard-form.component';
 
 export const routes: Routes = [
   {
@@ -158,5 +162,20 @@ export const routes: Routes = [
     path: 'inventory/hds/:id/edit',
     component: HdFormComponent,
     resolve: {hd:HdResolver},
+  },
+  {
+    path: 'inventory/keyboards',
+    component: KeyboardsPageComponent,
+    resolve:{keyboards:KeyboardsResolver},
+  },
+  {
+    path: 'inventory/keyboards/new',
+    component: KeyboardFormComponent,
+    resolve: {keyboard:KeyboardResolver},
+  },
+  {
+    path: 'inventory/keyboards/:id/edit',
+    component: KeyboardFormComponent,
+    resolve: {keyboard:KeyboardResolver},
   },
 ];
