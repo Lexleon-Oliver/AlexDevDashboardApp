@@ -1,18 +1,18 @@
 <app-page-layout
   divisor="'•'"
   [columnClass]="'col-lg-12'"
-  [pageTitle]="keyboard.id !== 0 && keyboard.id > 0 ?
+  [pageTitle]="mouse.id !== 0 && mouse.id > 0 ?
   {
-    titulo: 'Editar Teclado',
-    itemMenu:'Teclado',
-    itemSubmenu:keyboard.id.toString(),
+    titulo: 'Editar Mouse',
+    itemMenu:'Mouse',
+    itemSubmenu:mouse.id.toString(),
     alignment:'center',
     homeIcon: true,
     homeText: 'Início',
   }:
   {
-    titulo: 'Novo Teclado',
-    itemMenu:'Teclado',
+    titulo: 'Novo Mouse',
+    itemMenu:'Mouse',
     itemSubmenu:'Novo',
     alignment:'center',
     homeIcon: true,
@@ -20,7 +20,7 @@
   }"
 >
   <app-simple-card
-    title="Formulário de Teclado"
+    title="Formulário de Mouse"
   >
     <app-form [form]="form"
       [buttons]="formButtons"

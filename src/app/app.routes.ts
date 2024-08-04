@@ -35,6 +35,10 @@ import { KeyboardResolver } from './resolvers/keyboard.resolver';
 import { KeyboardsResolver } from './resolvers/keyboards.resolver';
 import { KeyboardsPageComponent } from './pages/keyboards-page/keyboards-page.component';
 import { KeyboardFormComponent } from './pages/keyboard-form/keyboard-form.component';
+import { MouseResolver } from './resolvers/mouse.resolver';
+import { MousesResolver } from './resolvers/mouses.resolver';
+import { MousesPageComponent } from './pages/mouses-page/mouses-page.component';
+import { MouseFormComponent } from './pages/mouse-form/mouse-form.component';
 
 export const routes: Routes = [
   {
@@ -177,5 +181,20 @@ export const routes: Routes = [
     path: 'inventory/keyboards/:id/edit',
     component: KeyboardFormComponent,
     resolve: {keyboard:KeyboardResolver},
+  },
+  {
+    path: 'inventory/mouses',
+    component: MousesPageComponent,
+    resolve:{mouses:MousesResolver},
+  },
+  {
+    path: 'inventory/mouses/new',
+    component: MouseFormComponent,
+    resolve: {mouse:MouseResolver},
+  },
+  {
+    path: 'inventory/mouses/:id/edit',
+    component: MouseFormComponent,
+    resolve: {mouse:MouseResolver},
   },
 ];

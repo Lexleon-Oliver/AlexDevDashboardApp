@@ -60,6 +60,10 @@ export class SidebarService {
           url: "/inventory/memories"
         },
         {
+          label: "Mouses",
+          url: "/inventory/mouses"
+        },
+        {
           label: "Placas-mãe",
           url: "/inventory/motherboards"
         },
