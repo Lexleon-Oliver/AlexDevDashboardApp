@@ -9,7 +9,7 @@ import { GenericService } from './generic.service';
   providedIn: 'root'
 })
 export class TasksService extends GenericService<Task> {
-  protected API = environment.apiUrl + '/inventory/tasks';
+  protected API = environment.apiUrl + '/tasks';
 
   constructor(
     httpClient: HttpClient,
