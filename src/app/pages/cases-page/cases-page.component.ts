@@ -1,11 +1,5 @@
 import { Component } from '@angular/core';
-import { PageLayoutComponent } from '../../components/page-layout/page-layout.component';
-import { SimpleCardComponent } from '../../components/simple-card/simple-card.component';
-import { ButtonComponent } from '../../components/button/button.component';
-import { TableComponent } from '../../components/table/table.component';
-import { LoadingComponent } from '../../components/loading/loading.component';
 import { CommonModule } from '@angular/common';
-import { ConfirmModalComponent } from '../../components/confirm-modal/confirm-modal.component';
 import { catchError, Observable, of, tap } from 'rxjs';
 import { Case } from '../../models/case';
 import { TableColumn } from '../../models/table-column';
@@ -14,27 +8,33 @@ import { Router } from '@angular/router';
 import { RequestService } from '../../services/request.service';
 import { ModalService } from '../../services/modal.service';
 import { CasesService } from '../../services/cases.service';
+import { BASE_SERVICE, GenericPageComponent } from '../generic-page/generic-page.component';
 
 @Component({
   selector: 'app-cases-page',
   standalone: true,
   imports: [
-    PageLayoutComponent,
-    SimpleCardComponent,
-    ButtonComponent,
-    TableComponent,
-    LoadingComponent,
+
     CommonModule,
-    ConfirmModalComponent,
+    GenericPageComponent,
   ],
   templateUrl: './cases-page.component.html',
-  styleUrl: './cases-page.component.scss'
+  styleUrl: './cases-page.component.scss',
+  providers: [
+    { provide: BASE_SERVICE, useExisting: CasesService }
+  ]
 })
 export class CasesPageComponent {
-  rounded: boolean=true;
-  disabled: boolean= false;
+  pageTitle = {
+    titulo: 'Gabinetes',
+    itemMenu: 'Estoque',
+    itemSubmenu: 'Gabinetes',
+    alignment: 'center',
+    homeIcon: true,
+    homeText: 'Início'
+  };
+
   cases$!: Observable<Case[]>;
-  _cases: Case[] = []
   columns: TableColumn<Case>[] = [
     { value: 'id', label: '#' },
     { value: 'color', label: 'Cor' },
@@ -42,70 +42,74 @@ export class CasesPageComponent {
     { value: 'hasDVD', label: 'DVD' },
     { value: 'inUse', label: 'Em uso' },
   ];
-  buttonsAction: ButtonModel[]=[]
-  caseToRemove!:Case;
+  buttonsAction: ButtonModel[] = [];
+  confirmModal = {
+    id: 'removerItemTable',
+    title: 'Excluir Tarefa',
+    text: 'Tem certeza que deseja remover a tarefa? Após a confirmação, o registro será excluído e NÃO PODERÁ mais ser recuperado!',
+    cancelText: 'Cancelar',
+    cancelClass: 'secondary',
+    confirmText: 'Confirmar Exclusão',
+    confirmClass: 'danger'
+  };
+  addRoute = '/inventory/cases';
+  itemsList: Case[] = [];
+  itemToRemove!: Case;
 
   constructor(
     private router: Router,
-    public requestService:RequestService,
-    private modalService:ModalService,
-    private casesServices:CasesService,
+    private casesService: CasesService,
+    private requestService: RequestService,
+    private modalService: ModalService
   ) {
     this.buttonsAction.push(
       new ButtonModel('', 'bi bi-pencil-square', 'default', 'warning', 'small', false, false, this.onEdit.bind(this)),
-      new ButtonModel('', 'bi bi-trash', 'default', 'danger', 'small', false, false, this.onRemove.bind(this)),
-      );
+      new ButtonModel('', 'bi bi-trash', 'default', 'danger', 'small', false, false, this.onRemove.bind(this))
+    );
   }
 
   ngOnInit() {
     this.setCases();
-
+    console.log("Teste Cases-page:",this.addRoute);
 
   }
 
-  onAdd(){
-    this.router.navigate(['/inventory/cases/new']);
-  }
-
-  private setCases():void{
-    this.cases$ = this.casesServices.list().pipe(
+  private setCases(): void {
+    this.cases$ = this.casesService.list().pipe(
       tap((items) => {
-        this._cases = items;
+        this.itemsList = items;
       }),
       catchError((err) => {
         this.requestService.trataErro(err);
         return of([]);
       })
     );
-
   }
 
-  onEdit(item:Case){
+  onEdit(caseItem: Case) {
     this.requestService.showLoading();
-    this.router.navigate(['/inventory/cases', item.id, 'edit']);
+    this.router.navigate([`/inventory/cases/${caseItem.id}/edit`]);
   }
 
-  onRemove(item:Case){
-
-    this.caseToRemove = item;
+  onRemove(caseItem: Case) {
+    this.itemToRemove = caseItem;
     this.modalService.openModal('removerItemTable');
   }
 
   executarRemocao() {
-    if (this.caseToRemove) {
-      this.casesServices.delete(this.caseToRemove.id).subscribe({
+    if (this.itemToRemove) {
+      this.casesService.delete(this.itemToRemove.id).subscribe({
         next: (response) => {
           this.requestService.trataSucesso(response);
           this.setCases();
-          this.modalService.cancelAction()
-          this.caseToRemove = new Case();
+          this.modalService.cancelAction();
+          this.itemToRemove = {} as Case;
         },
         error: (err) => {
-          this.modalService.cancelAction()
+          this.modalService.cancelAction();
           this.requestService.trataErro(err);
         }
       });
     }
   }
-
 }
