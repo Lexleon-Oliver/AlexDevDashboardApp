@@ -39,6 +39,10 @@ import { MouseResolver } from './resolvers/mouse.resolver';
 import { MousesResolver } from './resolvers/mouses.resolver';
 import { MousesPageComponent } from './pages/mouses-page/mouses-page.component';
 import { MouseFormComponent } from './pages/mouse-form/mouse-form.component';
+import { NetworkcardsResolver } from './resolvers/networkcards.resolver';
+import { NetworkcardsPageComponent } from './pages/networkcards-page/networkcards-page.component';
+import { NetworkcardFormComponent } from './pages/networkcard-form/networkcard-form.component';
+import { NetworkcardResolver } from './resolvers/networkcard.resolver';
 
 export const routes: Routes = [
   {
@@ -196,5 +200,20 @@ export const routes: Routes = [
     path: 'inventory/mouses/:id/edit',
     component: MouseFormComponent,
     resolve: {mouse:MouseResolver},
+  },
+  {
+    path: 'inventory/networkcards',
+    component: NetworkcardsPageComponent,
+    resolve:{networkcards:NetworkcardsResolver},
+  },
+  {
+    path: 'inventory/networkcards/new',
+    component: NetworkcardFormComponent,
+    resolve: {networkcard:NetworkcardResolver},
+  },
+  {
+    path: 'inventory/networkcards/:id/edit',
+    component: NetworkcardFormComponent,
+    resolve: {networkcard:NetworkcardResolver},
   },
 ];

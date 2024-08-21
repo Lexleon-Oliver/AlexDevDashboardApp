@@ -64,7 +64,11 @@ export class SidebarService {
           url: "/inventory/mouses"
         },
         {
-          label: "Placas-mãe",
+          label: "Placas de Rede",
+          url: "/inventory/networkcards"
+        },
+        {
+          label: "Placas-Mãe",
           url: "/inventory/motherboards"
         },
         {

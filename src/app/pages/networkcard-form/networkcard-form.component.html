@@ -1,0 +1,69 @@
+<app-page-layout
+  divisor="'•'"
+  [columnClass]="'col-lg-12'"
+  [pageTitle]="networkcard.id !== 0 && networkcard.id > 0 ?
+  {
+    titulo: 'Editar Placa de Rede',
+    itemMenu:'Placa de Rede',
+    itemSubmenu:networkcard.id.toString(),
+    alignment:'center',
+    homeIcon: true,
+    homeText: 'Início',
+  }:
+  {
+    titulo: 'Nova Placa de Rede',
+    itemMenu:'Placa de Rede',
+    itemSubmenu:'Novo',
+    alignment:'center',
+    homeIcon: true,
+    homeText: 'Início',
+  }"
+>
+  <app-simple-card
+    title="Formulário de Placa de Rede"
+  >
+    <app-form [form]="form"
+      [buttons]="formButtons"
+    >
+      <app-input-form
+        label="Fabricante"
+        placeholder="Fabricante"
+        [control]="this.form.get('brand')"
+        id="floatingName"
+        [errorMessages]="{
+          required: 'O campo de fabricante é obrigatório.',
+          minlength: 'O campo de fabricante deve ter no mínimo 3 caracteres',
+          maxlength: 'O campo de fabricante deve ter no máximo 255 caracteres',
+        }"
+        class="col-md-6"
+      >
+      </app-input-form>
+      <app-input-form
+        label="Modelo"
+        placeholder="Modelo"
+        [control]="this.form.get('model')"
+        id="floatingName"
+        [errorMessages]="{
+          required: 'O campo de modelo é obrigatório.',
+          minlength: 'O campo de modelo deve ter no mínimo 3 caracteres',
+          maxlength: 'O campo de modelo deve ter no máximo 255 caracteres',
+        }"
+        class="col-md-6"
+      >
+      </app-input-form>
+
+      <app-select-form
+        class="col-md-6"
+        [options]="[
+          { value: true, label: 'Sim' },
+          { value: false, label: 'Não' },
+        ]"
+        label="Em uso"
+        id="selectId"
+        [control]="this.form.get('inUse')"
+      ></app-select-form>
+    </app-form>
+  </app-simple-card>
+</app-page-layout>
+
+
