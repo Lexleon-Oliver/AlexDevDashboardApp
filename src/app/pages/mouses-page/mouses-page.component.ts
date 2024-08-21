@@ -14,28 +14,31 @@ import { Router } from '@angular/router';
 import { RequestService } from '../../services/request.service';
 import { ModalService } from '../../services/modal.service';
 import { MousesService } from '../../services/mouses.service';
+import { BASE_SERVICE, GenericPageComponent } from '../generic-page/generic-page.component';
 
 @Component({
   selector: 'app-mouses-page',
   standalone: true,
   imports: [
-    PageLayoutComponent,
-    SimpleCardComponent,
-    ButtonComponent,
-    TableComponent,
-    ConfirmModalComponent,
-    LoadingComponent,
     CommonModule,
+    GenericPageComponent,
   ],
   templateUrl: './mouses-page.component.html',
-  styleUrl: './mouses-page.component.scss'
+  styleUrl: './mouses-page.component.scss',
+  providers: [
+    { provide: BASE_SERVICE, useExisting: MousesService }
+  ]
 })
 export class MousesPageComponent {
-
-  rounded: boolean=true;
-  disabled: boolean= false;
+  pageTitle = {
+    titulo: 'Mouses',
+    itemMenu:'Estoque',
+    itemSubmenu:'Mouses',
+    alignment:'center',
+    homeIcon: true,
+    homeText: 'Início'
+  };
   mouses$!: Observable<Mouse[]>;
-  _mouses: Mouse[] = []
   columns: TableColumn<Mouse>[] = [
     { value: 'id', label: '#' },
     { value: 'model', label: 'Modelo' },
@@ -43,7 +46,19 @@ export class MousesPageComponent {
     { value: 'inUse', label: 'Em uso' },
   ];
   buttonsAction: ButtonModel[]=[]
-  mouseToRemove!:Mouse;
+  confirmModal = {
+    id: 'removerItemTable',
+    title: 'Excluir Tarefa',
+    text: 'Tem certeza que deseja remover a tarefa? Após a confirmação, o registro será excluído e NÃO PODERÁ mais ser recuperado!',
+    cancelText: 'Cancelar',
+    cancelClass: 'secondary',
+    confirmText: 'Confirmar Exclusão',
+    confirmClass: 'danger'
+  };
+
+  addRoute = '/inventory/mouses';
+  itemsList: Mouse[] = [];
+  itemToRemove!: Mouse;
 
   constructor(
     private router: Router,
@@ -60,48 +75,42 @@ export class MousesPageComponent {
   ngOnInit() {
     this.setMouses();
 
-
-  }
-
-  onAdd(){
-    this.router.navigate(['/inventory/mouses/new']);
   }
 
   private setMouses():void{
     this.mouses$ = this.mousesServices.list().pipe(
       tap((items) => {
-        this._mouses = items;
+        this.itemsList = items;
       }),
       catchError((err) => {
         this.requestService.trataErro(err);
         return of([]);
       })
     );
-
   }
 
-  onEdit(item:Mouse){
+  onEdit(item:Mouse) {
     this.requestService.showLoading();
-    this.router.navigate(['/inventory/mouses', item.id, 'edit']);
+    this.router.navigate([`/inventory/mouses/${item.id}/edit`]);
   }
+
 
   onRemove(item:Mouse){
-
-    this.mouseToRemove = item;
+    this.itemToRemove = item;
     this.modalService.openModal('removerItemTable');
   }
 
   executarRemocao() {
-    if (this.mouseToRemove) {
-      this.mousesServices.delete(this.mouseToRemove.id).subscribe({
+    if (this.itemToRemove) {
+      this.mousesServices.delete(this.itemToRemove.id).subscribe({
         next: (response) => {
           this.requestService.trataSucesso(response);
           this.setMouses();
-          this.modalService.cancelAction()
-          this.mouseToRemove = new Mouse();
+          this.modalService.cancelAction();
+          this.itemToRemove = {} as Mouse;
         },
         error: (err) => {
-          this.modalService.cancelAction()
+          this.modalService.cancelAction();
           this.requestService.trataErro(err);
         }
       });

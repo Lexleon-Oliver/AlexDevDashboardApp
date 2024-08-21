@@ -14,27 +14,31 @@ import { Router } from '@angular/router';
 import { RequestService } from '../../services/request.service';
 import { ModalService } from '../../services/modal.service';
 import { ProcessorsService } from '../../services/processors.service';
+import { BASE_SERVICE, GenericPageComponent } from '../generic-page/generic-page.component';
 
 @Component({
   selector: 'app-processors-page',
   standalone: true,
   imports: [
-    PageLayoutComponent,
-    SimpleCardComponent,
-    ButtonComponent,
-    TableComponent,
-    ConfirmModalComponent,
-    LoadingComponent,
     CommonModule,
+    GenericPageComponent,
   ],
   templateUrl: './processors-page.component.html',
-  styleUrl: './processors-page.component.scss'
+  styleUrl: './processors-page.component.scss',
+  providers: [
+    { provide: BASE_SERVICE, useExisting: ProcessorsService }
+  ]
 })
 export class ProcessorsPageComponent implements OnInit {
-  rounded: boolean=true;
-  disabled: boolean= false;
+  pageTitle = {
+    titulo: 'Processadores',
+    itemMenu:'Estoque',
+    itemSubmenu:'Processadores',
+    alignment:'center',
+    homeIcon: true,
+    homeText: 'Início'
+  };
   processors$!: Observable<Processor[]>;
-  _processors: Processor[] = []
   columns: TableColumn<Processor>[] = [
     { value: 'id', label: '#' },
     { value: 'manufacturer', label: 'Fabricante' },
@@ -44,7 +48,18 @@ export class ProcessorsPageComponent implements OnInit {
     { value: 'inUse', label: 'Em uso' },
   ];
   buttonsAction: ButtonModel[]=[]
-  processorToRemove!:Processor;
+  confirmModal = {
+    id: 'removerItemTable',
+    title: 'Excluir Tarefa',
+    text: 'Tem certeza que deseja remover a tarefa? Após a confirmação, o registro será excluído e NÃO PODERÁ mais ser recuperado!',
+    cancelText: 'Cancelar',
+    cancelClass: 'secondary',
+    confirmText: 'Confirmar Exclusão',
+    confirmClass: 'danger'
+  };
+  addRoute = '/inventory/cpus';
+  itemsList: Processor[] = [];
+  itemToRemove!: Processor;
 
   constructor(
     private router: Router,
@@ -63,14 +78,10 @@ export class ProcessorsPageComponent implements OnInit {
 
   }
 
-  onAdd(){
-    this.router.navigate(['/inventory/cpus/new']);
-  }
-
   private setProcessors():void{
     this.processors$ = this.processorsServices.list().pipe(
       tap((items) => {
-        this._processors = items;
+        this.itemsList = items;
       }),
       catchError((err) => {
         this.requestService.trataErro(err);
@@ -79,25 +90,24 @@ export class ProcessorsPageComponent implements OnInit {
     );
   }
 
-  onEdit(processor:Processor){
+  onEdit(item:Processor){
     this.requestService.showLoading();
-    this.router.navigate(['/inventory/cpus', processor.id, 'edit']);
+    this.router.navigate([`/inventory/cpus/${item.id}/edit`]);
   }
 
-  onRemove(processor:Processor){
-
-    this.processorToRemove = processor;
+  onRemove(item:Processor){
+    this.itemToRemove = item;
     this.modalService.openModal('removerItemTable');
   }
 
   executarRemocao() {
-    if (this.processorToRemove) {
-      this.processorsServices.delete(this.processorToRemove.id).subscribe({
+    if (this.itemToRemove) {
+      this.processorsServices.delete(this.itemToRemove.id).subscribe({
         next: (response) => {
           this.requestService.trataSucesso(response);
           this.setProcessors();
           this.modalService.cancelAction()
-          this.processorToRemove = new Processor();
+          this.itemToRemove = {} as Processor;
         },
         error: (err) => {
           this.modalService.cancelAction()

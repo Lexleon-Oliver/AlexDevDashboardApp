@@ -6,35 +6,33 @@ import { ButtonModel } from '../../models/button-model';
 import { Router } from '@angular/router';
 import { RequestService } from '../../services/request.service';
 import { ModalService } from '../../services/modal.service';
-import { PageLayoutComponent } from '../../components/page-layout/page-layout.component';
-import { SimpleCardComponent } from '../../components/simple-card/simple-card.component';
-import { ButtonComponent } from '../../components/button/button.component';
-import { TableComponent } from '../../components/table/table.component';
-import { ConfirmModalComponent } from '../../components/confirm-modal/confirm-modal.component';
-import { LoadingComponent } from '../../components/loading/loading.component';
 import { CommonModule } from '@angular/common';
 import { MotherboardsService } from '../../services/motherboards.service';
+import { BASE_SERVICE, GenericPageComponent } from '../generic-page/generic-page.component';
 
 @Component({
   selector: 'app-motherboards-page',
   standalone: true,
   imports: [
-    PageLayoutComponent,
-    SimpleCardComponent,
-    ButtonComponent,
-    TableComponent,
-    ConfirmModalComponent,
-    LoadingComponent,
     CommonModule,
+    GenericPageComponent,
   ],
   templateUrl: './motherboards-page.component.html',
-  styleUrl: './motherboards-page.component.scss'
+  styleUrl: './motherboards-page.component.scss',
+  providers: [
+    { provide: BASE_SERVICE, useExisting: MotherboardsService }
+  ]
 })
 export class MotherboardsPageComponent implements OnInit {
-  rounded: boolean=true;
-  disabled: boolean= false;
+  pageTitle = {
+    titulo: 'Placas-mãe',
+    itemMenu:'Estoque',
+    itemSubmenu:'Placas-mãe',
+    alignment:'center',
+    homeIcon: true,
+    homeText: 'Início'
+  };
   motherboards$!: Observable<Motherboard[]>;
-  _motherboards: Motherboard[] = []
   columns: TableColumn<Motherboard>[] = [
     { value: 'id', label: '#' },
     { value: 'manufacturer', label: 'Fabricante' },
@@ -44,7 +42,19 @@ export class MotherboardsPageComponent implements OnInit {
     { value: 'inUse', label: 'Em uso' },
   ];
   buttonsAction: ButtonModel[]=[]
-  motherboardToRemove!:Motherboard;
+  confirmModal = {
+    id: 'removerItemTable',
+    title: 'Excluir Tarefa',
+    text: 'Tem certeza que deseja remover a tarefa? Após a confirmação, o registro será excluído e NÃO PODERÁ mais ser recuperado!',
+    cancelText: 'Cancelar',
+    cancelClass: 'secondary',
+    confirmText: 'Confirmar Exclusão',
+    confirmClass: 'danger'
+  };
+  addRoute = '/inventory/motherboards';
+  itemsList: Motherboard[] = [];
+  itemToRemove!: Motherboard;
+
 
   constructor(
     private router: Router,
@@ -63,14 +73,10 @@ export class MotherboardsPageComponent implements OnInit {
 
   }
 
-  onAdd(){
-    this.router.navigate(['/inventory/motherboards/new']);
-  }
-
   private setMotherboards():void{
     this.motherboards$ = this.motherboardsServices.list().pipe(
       tap((items) => {
-        this._motherboards = items;
+        this.itemsList = items;
       }),
       catchError((err) => {
         this.requestService.trataErro(err);
@@ -79,28 +85,30 @@ export class MotherboardsPageComponent implements OnInit {
     );
   }
 
-  onEdit(motherboard:Motherboard){
+
+
+  onEdit(item:  Motherboard) {
     this.requestService.showLoading();
-    this.router.navigate(['/inventory/motherboards', motherboard.id, 'edit']);
+    this.router.navigate([`/inventory/motherboards/${item.id}/edit`]);
   }
 
-  onRemove(motherboard:Motherboard){
-
-    this.motherboardToRemove = motherboard;
+  onRemove(item: Motherboard) {
+    this.itemToRemove = item;
     this.modalService.openModal('removerItemTable');
   }
 
+
   executarRemocao() {
-    if (this.motherboardToRemove) {
-      this.motherboardsServices.delete(this.motherboardToRemove.id).subscribe({
+    if (this.itemToRemove) {
+      this.motherboardsServices.delete(this.itemToRemove.id).subscribe({
         next: (response) => {
           this.requestService.trataSucesso(response);
           this.setMotherboards();
-          this.modalService.cancelAction()
-          this.motherboardToRemove = new Motherboard();
+          this.modalService.cancelAction();
+          this.itemToRemove = {} as Motherboard;
         },
         error: (err) => {
-          this.modalService.cancelAction()
+          this.modalService.cancelAction();
           this.requestService.trataErro(err);
         }
       });

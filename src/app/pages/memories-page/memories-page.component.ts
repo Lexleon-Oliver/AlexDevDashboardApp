@@ -1,10 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { PageLayoutComponent } from '../../components/page-layout/page-layout.component';
-import { SimpleCardComponent } from '../../components/simple-card/simple-card.component';
-import { ButtonComponent } from '../../components/button/button.component';
-import { TableComponent } from '../../components/table/table.component';
-import { ConfirmModalComponent } from '../../components/confirm-modal/confirm-modal.component';
-import { LoadingComponent } from '../../components/loading/loading.component';
 import { CommonModule } from '@angular/common';
 import { Observable, catchError, of, tap } from 'rxjs';
 import { TableColumn } from '../../models/table-column';
@@ -90,13 +84,13 @@ export class MemoriesPageComponent implements OnInit{
     );
   }
 
-  onEdit(memoryItem: Memory) {
+  onEdit(item: Memory) {
     this.requestService.showLoading();
-    this.router.navigate([`/inventory/memories/${memoryItem.id}/edit`]);
+    this.router.navigate([`/inventory/memories/${item.id}/edit`]);
   }
 
-  onRemove(memoryItem: Memory) {
-    this.itemToRemove = memoryItem;
+  onRemove(item: Memory) {
+    this.itemToRemove = item;
     this.modalService.openModal('removerItemTable');
   }
 
