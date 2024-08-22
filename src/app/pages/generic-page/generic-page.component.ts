@@ -38,15 +38,15 @@ interface BaseService<T> {
 export class GenericPageComponent<T> implements OnInit {
 
   @Input() pageTitle!: any;
-  @Input() items$!: Observable<T[]>;
   @Input() columns!: TableColumn<T>[];
-  @Input() buttonsAction: ButtonModel[] = [];
   @Input() confirmModal!: any;
   @Input() addRoute!: string;
 
+  items$!: Observable<T[]>;
   rounded: boolean = true;
   disabled: boolean = false;
   itemsList: T[] = [];
+  buttonsAction: ButtonModel[] = [];
   itemToRemove!: T;
 
   constructor(
@@ -59,6 +59,10 @@ export class GenericPageComponent<T> implements OnInit {
   ngOnInit() {
     this.setItems();
     console.log("Teste Generic:",this.addRoute);
+    this.buttonsAction = [
+      new ButtonModel('', 'bi bi-pencil-square', 'default', 'warning', 'small', false, false, this.onEdit.bind(this)),
+      new ButtonModel('', 'bi bi-trash', 'default', 'danger', 'small', false, false, this.onRemove.bind(this))
+    ];
 
   }
 
@@ -88,11 +92,14 @@ export class GenericPageComponent<T> implements OnInit {
   }
 
   onRemove(item: T) {
+    console.log("Remover  item:", item);
     this.itemToRemove = item;
     this.modalService.openModal('removerItemTable');
   }
 
   executarRemocao() {
+    console.log("Executar remoção: ");
+    console.log("Item: ",this.itemToRemove);
     if (this.itemToRemove) {
       this.service.delete((this.itemToRemove as any).id).subscribe({
         next: (response) => {

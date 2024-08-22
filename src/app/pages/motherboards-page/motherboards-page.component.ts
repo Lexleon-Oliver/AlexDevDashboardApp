@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, catchError, of, tap } from 'rxjs';
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Motherboard } from '../../models/motherboard';
 import { TableColumn } from '../../models/table-column';
-import { ButtonModel } from '../../models/button-model';
 import { Router } from '@angular/router';
 import { RequestService } from '../../services/request.service';
 import { ModalService } from '../../services/modal.service';
@@ -23,7 +22,7 @@ import { BASE_SERVICE, GenericPageComponent } from '../generic-page/generic-page
     { provide: BASE_SERVICE, useExisting: MotherboardsService }
   ]
 })
-export class MotherboardsPageComponent implements OnInit {
+export class MotherboardsPageComponent {
   pageTitle = {
     titulo: 'Placas-mãe',
     itemMenu:'Estoque',
@@ -41,7 +40,6 @@ export class MotherboardsPageComponent implements OnInit {
     { value: 'memoryType', label: 'Memoria' },
     { value: 'inUse', label: 'Em uso' },
   ];
-  buttonsAction: ButtonModel[]=[]
   confirmModal = {
     id: 'removerItemTable',
     title: 'Excluir Tarefa',
@@ -52,66 +50,15 @@ export class MotherboardsPageComponent implements OnInit {
     confirmClass: 'danger'
   };
   addRoute = '/inventory/motherboards';
-  itemsList: Motherboard[] = [];
-  itemToRemove!: Motherboard;
+
 
 
   constructor(
     private router: Router,
     public requestService:RequestService,
     private modalService:ModalService,
-    private motherboardsServices:MotherboardsService,
   ) {
-    this.buttonsAction.push(
-      new ButtonModel('', 'bi bi-pencil-square', 'default', 'warning', 'small', false, false, this.onEdit.bind(this)),
-      new ButtonModel('', 'bi bi-trash', 'default', 'danger', 'small', false, false, this.onRemove.bind(this)),
-      );
-  }
-
-  ngOnInit() {
-    this.setMotherboards();
 
   }
 
-  private setMotherboards():void{
-    this.motherboards$ = this.motherboardsServices.list().pipe(
-      tap((items) => {
-        this.itemsList = items;
-      }),
-      catchError((err) => {
-        this.requestService.trataErro(err);
-        return of([]);
-      })
-    );
-  }
-
-
-
-  onEdit(item:  Motherboard) {
-    this.requestService.showLoading();
-    this.router.navigate([`/inventory/motherboards/${item.id}/edit`]);
-  }
-
-  onRemove(item: Motherboard) {
-    this.itemToRemove = item;
-    this.modalService.openModal('removerItemTable');
-  }
-
-
-  executarRemocao() {
-    if (this.itemToRemove) {
-      this.motherboardsServices.delete(this.itemToRemove.id).subscribe({
-        next: (response) => {
-          this.requestService.trataSucesso(response);
-          this.setMotherboards();
-          this.modalService.cancelAction();
-          this.itemToRemove = {} as Motherboard;
-        },
-        error: (err) => {
-          this.modalService.cancelAction();
-          this.requestService.trataErro(err);
-        }
-      });
-    }
-  }
 }

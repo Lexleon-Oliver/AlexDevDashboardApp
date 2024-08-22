@@ -1,11 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ButtonComponent } from '../../components/button/button.component';
-import { ConfirmModalComponent } from '../../components/confirm-modal/confirm-modal.component';
-import { LoadingComponent } from '../../components/loading/loading.component';
-import { PageLayoutComponent } from '../../components/page-layout/page-layout.component';
-import { SimpleCardComponent } from '../../components/simple-card/simple-card.component';
-import { TableComponent } from '../../components/table/table.component';
 import { Mouse } from '../../models/mouse';
 import { catchError, Observable, of, tap } from 'rxjs';
 import { TableColumn } from '../../models/table-column';

@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Observable, catchError, of, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { TableColumn } from '../../models/table-column';
-import { ButtonModel } from '../../models/button-model';
 import { Router } from '@angular/router';
 import { RequestService } from '../../services/request.service';
 import { ModalService } from '../../services/modal.service';
@@ -23,7 +22,7 @@ import { BASE_SERVICE, GenericPageComponent } from '../generic-page/generic-page
     { provide: BASE_SERVICE, useExisting: MemoriesService }
   ]
 })
-export class MemoriesPageComponent implements OnInit{
+export class MemoriesPageComponent {
 
   pageTitle = {
     titulo: 'Memórias',
@@ -41,7 +40,6 @@ export class MemoriesPageComponent implements OnInit{
     { value: 'frequency', label: 'Velocidade' },
     { value: 'inUse', label: 'Em uso' },
   ];
-  buttonsAction: ButtonModel[]=[]
   confirmModal = {
     id: 'removerItemTable',
     title: 'Excluir Tarefa',
@@ -52,64 +50,14 @@ export class MemoriesPageComponent implements OnInit{
     confirmClass: 'danger'
   };
   addRoute = '/inventory/memories';
-  itemsList: Memory[] = [];
-  itemToRemove!: Memory;
+
 
   constructor(
     private router: Router,
     public requestService:RequestService,
     private modalService:ModalService,
-    private memoriesServices:MemoriesService,
   ) {
-    this.buttonsAction.push(
-      new ButtonModel('', 'bi bi-pencil-square', 'default', 'warning', 'small', false, false, this.onEdit.bind(this)),
-      new ButtonModel('', 'bi bi-trash', 'default', 'danger', 'small', false, false, this.onRemove.bind(this)),
-      );
-  }
 
-  ngOnInit() {
-    this.setMemories();
-
-  }
-
-  private setMemories():void{
-    this.memories$ = this.memoriesServices.list().pipe(
-      tap((items) => {
-        this.itemsList = items;
-      }),
-      catchError((err) => {
-        this.requestService.trataErro(err);
-        return of([]);
-      })
-    );
-  }
-
-  onEdit(item: Memory) {
-    this.requestService.showLoading();
-    this.router.navigate([`/inventory/memories/${item.id}/edit`]);
-  }
-
-  onRemove(item: Memory) {
-    this.itemToRemove = item;
-    this.modalService.openModal('removerItemTable');
-  }
-
-
-  executarRemocao() {
-    if (this.itemToRemove) {
-      this.memoriesServices.delete(this.itemToRemove.id).subscribe({
-        next: (response) => {
-          this.requestService.trataSucesso(response);
-          this.setMemories();
-          this.modalService.cancelAction();
-          this.itemToRemove = {} as Memory;
-        },
-        error: (err) => {
-          this.modalService.cancelAction();
-          this.requestService.trataErro(err);
-        }
-      });
-    }
   }
 
 }

@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { catchError, Observable, of, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Keyboard } from '../../models/keyboard';
 import { TableColumn } from '../../models/table-column';
-import { ButtonModel } from '../../models/button-model';
 import { Router } from '@angular/router';
 import { ModalService } from '../../services/modal.service';
 import { RequestService } from '../../services/request.service';
@@ -39,7 +38,6 @@ export class KeyboardsPageComponent {
     { value: 'connectionType', label: 'Tipo de conexão' },
     { value: 'inUse', label: 'Em uso' },
   ];
-  buttonsAction: ButtonModel[]=[];
   confirmModal = {
     id: 'removerItemTable',
     title: 'Excluir Tarefa',
@@ -50,69 +48,16 @@ export class KeyboardsPageComponent {
     confirmClass: 'danger'
   };
   addRoute = '/inventory/keyboards';
-  itemsList: Keyboard[] = [];
-  itemToRemove!: Keyboard;
+
 
   constructor(
     private router: Router,
     public requestService:RequestService,
     private modalService:ModalService,
-    private keyboardsServices:KeyboardsService,
   ) {
-    this.buttonsAction.push(
-      new ButtonModel('', 'bi bi-pencil-square', 'default', 'warning', 'small', false, false, this.onEdit.bind(this)),
-      new ButtonModel('', 'bi bi-trash', 'default', 'danger', 'small', false, false, this.onRemove.bind(this)),
-      );
-  }
-
-  ngOnInit() {
-    this.setKeyboards();
-
 
   }
 
-  onAdd(){
-    this.router.navigate(['/inventory/keyboards/new']);
-  }
 
-  private setKeyboards():void{
-    this.keyboards$ = this.keyboardsServices.list().pipe(
-      tap((items) => {
-        this.itemsList = items;
-      }),
-      catchError((err) => {
-        this.requestService.trataErro(err);
-        return of([]);
-      })
-    );
-
-  }
-
-  onEdit(caseItem: Keyboard) {
-    this.requestService.showLoading();
-    this.router.navigate([`/inventory/keyboards/${caseItem.id}/edit`]);
-  }
-
-  onRemove(item:Keyboard){
-    this.itemToRemove = item;
-    this.modalService.openModal('removerItemTable');
-  }
-
-  executarRemocao() {
-    if (this.itemToRemove) {
-      this.keyboardsServices.delete(this.itemToRemove.id).subscribe({
-        next: (response) => {
-          this.requestService.trataSucesso(response);
-          this.setKeyboards();
-          this.modalService.cancelAction()
-          this.itemToRemove = new Keyboard();
-        },
-        error: (err) => {
-          this.modalService.cancelAction()
-          this.requestService.trataErro(err);
-        }
-      });
-    }
-  }
 
 }
