@@ -5,6 +5,7 @@ export class Motherboard {
   id!: number;
   manufacturer!: string;
   model!: string;
+  macAddress!:string;
   inUse!: boolean;
   memoryType!: MemoryType;
   cpuType!: CPUType;

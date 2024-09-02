@@ -1,16 +1,18 @@
+import { NetworkCard } from './../../models/networkcard';
 import { Component, OnInit } from '@angular/core';
 import { PageLayoutComponent } from '../../components/page-layout/page-layout.component';
 import { SimpleCardComponent } from '../../components/simple-card/simple-card.component';
 import { FormComponent } from '../../components/form/form.component';
 import { InputFormComponent } from '../../components/input-form/input-form.component';
 import { SelectFormComponent } from '../../components/select-form/select-form.component';
-import { NetworkCard } from '../../models/networkcard';
 import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { ButtonModel } from '../../models/button-model';
 import { ActivatedRoute } from '@angular/router';
 import { NetworkcardsService } from '../../services/networkcards.service';
 import { RequestService } from '../../services/request.service';
 import { Location } from '@angular/common';
+import { MacInputFormComponent } from '../../components/mac-input-form/mac-input-form.component';
+import { TransferRate } from '../../enums/transfer-rate';
 
 @Component({
   selector: 'app-networkcard-form',
@@ -21,6 +23,7 @@ import { Location } from '@angular/common';
     FormComponent,
     InputFormComponent,
     SelectFormComponent,
+    MacInputFormComponent,
   ],
   templateUrl: './networkcard-form.component.html',
   styleUrl: './networkcard-form.component.scss'
@@ -39,10 +42,10 @@ export class NetworkcardFormComponent implements OnInit{
   ) {
     this.form = this.formBuilder.group({
       id: 0,
-      macAddress: ['',[Validators.required,Validators.minLength(3), Validators.maxLength(255)]],
+      macAddress: ['',[  Validators.required,Validators.pattern(/^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$/)]],
       brand:['',[Validators.required,Validators.minLength(3), Validators.maxLength(255)]],
       model:['',[Validators.required,Validators.minLength(3), Validators.maxLength(255)]],
-      transferRate:['',[Validators.required,Validators.minLength(3), Validators.maxLength(255)]],
+      transferRate:[TransferRate.RATE_10_MBPS],
       inUse: [false],
     });
     this.formButtons.push(
@@ -69,27 +72,38 @@ export class NetworkcardFormComponent implements OnInit{
   }
 
   onAdd() {
-    // this.requestService.showLoading()
-    // const formData = this.form.value;
-    // formData.model = formData.model.toUpperCase();
-    // formData.manufacturer = formData.manufacturer.toUpperCase();
+    this.requestService.showLoading()
+    const formData = this.form.value;
+    formData.model = formData.model.toUpperCase();
+    formData.brand = formData.brand.toUpperCase();
 
-    // Object.assign(this.motherboard, formData);
-    // let motherboardData = new Motherboard(this.motherboard);
-    // this.motherboardService.save(motherboardData).subscribe({
-    //   next:(res:any)=>{
-    //     this.requestService.hideLoading()
-    //     this.requestService.trataSucesso(res)
-    //     setTimeout(() => {
-    //       this.onCancel();
-    //     }, 3000);
-    //   },
-    //   error: (error)=>{
-    //     this.requestService.hideLoading()
-    //     this.requestService.trataErro(error );
-    //   }
-    // });
+    Object.assign(this.networkcard, formData);
+    let networkcardData = new NetworkCard(this.networkcard);
+    this.networkcardsService.save(networkcardData).subscribe({
+      next:(res:any)=>{
+        this.requestService.hideLoading()
+        this.requestService.trataSucesso(res)
+        setTimeout(() => {
+          this.onCancel();
+        }, 3000);
+      },
+      error: (error)=>{
+        this.requestService.hideLoading()
+        this.requestService.trataErro(error );
+      }
+    });
 
+  }
+
+  get transferRateOptions() {
+    return this.enumToOptions(TransferRate);
+  }
+
+  private enumToOptions(enumType: any): { value: string, label: string }[] {
+    return Object.keys(enumType).map(key => ({
+      value: enumType[key],
+      label: enumType[key]
+    }));
   }
 
 }

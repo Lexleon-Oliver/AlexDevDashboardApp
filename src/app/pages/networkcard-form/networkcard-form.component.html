@@ -52,6 +52,27 @@
       >
       </app-input-form>
 
+      <app-mac-input-form
+        label="Endereço MAC"
+        placeholder="00:00:00:00:00:00"
+        [control]="this.form.get('macAddress')"
+        id="macAddressId"
+        [errorMessages]="{
+          required: 'O campo de endereço MAC é obrigatório.',
+          pattern: 'O endereço MAC deve seguir o formato 00:00:00:00:00:00.',
+        }"
+        class="col-md-6"
+      ></app-mac-input-form>
+
+      <app-select-form
+        class="col-md-6"
+        [options]="transferRateOptions"
+        label="Taxa de Transferência"
+        id="transferRateSelect"
+        [control]="form.get('transferRate')"
+      ></app-select-form>
+
+
       <app-select-form
         class="col-md-6"
         [options]="[

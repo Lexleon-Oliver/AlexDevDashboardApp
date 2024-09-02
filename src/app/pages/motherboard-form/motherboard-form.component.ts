@@ -13,6 +13,7 @@ import { SelectFormComponent } from '../../components/select-form/select-form.co
 import { CPUType } from '../../enums/cpu-type';
 import { MemoryType } from '../../enums/memory-type';
 import { MotherboardsService } from '../../services/motherboards.service';
+import { MacInputFormComponent } from '../../components/mac-input-form/mac-input-form.component';
 
 @Component({
   selector: 'app-motherboard-form',
@@ -23,6 +24,7 @@ import { MotherboardsService } from '../../services/motherboards.service';
     FormComponent,
     InputFormComponent,
     SelectFormComponent,
+    MacInputFormComponent,
   ],
   templateUrl: './motherboard-form.component.html',
   styleUrl: './motherboard-form.component.scss'
@@ -44,6 +46,7 @@ export class MotherboardFormComponent implements OnInit {
       manufacturer:['',[Validators.required,Validators.minLength(3), Validators.maxLength(255)]],
       memoryType:[MemoryType.DDR3],
       cpuType:[CPUType.Intel_LGA_1151],
+      macAddress: ['',[  Validators.required,Validators.pattern(/^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$/)]],
       inUse: [false],
     });
     this.formButtons.push(
