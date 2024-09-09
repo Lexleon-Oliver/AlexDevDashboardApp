@@ -68,6 +68,10 @@ export class SidebarService {
           url: "/inventory/networkcards"
         },
         {
+          label: "Placas de Vídeo",
+          url: "/inventory/graphicscards"
+        },
+        {
           label: "Placas-Mãe",
           url: "/inventory/motherboards"
         },

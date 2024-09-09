@@ -1,0 +1,8 @@
+<div class="form-floating">
+  <select class="form-select" [id]="id" [formControl]="control" [ngClass]="getClass()" multiple [ngStyle]="{'height': options.length * 30 + 'px'}">
+    @for (option of options; track $index) {
+      <option [value]="option.value" [selected]="isSelected(option)">{{ option.label }}</option>
+    }
+  </select>
+  <label [for]="id">{{ label }}</label>
+</div>

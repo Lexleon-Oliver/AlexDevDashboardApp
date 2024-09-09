@@ -43,6 +43,10 @@ import { NetworkcardsResolver } from './resolvers/networkcards.resolver';
 import { NetworkcardsPageComponent } from './pages/networkcards-page/networkcards-page.component';
 import { NetworkcardFormComponent } from './pages/networkcard-form/networkcard-form.component';
 import { NetworkcardResolver } from './resolvers/networkcard.resolver';
+import { GraphicsCardsPageComponent } from './pages/graphics-cards-page/graphics-cards-page.component';
+import { GraphicscardsResolver } from './resolvers/graphicscards.resolver';
+import { GraphicsCardFormComponent } from './pages/graphics-card-form/graphics-card-form.component';
+import { GraphicscardResolver } from './resolvers/graphicscard.resolver';
 
 export const routes: Routes = [
   {
@@ -215,5 +219,20 @@ export const routes: Routes = [
     path: 'inventory/networkcards/:id/edit',
     component: NetworkcardFormComponent,
     resolve: {networkcard:NetworkcardResolver},
+  },
+  {
+    path: 'inventory/graphicscards',
+    component: GraphicsCardsPageComponent,
+    resolve:{graphicscards:GraphicscardsResolver},
+  },
+  {
+    path: 'inventory/graphicscards/new',
+    component: GraphicsCardFormComponent,
+    resolve: {graphicscard:GraphicscardResolver},
+  },
+  {
+    path: 'inventory/networkcards/:id/edit',
+    component: GraphicsCardFormComponent,
+    resolve: {graphicscard:GraphicscardResolver},
   },
 ];
