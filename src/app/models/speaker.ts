@@ -1,14 +1,11 @@
 import { GraphicsConnections } from "../enums/graphics-connections";
 
-export class GraphicsCard {
+export class Speaker {
   id!: number;
-  brand!: string;
   model!: string;
-  capacity!: string;
-  graphicsConnectionsTypes!: GraphicsConnections[];
   inUse!: boolean;
 
-  constructor(data?: Partial<GraphicsCard>) {
+  constructor(data?: Partial<Speaker>) {
     if (data) {
       Object.assign(this, data);
     }

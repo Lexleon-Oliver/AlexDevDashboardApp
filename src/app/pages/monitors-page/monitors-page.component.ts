@@ -1,45 +1,44 @@
-import { GraphicsCard } from './../../models/graphics-card';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { BASE_SERVICE, GenericPageComponent } from '../generic-page/generic-page.component';
-import { GraphicscardsService } from '../../services/graphicscards.service';
+import { MonitorsService } from '../../services/monitors.service';
 import { Observable } from 'rxjs';
+import { Monitor } from '../../models/monitor';
 import { TableColumn } from '../../models/table-column';
 import { Router } from '@angular/router';
 import { RequestService } from '../../services/request.service';
 import { ModalService } from '../../services/modal.service';
 
 @Component({
-  selector: 'app-graphics-cards-page',
+  selector: 'app-monitors-page',
   standalone: true,
   imports: [
-
     CommonModule,
     GenericPageComponent,
   ],
-  templateUrl: './graphics-cards-page.component.html',
-  styleUrl: './graphics-cards-page.component.scss',
+  templateUrl: './monitors-page.component.html',
+  styleUrl: './monitors-page.component.scss',
   providers: [
-    { provide: BASE_SERVICE, useExisting: GraphicscardsService }
+    { provide: BASE_SERVICE, useExisting: MonitorsService }
   ]
 })
-export class GraphicsCardsPageComponent {
+export class MonitorsPageComponent {
 
   pageTitle = {
-    titulo: 'Placas de vídeo',
+    titulo: 'Monitores',
     itemMenu: 'Estoque',
-    itemSubmenu: 'Placas de vídeo',
+    itemSubmenu: 'Monitores',
     alignment: 'center',
     homeIcon: true,
     homeText: 'Início'
   };
 
-  graphicscards$!: Observable<GraphicsCard[]>;
-  columns: TableColumn<GraphicsCard>[] = [
+  graphicscards$!: Observable<Monitor[]>;
+  columns: TableColumn<Monitor>[] = [
     { value: 'id', label: '#' },
     { value: 'brand', label: 'Marca' },
     { value: 'model', label: 'Modelo' },
-    { value: 'capacity', label: 'Capacidade' },
+    { value: 'size', label: 'Tamanho' },
     { value: 'graphicsConnectionsTypes', label: 'Conexões' },
     { value: 'inUse', label: 'Em uso' },
   ];
@@ -52,7 +51,7 @@ export class GraphicsCardsPageComponent {
     confirmText: 'Confirmar Exclusão',
     confirmClass: 'danger'
   };
-  addRoute = '/inventory/graphicscards';
+  addRoute = '/inventory/monitors';
 
 
   constructor(

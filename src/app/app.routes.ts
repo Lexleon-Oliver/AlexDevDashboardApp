@@ -47,6 +47,13 @@ import { GraphicsCardsPageComponent } from './pages/graphics-cards-page/graphics
 import { GraphicscardsResolver } from './resolvers/graphicscards.resolver';
 import { GraphicsCardFormComponent } from './pages/graphics-card-form/graphics-card-form.component';
 import { GraphicscardResolver } from './resolvers/graphicscard.resolver';
+import { MonitorsResolver } from './resolvers/monitors.resolver';
+import { MonitorResolver } from './resolvers/monitor.resolver';
+import { MonitorsPageComponent } from './pages/monitors-page/monitors-page.component';
+import { MonitorFormComponent } from './pages/monitor-form/monitor-form.component';
+import { SpeakerResolver } from './resolvers/speaker.resolver';
+import { SpeakersResolver } from './resolvers/speakers.resolver';
+import { SpeakersPageComponent } from './pages/speakers-page/speakers-page.component';
 
 export const routes: Routes = [
   {
@@ -231,8 +238,38 @@ export const routes: Routes = [
     resolve: {graphicscard:GraphicscardResolver},
   },
   {
-    path: 'inventory/networkcards/:id/edit',
+    path: 'inventory/graphicscards/:id/edit',
     component: GraphicsCardFormComponent,
     resolve: {graphicscard:GraphicscardResolver},
+  },
+  {
+    path: 'inventory/monitors',
+    component: MonitorsPageComponent,
+    resolve:{monitors:MonitorsResolver},
+  },
+  {
+    path: 'inventory/monitors/new',
+    component: MonitorFormComponent,
+    resolve: {monitor:MonitorResolver},
+  },
+  {
+    path: 'inventory/monitors/:id/edit',
+    component: MonitorFormComponent,
+    resolve: {monitor:MonitorResolver},
+  },
+  {
+    path: 'inventory/speakers',
+    component: SpeakersPageComponent,
+    resolve:{speakers:SpeakersResolver},
+  },
+  {
+    path: 'inventory/speakers/new',
+    component: MonitorFormComponent,
+    resolve: {speaker:SpeakerResolver},
+  },
+  {
+    path: 'inventory/speakers/:id/edit',
+    component: MonitorFormComponent,
+    resolve: {speaker:SpeakerResolver},
   },
 ];

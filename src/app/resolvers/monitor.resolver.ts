@@ -1,18 +1,18 @@
 import { ResolveFn } from "@angular/router";
 import { GraphicsConnections } from "../enums/graphics-connections";
-import { GraphicsCard } from "../models/graphics-card";
 import { createGenericResolver } from "./generic.resolver";
 import { inject } from "@angular/core";
-import { GraphicscardsService } from "../services/graphicscards.service";
+import { Monitor } from "../models/monitor";
+import { MonitorsService } from "../services/monitors.service";
 
 
-const defaultObject: GraphicsCard = {
+const defaultObject: Monitor = {
   id: 0,
   brand: '',
   model: "",
-  capacity: '',
+  size: '',
   graphicsConnectionsTypes: [GraphicsConnections.VGA,GraphicsConnections.HDMI],
   inUse: false,
 };
 
-export const GraphicscardResolver: ResolveFn<GraphicsCard> = createGenericResolver<GraphicsCard>(() => inject(GraphicscardsService), defaultObject);
+export const MonitorResolver: ResolveFn<Monitor> = createGenericResolver<Monitor>(() => inject(MonitorsService), defaultObject);

@@ -44,6 +44,10 @@ export class SidebarService {
       icon: "bi bi-archive",
       submenus:[
         {
+          label: "Caixas de Som",
+          url: "/inventory/speakers"
+        },
+        {
           label: "Fontes de Energia",
           url: "/inventory/powersupplies"
         },
@@ -58,6 +62,10 @@ export class SidebarService {
         {
           label: "Memórias",
           url: "/inventory/memories"
+        },
+        {
+          label: "Monitores",
+          url: "/inventory/monitors"
         },
         {
           label: "Mouses",

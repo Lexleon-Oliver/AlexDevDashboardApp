@@ -2,20 +2,21 @@ import { Component } from '@angular/core';
 import { PageLayoutComponent } from '../../components/page-layout/page-layout.component';
 import { SimpleCardComponent } from '../../components/simple-card/simple-card.component';
 import { FormComponent } from '../../components/form/form.component';
-import { GraphicsCard } from '../../models/graphics-card';
-import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
-import { ButtonModel } from '../../models/button-model';
-import { Location } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
-import { GraphicscardsService } from '../../services/graphicscards.service';
-import { RequestService } from '../../services/request.service';
-import { GraphicsConnections } from '../../enums/graphics-connections';
 import { InputFormComponent } from '../../components/input-form/input-form.component';
 import { SelectFormComponent } from '../../components/select-form/select-form.component';
 import { MultiSelectFormComponent } from '../../components/multi-select-form/multi-select-form.component';
-import { CapacityGb } from '../../enums/capacity-gb';
+import { Monitor } from '../../models/monitor';
+import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
+import { ButtonModel } from '../../models/button-model';
+import { ActivatedRoute } from '@angular/router';
+import { MonitorsService } from '../../services/monitors.service';
+import { RequestService } from '../../services/request.service';
+import { SizePol } from '../../enums/sizepol';
+import { GraphicsConnections } from '../../enums/graphics-connections';
+import { Location } from '@angular/common';
+
 @Component({
-  selector: 'app-graphics-card-form',
+  selector: 'app-monitor-form',
   standalone: true,
   imports: [
     PageLayoutComponent,
@@ -25,11 +26,11 @@ import { CapacityGb } from '../../enums/capacity-gb';
     SelectFormComponent,
     MultiSelectFormComponent,
   ],
-  templateUrl: './graphics-card-form.component.html',
-  styleUrl: './graphics-card-form.component.scss'
+  templateUrl: './monitor-form.component.html',
+  styleUrl: './monitor-form.component.scss'
 })
-export class GraphicsCardFormComponent {
-  graphicscard: GraphicsCard= new GraphicsCard();
+export class MonitorFormComponent {
+  monitor: Monitor= new Monitor();
   form!: FormGroup;
   formButtons: ButtonModel[] = [];
 
@@ -37,7 +38,7 @@ export class GraphicsCardFormComponent {
     private route: ActivatedRoute,
     private formBuilder: NonNullableFormBuilder,
     private location: Location,
-    private graphicscardsService: GraphicscardsService,
+    private monitorsService: MonitorsService,
     public requestService: RequestService,
 
   ){
@@ -45,7 +46,7 @@ export class GraphicsCardFormComponent {
       id: 0,
       brand: ['',[Validators.required,Validators.minLength(3), Validators.maxLength(255)]],
       model: ['',[Validators.required,Validators.minLength(3), Validators.maxLength(255)]],
-      capacity: [CapacityGb.CAPAC_512_MB],
+      size: [SizePol.Size_19_Pol],
       graphicsConnectionsTypes:[GraphicsConnections.VGA],
 
       inUse: [false],
@@ -60,9 +61,9 @@ export class GraphicsCardFormComponent {
     if(this.requestService.isLoading){
       this.requestService.hideLoading();
     }
-    const itemData: GraphicsCard = this.route.snapshot.data['graphicscard'];
+    const itemData: Monitor = this.route.snapshot.data['monitor'];
     if (itemData.id!==0) {
-      this.graphicscard = new GraphicsCard(itemData);
+      this.monitor = new Monitor(itemData);
       this.form.patchValue(itemData);
     }
   }
@@ -78,9 +79,9 @@ export class GraphicsCardFormComponent {
     formData.brand = formData.brand.toUpperCase();
     formData.model = formData.model.toUpperCase();
 
-    Object.assign(this.graphicscard, formData);
-    let itemData = new GraphicsCard(this.graphicscard);
-    this.graphicscardsService.save(itemData).subscribe({
+    Object.assign(this.monitor, formData);
+    let itemData = new Monitor(this.monitor);
+    this.monitorsService.save(itemData).subscribe({
       next:(res:any)=>{
         this.requestService.hideLoading()
         this.requestService.trataSucesso(res)
@@ -99,8 +100,8 @@ export class GraphicsCardFormComponent {
     return this.enumToOptions(GraphicsConnections);
   }
 
-  get graphicsCapacitiesOptions() {
-    return this.enumToOptions(CapacityGb);
+  get sizeOptions() {
+    return this.enumToOptions(SizePol);
   }
 
   private enumToOptions(enumType: any): { value: string, label: string }[] {

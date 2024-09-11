@@ -1,18 +1,18 @@
 <app-page-layout
   divisor="'•'"
   [columnClass]="'col-lg-12'"
-  [pageTitle]="graphicscard.id !== 0 && graphicscard.id > 0 ?
+  [pageTitle]="monitor.id !== 0 && monitor.id > 0 ?
   {
-    titulo: 'Editar Placa de Vídeo',
-    itemMenu:'Placa de Vídeo',
-    itemSubmenu:graphicscard.id.toString(),
+    titulo: 'Editar Monitor',
+    itemMenu:'Monitor',
+    itemSubmenu:monitor.id.toString(),
     alignment:'center',
     homeIcon: true,
     homeText: 'Início',
   }:
   {
-    titulo: 'Nova Placa de Vídeo',
-    itemMenu:'Placa de Vídeo',
+    titulo: 'Novo Monitor',
+    itemMenu:'Monitor',
     itemSubmenu:'Novo',
     alignment:'center',
     homeIcon: true,
@@ -20,7 +20,7 @@
   }"
 >
   <app-simple-card
-    title="Formulário de Placa de Vídeo"
+    title="Formulário de Monitor"
   >
     <app-form [form]="form"
       [buttons]="formButtons"
@@ -51,24 +51,15 @@
         class="col-md-6"
       >
       </app-input-form>
-      <app-multi-select-form
-        class="col-md-6"
-        [options]="graphicsConnectionsOptions"
-        label="Conexões"
-        id="graphicsConnectionsSelect"
-        [control]="form.get('graphicsConnectionsTypes')"
-      ></app-multi-select-form>
-
       <app-select-form
-        class="col-md-6"
-        [options]="graphicsCapacitiesOptions"
-        label="Capacidade"
+        class="col-md-4"
+        [options]="sizeOptions"
+        label="Tamanho"
         id="graphicsCapacitiesSelect"
-        [control]="form.get('capacity')"
+        [control]="form.get('size')"
       ></app-select-form>
-
       <app-select-form
-        class="col-md-6"
+        class="col-md-4"
         [options]="[
           { value: true, label: 'Sim' },
           { value: false, label: 'Não' },
@@ -77,6 +68,14 @@
         id="selectId"
         [control]="this.form.get('inUse')"
       ></app-select-form>
+      <app-multi-select-form
+        class="col-md-4"
+        [options]="graphicsConnectionsOptions"
+        label="Conexões"
+        id="graphicsConnectionsSelect"
+        [control]="form.get('graphicsConnectionsTypes')"
+      ></app-multi-select-form>
+
     </app-form>
   </app-simple-card>
 </app-page-layout>
