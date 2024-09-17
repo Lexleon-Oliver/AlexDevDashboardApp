@@ -1,0 +1,47 @@
+<app-page-layout
+  divisor="'•'"
+  [columnClass]="'col-lg-12'"
+  [pageTitle]="department.id !== 0 && department.id > 0 ?
+  {
+    titulo: 'Editar Departamento',
+    itemMenu:'Departamento',
+    itemSubmenu:department.id.toString(),
+    alignment:'center',
+    homeIcon: true,
+    homeText: 'Início',
+  }:
+  {
+    titulo: 'Novo Departamento',
+    itemMenu:'Departamento',
+    itemSubmenu:'Novo',
+    alignment:'center',
+    homeIcon: true,
+    homeText: 'Início',
+  }"
+>
+  <app-simple-card
+    title="Formulário de Departamento"
+  >
+    <app-form [form]="form"
+      [buttons]="formButtons"
+    >
+      <app-input-form
+        label="Nome"
+        placeholder="Nome"
+        [control]="this.form.get('name')"
+        id="floatingName"
+        [errorMessages]="{
+          required: 'O campo de nome é obrigatório.',
+          minlength: 'O campo de nome deve ter no mínimo 3 caracteres',
+          maxlength: 'O campo de nome deve ter no máximo 255 caracteres',
+        }"
+        class="col-md-12"
+      >
+      </app-input-form>
+    </app-form>
+  </app-simple-card>
+</app-page-layout>
+
+
+
+

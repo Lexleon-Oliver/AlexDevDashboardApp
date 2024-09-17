@@ -54,6 +54,10 @@ import { MonitorFormComponent } from './pages/monitor-form/monitor-form.componen
 import { SpeakerResolver } from './resolvers/speaker.resolver';
 import { SpeakersResolver } from './resolvers/speakers.resolver';
 import { SpeakersPageComponent } from './pages/speakers-page/speakers-page.component';
+import { DepartmentsPageComponent } from './pages/departments-page/departments-page.component';
+import { DepartmentsResolver } from './resolvers/departments.resolver';
+import { DepartmentResolver } from './resolvers/department.resolver';
+import { DepartmentFormComponent } from './pages/department-form/department-form.component';
 
 export const routes: Routes = [
   {
@@ -271,5 +275,20 @@ export const routes: Routes = [
     path: 'inventory/speakers/:id/edit',
     component: MonitorFormComponent,
     resolve: {speaker:SpeakerResolver},
+  },
+  {
+    path: 'itassets/departments',
+    component: DepartmentsPageComponent,
+    resolve:{departments:DepartmentsResolver},
+  },
+  {
+    path: 'itassets/departments/new',
+    component: DepartmentFormComponent,
+    resolve: {department:DepartmentResolver},
+  },
+  {
+    path: 'itassets/departments/:id/edit',
+    component: DepartmentFormComponent,
+    resolve: {department:DepartmentResolver},
   },
 ];
