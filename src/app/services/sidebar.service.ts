@@ -93,6 +93,38 @@ export class SidebarService {
         },
       ]
     },
+    {
+      id:"paid-softwares-nav",
+      label: "Softwares",
+      icon: "bi bi-windows",
+      submenus:[
+        {
+          label: "Sistemas operacionais",
+          url: "/softwares/operationalsystems"
+        },
+        {
+          label: "Pacote Office",
+          url: "/softwares/msoffices"
+        },
+
+      ]
+    },
+    {
+      id:"computers-nav",
+      label: "Parque de máquinas",
+      icon: "bi bi-pc-display-horizontal",
+      submenus:[
+        {
+          label: "Departamentos",
+          url: "/itassets/departments"
+        },
+        {
+          label: "Computadores",
+          url: "/itassets/computers"
+        },
+
+      ]
+    },
 
   ];
 
