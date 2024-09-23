@@ -58,6 +58,8 @@ import { DepartmentsPageComponent } from './pages/departments-page/departments-p
 import { DepartmentsResolver } from './resolvers/departments.resolver';
 import { DepartmentResolver } from './resolvers/department.resolver';
 import { DepartmentFormComponent } from './pages/department-form/department-form.component';
+import { OperationalSystemsResolver } from './resolvers/operational-systems.resolver';
+import { OperationalSystemsPageComponent } from './pages/operational-systems-page/operational-systems-page.component';
 
 export const routes: Routes = [
   {
@@ -69,6 +71,8 @@ export const routes: Routes = [
     path: 'home',
     component: DashboardPageComponent ,
   },
+
+  // ---------------------USERS MENU---------------
   {
     path: 'users/notifications',
     component: NotificationsPageComponent,
@@ -96,6 +100,10 @@ export const routes: Routes = [
     component: TaskFormComponent,
     resolve:{task:TaskResolver},
   },
+
+
+
+    // ---------------------INVENTORY MENU---------------
   {
     path: 'inventory/motherboards',
     component: MotherboardsPageComponent,
@@ -276,6 +284,8 @@ export const routes: Routes = [
     component: MonitorFormComponent,
     resolve: {speaker:SpeakerResolver},
   },
+
+    // ---------------------IT ASSETS MENU---------------
   {
     path: 'itassets/departments',
     component: DepartmentsPageComponent,
@@ -290,5 +300,12 @@ export const routes: Routes = [
     path: 'itassets/departments/:id/edit',
     component: DepartmentFormComponent,
     resolve: {department:DepartmentResolver},
+  },
+
+    // ---------------------SOFTWARES MENU---------------
+  {
+    path: 'softwares/operationalsystems',
+    component: OperationalSystemsPageComponent,
+    resolve:{operationalSystems:OperationalSystemsResolver},
   },
 ];
