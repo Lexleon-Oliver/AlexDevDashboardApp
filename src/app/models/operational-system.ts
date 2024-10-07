@@ -1,7 +1,8 @@
+import { OperationalSystemsEnum } from "../enums/operational-systems-enum";
 
 export class OperationalSystem {
   id!: number;
-  name!: string;
+  name!: OperationalSystemsEnum;
   installationDate!: string;
   serialNumber!: string;
   workgroup!: string;

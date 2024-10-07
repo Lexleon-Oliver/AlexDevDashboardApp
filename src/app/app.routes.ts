@@ -60,6 +60,12 @@ import { DepartmentResolver } from './resolvers/department.resolver';
 import { DepartmentFormComponent } from './pages/department-form/department-form.component';
 import { OperationalSystemsResolver } from './resolvers/operational-systems.resolver';
 import { OperationalSystemsPageComponent } from './pages/operational-systems-page/operational-systems-page.component';
+import { OperationalSystemResolver } from './resolvers/operational-system.resolver';
+import { OperationalSystemFormComponent } from './pages/operational-system-form/operational-system-form.component';
+import { ComputersResolver } from './resolvers/computers.resolver';
+import { ComputersPageComponent } from './pages/computers-page/computers-page.component';
+import { ComputerResolver } from './resolvers/computer.resolver';
+import { ComputerFormComponent } from './pages/computer-form/computer-form.component';
 
 export const routes: Routes = [
   {
@@ -301,11 +307,30 @@ export const routes: Routes = [
     component: DepartmentFormComponent,
     resolve: {department:DepartmentResolver},
   },
+  {
+    path: 'itassets/computers',
+    component: ComputersPageComponent,
+    resolve:{computers:ComputersResolver},
+  },
+  {
+    path: 'itassets/computers/new',
+    component: ComputerFormComponent,
+    resolve: {computer:ComputerResolver},
+  },
 
     // ---------------------SOFTWARES MENU---------------
   {
     path: 'softwares/operationalsystems',
     component: OperationalSystemsPageComponent,
     resolve:{operationalSystems:OperationalSystemsResolver},
+  },
+  {
+    path: 'softwares/operationalsystems/new',
+    component: OperationalSystemFormComponent,
+    resolve:{operationalSystem:OperationalSystemResolver},
+  }, {
+    path: 'softwares/operationalsystems/:id/edit',
+    component: OperationalSystemFormComponent,
+    resolve:{operationalSystem:OperationalSystemResolver},
   },
 ];

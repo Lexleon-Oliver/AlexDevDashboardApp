@@ -15,7 +15,7 @@ import { ModalService } from '../../services/modal.service';
 
 export const BASE_SERVICE = new InjectionToken<BaseService<any>>('BaseService');
 
-interface BaseService<T> {
+export interface BaseService<T> {
   list(): Observable<T[]>;
   delete(id: any): Observable<any>;
 }
