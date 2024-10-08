@@ -44,11 +44,29 @@
         (itemSelected)="onItemSelected($event)"
       ></app-generic-list-table>
       <app-generic-list-table
-      [title]="'CPU'"
-      [service]="cpuService"
-      [columns]="columnsCPU"
-      (itemSelected)="onItemSelected($event)"
-    ></app-generic-list-table>
+        [title]="'CPU'"
+        [service]="cpuService"
+        [columns]="columnsCPU"
+        (itemSelected)="onItemSelected($event)"
+      ></app-generic-list-table>
+      <app-generic-list-table
+        [title]="'Placa-Mãe'"
+        [service]="motherboardsService"
+        [columns]="columnsMotherboard"
+        (itemSelected)="onItemSelected($event)"
+      ></app-generic-list-table>
+      <app-generic-list-table
+        [title]="'Gabinete'"
+        [service]="casesService"
+        [columns]="columnsCase"
+        (itemSelected)="onItemSelected($event)"
+      ></app-generic-list-table>
+      <app-generic-list-table
+        [title]="'Teclado'"
+        [service]="keyboardsService"
+        [columns]="columnsKeyboard"
+        (itemSelected)="onItemSelected($event)"
+      ></app-generic-list-table>
     </app-form>
   </app-simple-card>
 </app-page-layout>
