@@ -66,6 +66,7 @@ import { ComputersResolver } from './resolvers/computers.resolver';
 import { ComputersPageComponent } from './pages/computers-page/computers-page.component';
 import { ComputerResolver } from './resolvers/computer.resolver';
 import { ComputerFormComponent } from './pages/computer-form/computer-form.component';
+import { SpeakerFormComponent } from './pages/speaker-form/speaker-form.component';
 
 export const routes: Routes = [
   {
@@ -282,12 +283,12 @@ export const routes: Routes = [
   },
   {
     path: 'inventory/speakers/new',
-    component: MonitorFormComponent,
+    component: SpeakerFormComponent,
     resolve: {speaker:SpeakerResolver},
   },
   {
     path: 'inventory/speakers/:id/edit',
-    component: MonitorFormComponent,
+    component: SpeakerFormComponent,
     resolve: {speaker:SpeakerResolver},
   },
 

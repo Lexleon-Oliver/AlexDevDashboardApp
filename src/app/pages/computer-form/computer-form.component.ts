@@ -1,3 +1,5 @@
+import { NetworkcardsService } from './../../services/networkcards.service';
+import { GraphicscardsService } from './../../services/graphicscards.service';
 import { Component, Inject, InjectionToken } from '@angular/core';
 import { PageLayoutComponent } from '../../components/page-layout/page-layout.component';
 import { SimpleCardComponent } from '../../components/simple-card/simple-card.component';
@@ -23,12 +25,25 @@ import { CasesService } from '../../services/cases.service';
 import { Case } from '../../models/case';
 import { KeyboardsService } from '../../services/keyboards.service';
 import { Keyboard } from '../../models/keyboard';
+import { MousesService } from '../../services/mouses.service';
+import { Mouse } from '../../models/mouse';
+import { PowerSuppliesService } from '../../services/power-supplies.service';
+import { PowerSupply } from '../../models/power-supply';
+import { SpeakersService } from '../../services/speakers.service';
+import { Speaker } from '../../models/speaker';
+import { GraphicsCard } from '../../models/graphics-card';
+import { NetworkCard } from '../../models/networkcard';
 
 export const OS_SERVICE = new InjectionToken<OperationalSystemsService>('OperationalSystemsService');
 export const CPU_SERVICE = new InjectionToken<ProcessorsService>('ProcessorsService');
 export const MOTHERBOARD_SERVICE = new InjectionToken<MotherboardsService>('MotherboardsService');
 export const CASE_SERVICE = new InjectionToken<CasesService>('CasesService');
 export const KEYBOARD_SERVICE = new InjectionToken<KeyboardsService>('KeyboardsService');
+export const MOUSE_SERVICE = new InjectionToken<MousesService>('MousesService');
+export const POWERSUPPLY_SERVICE = new InjectionToken<PowerSuppliesService>('PowerSuppliesService');
+export const SPEAKER_SERVICE = new InjectionToken<SpeakersService>('SpeakersService');
+export const GRAPHICSCARD_SERVICE = new InjectionToken<GraphicscardsService>('GraphicscardsService');
+export const NETWORKCARD_SERVICE = new InjectionToken<NetworkcardsService>('NetworkcardsService');
 
 @Component({
   selector: 'app-computer-form',
@@ -50,6 +65,11 @@ export const KEYBOARD_SERVICE = new InjectionToken<KeyboardsService>('KeyboardsS
     { provide: MOTHERBOARD_SERVICE, useExisting: MotherboardsService },
     { provide: CASE_SERVICE, useExisting: CasesService},
     { provide: KEYBOARD_SERVICE, useExisting: KeyboardsService},
+    { provide: MOUSE_SERVICE, useExisting: MousesService},
+    { provide: POWERSUPPLY_SERVICE, useExisting: PowerSuppliesService},
+    { provide: SPEAKER_SERVICE, useExisting: SpeakersService},
+    { provide: GRAPHICSCARD_SERVICE, useExisting: GraphicscardsService},
+    { provide: NETWORKCARD_SERVICE, useExisting: NetworkcardsService},
   ]
 })
 export class ComputerFormComponent {
@@ -60,6 +80,11 @@ export class ComputerFormComponent {
   motherboard!:Motherboard;
   case!:Case;
   keyboard!:Keyboard;
+  mouse!:Mouse;
+  powerSupply!:PowerSupply;
+  speaker!: Speaker;
+  graphicsCard!: GraphicsCard;
+  networkCard!:NetworkCard;
 
   form!: FormGroup;
   formButtons: ButtonModel[] = [];
@@ -107,6 +132,40 @@ export class ComputerFormComponent {
     { value: 'connectionType', label: 'Tipo de conexão' },
     { value: 'inUse', label: 'Em uso' },
   ];
+  columnsMouse: TableColumn<Mouse>[] = [
+    { value: 'id', label: '#' },
+    { value: 'model', label: 'Modelo' },
+    { value: 'connectionType', label: 'Tipo de conexão' },
+    { value: 'inUse', label: 'Em uso' },
+  ];
+  columnsPowerSupply: TableColumn<PowerSupply>[] = [
+    { value: 'id', label: '#' },
+    { value: 'model', label: 'Modelo' },
+    { value: 'power', label: 'Potência' },
+    { value: 'inputVoltage', label: 'Alimentação' },
+    { value: 'inUse', label: 'Em uso' },
+  ];
+  columnsSpeaker: TableColumn<Speaker>[] = [
+    { value: 'id', label: '#' },
+    { value: 'model', label: 'Modelo' },
+    { value: 'inUse', label: 'Em uso' },
+  ];
+  columnsGraphicsCard: TableColumn<GraphicsCard>[] = [
+    { value: 'id', label: '#' },
+    { value: 'brand', label: 'Marca' },
+    { value: 'model', label: 'Modelo' },
+    { value: 'capacity', label: 'Capacidade' },
+    { value: 'graphicsConnectionsTypes', label: 'Conexões' },
+    { value: 'inUse', label: 'Em uso' },
+  ];
+  columnsNetwork: TableColumn<NetworkCard>[] = [
+    { value: 'id', label: '#' },
+    { value: 'brand', label: 'Fabricante' },
+    { value: 'model', label: 'Modelo' },
+    { value: 'macAddress', label: 'MAC' },
+    { value: 'transferRate', label: 'Taxa Transferência' },
+    { value: 'inUse', label: 'Em uso' },
+  ];
 
   constructor(
     private route: ActivatedRoute,
@@ -119,6 +178,11 @@ export class ComputerFormComponent {
     @Inject(MOTHERBOARD_SERVICE) public motherboardsService: MotherboardsService,
     @Inject(CASE_SERVICE) public casesService: CasesService,
     @Inject(KEYBOARD_SERVICE) public keyboardsService: KeyboardsService,
+    @Inject(MOUSE_SERVICE) public mousesService: KeyboardsService,
+    @Inject(POWERSUPPLY_SERVICE) public powerSuppliesService: PowerSuppliesService,
+    @Inject(SPEAKER_SERVICE) public speakersService: SpeakersService,
+    @Inject(GRAPHICSCARD_SERVICE) public graphicsCardsService: GraphicscardsService,
+    @Inject(NETWORKCARD_SERVICE) public networksCardsService: NetworkcardsService,
   ) {
     this.form = this.formBuilder.group({
       id: 0,
@@ -172,28 +236,26 @@ export class ComputerFormComponent {
   }
 
   onItemSelected(item: Map<string, any>) {
-    if (item.has("Sistema Operacional")) {
-      this.system = item.get("Sistema Operacional");
-      console.log("Sistema: ", this.system);
+    const mappings: { [key: string]: (value: any) => void } = {
+      "Sistema Operacional": (value: any) => { this.system = value; },
+      "CPU": (value: any) => { this.cpu = value; },
+      "Placa-Mãe": (value: any) => { this.motherboard = value; },
+      "Gabinete": (value: any) => { this.case = value; },
+      "Teclado": (value: any) => { this.keyboard = value; },
+      "Mouse": (value: any) => { this.mouse = value; },
+      "Fonte": (value: any) => { this.powerSupply = value; },
+      "Caixa de som": (value: any) => { this.speaker = value; },
+      "Placa de vídeo": (value: any) => { this.speaker = value; },
+      "Placa de rede": (value: any) => { this.networkCard = value; },
+    };
 
+    for (const [key, setter] of Object.entries(mappings)) {
+      if (item.has(key)) {
+        setter(item.get(key));
+        console.log(`${key}: `, item.get(key));
+      }
     }
-    if (item.has("CPU")) {
-      this.cpu = item.get("CPU");
-      console.log("CPU: ", this.cpu);
-    }
-    if (item.has("Placa-Mãe")) {
-      this.motherboard = item.get("Placa-Mãe");
-      console.log("MOTHERBOARD: ", this.motherboard);
-    }
-    if (item.has("Gabinete")) {
-      this.case = item.get("Gabinete");
-      console.log("Gabinete: ", this.case);
-    }
-    if (item.has("Teclado")) {
-      this.keyboard = item.get("Teclado");
-      console.log("Teclado: ", this.keyboard);
-    }
-
-
   }
+
+
 }

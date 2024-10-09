@@ -67,6 +67,36 @@
         [columns]="columnsKeyboard"
         (itemSelected)="onItemSelected($event)"
       ></app-generic-list-table>
+      <app-generic-list-table
+        [title]="'Mouse'"
+        [service]="mousesService"
+        [columns]="columnsMouse"
+        (itemSelected)="onItemSelected($event)"
+      ></app-generic-list-table>
+      <app-generic-list-table
+        [title]="'Fonte'"
+        [service]="powerSuppliesService"
+        [columns]="columnsPowerSupply"
+        (itemSelected)="onItemSelected($event)"
+      ></app-generic-list-table>
+      <app-generic-list-table
+        [title]="'Caixa de som'"
+        [service]="speakersService"
+        [columns]="columnsSpeaker"
+        (itemSelected)="onItemSelected($event)"
+      ></app-generic-list-table>
+      <app-generic-list-table
+        [title]="'Placa de vídeo'"
+        [service]="graphicsCardsService"
+        [columns]="columnsGraphicsCard"
+        (itemSelected)="onItemSelected($event)"
+      ></app-generic-list-table>
+      <app-generic-list-table
+        [title]="'Placa de rede'"
+        [service]="networksCardsService"
+        [columns]="columnsNetwork"
+        (itemSelected)="onItemSelected($event)"
+      ></app-generic-list-table>
     </app-form>
   </app-simple-card>
 </app-page-layout>

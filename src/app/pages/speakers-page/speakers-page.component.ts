@@ -33,7 +33,7 @@ export class SpeakersPageComponent {
     homeText: 'Início'
   };
 
-  graphicscards$!: Observable<Speaker[]>;
+  speakers$!: Observable<Speaker[]>;
   columns: TableColumn<Speaker>[] = [
     { value: 'id', label: '#' },
     { value: 'model', label: 'Modelo' },
