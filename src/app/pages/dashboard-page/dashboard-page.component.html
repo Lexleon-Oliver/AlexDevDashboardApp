@@ -19,9 +19,11 @@
         <a (click)="criarTarefa()" class="bi bi-plus-circle me-2 text-success elemento-clicavel"></a>
         <a (click)="irParaTarefas()" class="bi bi-list-task blue-custom elemento-clicavel" [class.disabled]="linkTaskDisabled"></a>
       </div>
-      <app-todo-list *ngIf="tasks$ | async as tasks"
-      [items]="tasksToDashboard"
-      ></app-todo-list>
+      <div class="tasks-container">
+        <app-todo-list *ngIf="tasks$ | async as tasks"
+        [items]="tasksToDashboard"
+        ></app-todo-list>
+      </div>
     </app-simple-card>
 
   </div>

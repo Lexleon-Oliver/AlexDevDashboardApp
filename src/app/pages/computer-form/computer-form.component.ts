@@ -216,7 +216,7 @@ export class ComputerFormComponent {
   onAdd() {
     this.requestService.showLoading()
     const formData = this.form.value;
-    formData.color = formData.color.toUpperCase();
+    formData.name = formData.name.toUpperCase();
 
     Object.assign(this.computer, formData);
     let itemData = new Computer(this.computer);
