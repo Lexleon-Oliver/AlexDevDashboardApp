@@ -22,6 +22,8 @@ export class TableComponent<T> implements OnInit {
   @Input() pageSizes: number[]=[];
   @Input() displayedColumns: TableColumn<T>[] = [];
   @Input() buttons: ButtonModel[]= [];
+  @Input() searchFor?: string;
+  @Input() searchIn?: string;
 
   @Output() editItem = new EventEmitter<T>();
   @Output() removeItem = new EventEmitter<T>();
@@ -40,6 +42,10 @@ export class TableComponent<T> implements OnInit {
 
   ngOnInit() {
     this.updateFilteredData();
+    if(this.searchFor){
+      this.searchField= this.searchIn||"";
+      this.busca= this.searchFor;
+    }
   }
 
   set busca(value: string) {
@@ -57,6 +63,7 @@ export class TableComponent<T> implements OnInit {
 
   updateFilteredData(): void {
     let filtered = this.dataList;
+
     if (this.busca) {
       if (this.searchField) {
         const fieldToSearch = this.searchField;
@@ -78,7 +85,6 @@ export class TableComponent<T> implements OnInit {
         });
       }
     }
-
    // Atualiza o total de itens com base na filtragem
     this.totalItems = filtered.length;
 
@@ -87,22 +93,6 @@ export class TableComponent<T> implements OnInit {
     const endIndex = Math.min(startIndex + this.selectedPageSize, this.totalItems);
 
     this.filteredData = filtered.slice(startIndex, endIndex);
-
-    this.filteredData = this.filteredData.map(item => {
-      const updatedItem: any = { ...item }; // Cria uma cópia do item
-
-      // Itera sobre as chaves do objeto
-      for (const key in updatedItem) {
-        if (Object.prototype.hasOwnProperty.call(updatedItem, key)) {
-          const value = updatedItem[key];
-          if (typeof value === 'boolean') {
-            updatedItem[key] = value ? 'Sim' : 'Não';
-          }
-        }
-      }
-
-      return updatedItem;
-    });
 
   }
 

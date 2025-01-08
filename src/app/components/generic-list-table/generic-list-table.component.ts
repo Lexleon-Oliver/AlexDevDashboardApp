@@ -1,28 +1,20 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
-import { ButtonComponent } from '../button/button.component';
-import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { LoadingComponent } from '../loading/loading.component';
-import { PageLayoutComponent } from '../page-layout/page-layout.component';
 import { SimpleCardComponent } from '../simple-card/simple-card.component';
 import { TableComponent } from '../table/table.component';
 import { TableColumn } from '../../models/table-column';
 import { catchError, Observable, of, tap } from 'rxjs';
 import { ButtonModel } from '../../models/button-model';
-import { Router } from '@angular/router';
 import { RequestService } from '../../services/request.service';
-import { ModalService } from '../../services/modal.service';
-import { BASE_SERVICE, BaseService } from '../../pages/generic-page/generic-page.component';
+import { BaseService } from '../../pages/generic-page/generic-page.component';
 
 @Component({
   selector: 'app-generic-list-table',
   standalone: true,
   imports: [
-    PageLayoutComponent,
     SimpleCardComponent,
-    ButtonComponent,
     TableComponent,
-    ConfirmModalComponent,
     LoadingComponent,
     CommonModule,
   ],
@@ -34,6 +26,8 @@ export class GenericListTableComponent <T> implements OnInit {
   @Input() title!: string;
   @Input() columns!: TableColumn<T>[];
   @Input() service!: BaseService<T>;
+  @Input() searchFor?: string;
+  @Input() searchIn?: string;
   @Output() itemSelected = new EventEmitter<Map<string, any>>();
 
   componentMap: Map<string, any> = new Map();
