@@ -37,22 +37,127 @@
         }"
         class="col-md-6"
       ></app-input-form>
-      <app-generic-list-table
+      @if (this.form.value.name && !this.motherboard ) {
+        <app-generic-list-table
+          [title]="'Placa-Mãe'"
+          [service]="motherboardsService"
+          [columns]="columnsMotherboard"
+          (itemSelected)="onItemSelected($event)"
+        ></app-generic-list-table>
+      }
+      @if (this.motherboard) {
+        <app-simple-card
+          title="Placa-Mãe"
+        >
+          <app-section-page-nocolumn>
+            <div class="col-lg-6">
+              <app-input-form-disabled
+                [value]="motherboard.manufacturer"
+              ></app-input-form-disabled>
+              <app-input-form-disabled
+                [value]="motherboard.cpuType"
+              ></app-input-form-disabled>
+              <app-input-form-disabled
+                [value]="motherboard.macAddress"
+              ></app-input-form-disabled>
+            </div>
+            <div class="col-lg-6">
+              <app-input-form-disabled
+                [value]="motherboard.model"
+              ></app-input-form-disabled>
+              <app-input-form-disabled
+                [value]="motherboard.memoryType"
+              ></app-input-form-disabled>
+            </div>
+          </app-section-page-nocolumn>
+        </app-simple-card>
+      }
+      @if (this.motherboard && !this.cpu ) {
+        <app-generic-list-table
+          [title]="'CPU'"
+          [service]="cpuService"
+          [columns]="columnsCPU"
+          [searchFor]="this.motherboard.cpuType"
+          [searchIn]="'cpuType'"
+          (itemSelected)="onItemSelected($event)"
+        ></app-generic-list-table>
+      }
+      @if(this.cpu){
+        <app-simple-card
+          title="Processador"
+        >
+          <app-section-page-nocolumn>
+            <div class="col-lg-6">
+              <app-input-form-disabled
+                [value]="cpu.manufacturer"
+              ></app-input-form-disabled>
+              <app-input-form-disabled
+                [value]="cpu.cpuType"
+              ></app-input-form-disabled>
+            </div>
+            <div class="col-lg-6">
+              <app-input-form-disabled
+                [value]="cpu.model"
+              ></app-input-form-disabled>
+              <app-input-form-disabled
+                [value]="cpu.frequency"
+              ></app-input-form-disabled>
+            </div>
+          </app-section-page-nocolumn>
+        </app-simple-card>
+      }
+      @if (cpu && memories.length === 0 || addNewMemory) {
+        <app-generic-list-table
+          [title]="'Memória'"
+          [service]="memoryService"
+          [columns]="columnsMemory"
+          (itemSelected)="onItemSelected($event)"
+          [searchFor]="this.motherboard.memoryType"
+          [searchIn]="'type'"
+        ></app-generic-list-table>
+      }
+      @if (memories.length>0 ) {
+        <app-simple-card
+          title="Memorias"
+        >
+        <div class="d-flex">
+          <app-button
+            class="btn-new ms-auto mb-2"
+            text=""
+            icon="bi bi-plus-circle me-2"
+            tipoBotao="default"
+            corBotao="success"
+            tamanhoBotao=""
+            [metodoAChamar]="onAddNewMemory.bind(this)"
+            [arredondado]="false"
+            [disabled]="false"
+          ></app-button>
+        </div>
+          <app-section-page-nocolumn>
+            @for (item of this.memories; track $index) {
+              <div class="col-lg-6">
+                <app-input-form-disabled
+                  [value]="item.capacity"
+                ></app-input-form-disabled>
+                <app-input-form-disabled
+                  [value]="item.frequency"
+                ></app-input-form-disabled>
+              </div>
+              <div class="col-lg-6">
+                <app-input-form-disabled
+                  [value]="item.type"
+                ></app-input-form-disabled>
+              </div>
+
+            }
+          </app-section-page-nocolumn>
+        </app-simple-card>
+      }
+
+      <!-- <app-generic-list-table
         [title]="'Sistema Operacional'"
         [columns]="columns"
         [service]="osService"
-        (itemSelected)="onItemSelected($event)"
-      ></app-generic-list-table>
-      <app-generic-list-table
-        [title]="'CPU'"
-        [service]="cpuService"
-        [columns]="columnsCPU"
-        (itemSelected)="onItemSelected($event)"
-      ></app-generic-list-table>
-      <app-generic-list-table
-        [title]="'Placa-Mãe'"
-        [service]="motherboardsService"
-        [columns]="columnsMotherboard"
         (itemSelected)="onItemSelected($event)"
       ></app-generic-list-table>
       <app-generic-list-table
@@ -96,7 +201,7 @@
         [service]="networksCardsService"
         [columns]="columnsNetwork"
         (itemSelected)="onItemSelected($event)"
-      ></app-generic-list-table>
+      ></app-generic-list-table> -->
     </app-form>
   </app-simple-card>
 </app-page-layout>

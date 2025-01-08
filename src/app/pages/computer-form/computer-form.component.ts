@@ -33,9 +33,15 @@ import { SpeakersService } from '../../services/speakers.service';
 import { Speaker } from '../../models/speaker';
 import { GraphicsCard } from '../../models/graphics-card';
 import { NetworkCard } from '../../models/networkcard';
+import { InputFormDisabledComponent } from '../../components/input-form-disabled/input-form-disabled.component';
+import { SectionPageNocolumnComponent } from '../../components/section-page-nocolumn/section-page-nocolumn.component';
+import { Memory } from '../../models/memory';
+import { MemoriesService } from '../../services/memories.service';
+import { ButtonComponent } from '../../components/button/button.component';
 
 export const OS_SERVICE = new InjectionToken<OperationalSystemsService>('OperationalSystemsService');
 export const CPU_SERVICE = new InjectionToken<ProcessorsService>('ProcessorsService');
+export const MEMORY_SERVICE = new InjectionToken<MemoriesService>('MemoriesService');
 export const MOTHERBOARD_SERVICE = new InjectionToken<MotherboardsService>('MotherboardsService');
 export const CASE_SERVICE = new InjectionToken<CasesService>('CasesService');
 export const KEYBOARD_SERVICE = new InjectionToken<KeyboardsService>('KeyboardsService');
@@ -53,8 +59,10 @@ export const NETWORKCARD_SERVICE = new InjectionToken<NetworkcardsService>('Netw
     SimpleCardComponent,
     FormComponent,
     InputFormComponent,
-    TableComponent,
     GenericListTableComponent,
+    InputFormDisabledComponent,
+    SectionPageNocolumnComponent,
+    ButtonComponent
 
 ],
   templateUrl: './computer-form.component.html',
@@ -62,6 +70,7 @@ export const NETWORKCARD_SERVICE = new InjectionToken<NetworkcardsService>('Netw
   providers: [
     { provide: OS_SERVICE, useExisting: OperationalSystemsService },
     { provide: CPU_SERVICE, useExisting: ProcessorsService },
+    { provide: MEMORY_SERVICE, useExisting: MemoriesService },
     { provide: MOTHERBOARD_SERVICE, useExisting: MotherboardsService },
     { provide: CASE_SERVICE, useExisting: CasesService},
     { provide: KEYBOARD_SERVICE, useExisting: KeyboardsService},
@@ -85,6 +94,7 @@ export class ComputerFormComponent {
   speaker!: Speaker;
   graphicsCard!: GraphicsCard;
   networkCard!:NetworkCard;
+  memories:Memory[] =[];
 
   form!: FormGroup;
   formButtons: ButtonModel[] = [];
@@ -108,6 +118,13 @@ export class ComputerFormComponent {
     { value: 'manufacturer', label: 'Fabricante' },
     { value: 'model', label: 'Modelo' },
     { value: 'cpuType', label: 'Socket' },
+    { value: 'frequency', label: 'Velocidade' },
+    { value: 'inUse', label: 'Em uso' },
+  ];
+  columnsMemory: TableColumn<Memory>[] = [
+    { value: 'id', label: '#' },
+    { value: 'capacity', label: 'Capacidade' },
+    { value: 'type', label: 'Tipo' },
     { value: 'frequency', label: 'Velocidade' },
     { value: 'inUse', label: 'Em uso' },
   ];
@@ -167,6 +184,8 @@ export class ComputerFormComponent {
     { value: 'inUse', label: 'Em uso' },
   ];
 
+  addNewMemory: boolean = false;
+
   constructor(
     private route: ActivatedRoute,
     private formBuilder: NonNullableFormBuilder,
@@ -175,6 +194,7 @@ export class ComputerFormComponent {
     public requestService: RequestService,
     @Inject(OS_SERVICE) public osService: OperationalSystemsService,
     @Inject(CPU_SERVICE) public cpuService: ProcessorsService,
+    @Inject(MEMORY_SERVICE) public memoryService: MemoriesService,
     @Inject(MOTHERBOARD_SERVICE) public motherboardsService: MotherboardsService,
     @Inject(CASE_SERVICE) public casesService: CasesService,
     @Inject(KEYBOARD_SERVICE) public keyboardsService: KeyboardsService,
@@ -200,9 +220,7 @@ export class ComputerFormComponent {
       this.requestService.hideLoading();
     }
     const itemData: Computer = this.route.snapshot.data['computer'];
-
     if (itemData.id!==0) {
-
       this.computer = new Computer(itemData);
       this.form.patchValue(itemData);
     }
@@ -220,22 +238,25 @@ export class ComputerFormComponent {
 
     Object.assign(this.computer, formData);
     let itemData = new Computer(this.computer);
-    this.computersService.save(itemData).subscribe({
-      next:(res:any)=>{
-        this.requestService.hideLoading()
-        this.requestService.trataSucesso(res)
-        setTimeout(() => {
-          this.onCancel();
-        }, 3000);
-      },
-      error: (error)=>{
-        this.requestService.hideLoading()
-        this.requestService.trataErro(error );
-      }
-    });
+    // this.computersService.save(itemData).subscribe({
+    //   next:(res:any)=>{
+    //     this.requestService.hideLoading()
+    //     this.requestService.trataSucesso(res)
+    //     setTimeout(() => {
+    //       this.onCancel();
+    //     }, 3000);
+    //   },
+    //   error: (error)=>{
+    //     this.requestService.hideLoading()
+    //     this.requestService.trataErro(error );
+    //   }
+    // });
+    console.log("Computers saved: " + JSON.stringify(itemData));
+
   }
 
   onItemSelected(item: Map<string, any>) {
+
     const mappings: { [key: string]: (value: any) => void } = {
       "Sistema Operacional": (value: any) => { this.system = value; },
       "CPU": (value: any) => { this.cpu = value; },
@@ -247,7 +268,18 @@ export class ComputerFormComponent {
       "Caixa de som": (value: any) => { this.speaker = value; },
       "Placa de vídeo": (value: any) => { this.speaker = value; },
       "Placa de rede": (value: any) => { this.networkCard = value; },
-    };
+      "Memória": (value: any) => {
+      if (this.memories) {
+        const index = this.memories.findIndex(memory => memory.id === value.id);  // Supondo que cada memória tenha um ID único
+        if (index === -1) {
+          this.memories.push(value);
+        } else {
+          this.memories[index] = value;
+        }
+        this.addNewMemory = false;
+      }
+    }
+  };
 
     for (const [key, setter] of Object.entries(mappings)) {
       if (item.has(key)) {
@@ -255,6 +287,10 @@ export class ComputerFormComponent {
         console.log(`${key}: `, item.get(key));
       }
     }
+  }
+
+  onAddNewMemory(){
+    this.addNewMemory = true;
   }
 
 
