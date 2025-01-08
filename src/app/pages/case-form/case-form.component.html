@@ -52,25 +52,16 @@
       >
       </app-input-number-form>
       <app-select-form
-      class="col-md-6"
-      [options]="[
-        { value: true, label: 'Sim' },
-        { value: false, label: 'Não' },
-      ]"
-      label="Possui dvd"
-      id="selectId"
-      [control]="this.form.get('hasDVD')"
-    ></app-select-form>
-      <app-select-form
         class="col-md-6"
         [options]="[
           { value: true, label: 'Sim' },
           { value: false, label: 'Não' },
         ]"
-        label="Em uso"
+        label="Possui dvd"
         id="selectId"
-        [control]="this.form.get('inUse')"
+        [control]="this.form.get('hasDVD')"
       ></app-select-form>
+
     </app-form>
   </app-simple-card>
 </app-page-layout>

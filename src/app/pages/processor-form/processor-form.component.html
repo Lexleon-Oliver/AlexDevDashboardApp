@@ -68,16 +68,7 @@
         [control]="form.get('frequency')"
       ></app-select-form>
 
-      <app-select-form
-        class="col-md-6"
-        [options]="[
-          { value: true, label: 'Sim' },
-          { value: false, label: 'Não' },
-        ]"
-        label="Em uso"
-        id="selectId"
-        [control]="this.form.get('inUse')"
-      ></app-select-form>
+
     </app-form>
   </app-simple-card>
 </app-page-layout>
