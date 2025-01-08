@@ -2,10 +2,15 @@
   <input type="date" [placeholder]="placeholder" [id]="id" class="form-control" [formControl]="control" [ngClass]="getClass()">
   <label [for]="id">{{ label }}</label>
 </div>
-<div *ngIf="control?.invalid && control?.touched" class="invalid-validation">
-  <div *ngIf="control.errors as errors">
-    <div *ngFor="let error of getErrorKeys(errors)" class="error-message">
-      {{ errorMessages[error] || 'Erro desconhecido' }}
+@if (control?.invalid && control?.touched) {
+  <div class="invalid-validation">
+    <div *ngIf="control.errors as errors">
+      @for (error of getErrorKeys(errors); track $index) {
+        <div class="error-message">
+          {{ errorMessages[error] || 'Erro desconhecido' }}
+        </div>
+      }
     </div>
   </div>
-</div>
+
+}
