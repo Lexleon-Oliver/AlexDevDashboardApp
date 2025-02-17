@@ -3,43 +3,47 @@ import { PageLayoutComponent } from '../../components/page-layout/page-layout.co
 import { SimpleCardComponent } from '../../components/simple-card/simple-card.component';
 import { FormComponent } from '../../components/form/form.component';
 import { InputFormComponent } from '../../components/input-form/input-form.component';
-import { Speaker } from '../../models/speaker';
+import { PurchaseOrder } from '../../models/purchase-order';
 import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { ButtonModel } from '../../models/button-model';
 import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-import { SpeakersService } from '../../services/speakers.service';
+import { PurchaseordersService } from '../../services/purchaseorders.service';
 import { RequestService } from '../../services/request.service';
+import { Location } from '@angular/common';
+import { DatepickerFormComponent } from '../../components/datepicker-form/datepicker-form.component';
+import { TextAreaFormComponent } from '../../components/text-area-form/text-area-form.component';
 
 @Component({
-  selector: 'app-speaker-form',
+  selector: 'app-purchaseorder-form-page',
   standalone: true,
   imports: [
     PageLayoutComponent,
     SimpleCardComponent,
     FormComponent,
     InputFormComponent,
-
+    DatepickerFormComponent,
+    TextAreaFormComponent,
   ],
-  templateUrl: './speaker-form.component.html',
-  styleUrl: './speaker-form.component.scss'
+  templateUrl: './purchaseorder-form-page.component.html',
+  styleUrl: './purchaseorder-form-page.component.scss'
 })
-export class SpeakerFormComponent {
-
-  speaker:Speaker= new Speaker();
+export class PurchaseOrderFormPageComponent {
+  purchaseOrder:PurchaseOrder= new PurchaseOrder();
   form!: FormGroup;
   formButtons: ButtonModel[] = [];
   constructor(
     private route: ActivatedRoute,
     private formBuilder: NonNullableFormBuilder,
     private location: Location,
-    private speakersServices: SpeakersService,
+    private purchaseOrdersServices: PurchaseordersService,
     public requestService: RequestService,
   ) {
     this.form = this.formBuilder.group({
       id: 0,
-      model: ['',[Validators.required,Validators.minLength(3), Validators.maxLength(255)]],
-      inUse: [false],
+      items:['',[Validators.required,Validators.minLength(3), Validators.maxLength(1000)]],
+      vendor: ['',[Validators.required,Validators.minLength(3), Validators.maxLength(255)]],
+      date: ['',[Validators.required]],
+      received: [false],
     });
     this.formButtons.push(
       new ButtonModel('', 'bi bi-arrow-return-left', 'default', 'secondary', 'small', false, false, this.onCancel.bind(this)),
@@ -51,10 +55,10 @@ export class SpeakerFormComponent {
     if(this.requestService.isLoading){
       this.requestService.hideLoading();
     }
-    const itemData: Speaker = this.route.snapshot.data['speaker'];
+    const itemData: PurchaseOrder = this.route.snapshot.data['purchaseOrder'];
 
     if (itemData.id!==0) {
-      this.speaker = new Speaker(itemData);
+      this.purchaseOrder = new PurchaseOrder(itemData);
       this.form.patchValue(itemData);
     }
   }
@@ -69,9 +73,9 @@ export class SpeakerFormComponent {
     const formData = this.form.value;
     formData.model = formData.model.toUpperCase();
 
-    Object.assign(this.speaker, formData);
-    let itemData = new Speaker(this.speaker);
-    this.speakersServices.save(itemData).subscribe({
+    Object.assign(this.purchaseOrder, formData);
+    let itemData = new PurchaseOrder(this.purchaseOrder);
+    this.purchaseOrdersServices.save(itemData).subscribe({
       next:(res:any)=>{
         this.requestService.hideLoading()
         this.requestService.trataSucesso(res)
@@ -87,3 +91,4 @@ export class SpeakerFormComponent {
 
   }
 }
+

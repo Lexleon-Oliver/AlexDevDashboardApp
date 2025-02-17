@@ -1,3 +1,4 @@
+import { PurchaseordersService } from './services/purchaseorders.service';
 import { PowerSupplyPageComponent } from './pages/power-supply-page/power-supply-page.component';
 import { PowerSupplyResolver } from './resolvers/power-supply.resolver';
 import { Routes } from '@angular/router';
@@ -67,6 +68,10 @@ import { ComputersPageComponent } from './pages/computers-page/computers-page.co
 import { ComputerResolver } from './resolvers/computer.resolver';
 import { ComputerFormComponent } from './pages/computer-form/computer-form.component';
 import { SpeakerFormComponent } from './pages/speaker-form/speaker-form.component';
+import { PurchaseordersPageComponent } from './pages/purchaseorders-page/purchaseorders-page.component';
+import { PurchaseOrderResolver } from './resolvers/purchase-order.resolver';
+import { PurchaseOrdersResolver } from './resolvers/purchase-orders.resolver';
+import { PurchaseOrderFormPageComponent } from './pages/purchaseorder-form-page/purchaseorder-form-page.component';
 
 export const routes: Routes = [
   {
@@ -333,5 +338,22 @@ export const routes: Routes = [
     path: 'softwares/operationalsystems/:id/edit',
     component: OperationalSystemFormComponent,
     resolve:{operationalSystem:OperationalSystemResolver},
+  },
+
+  // ---------------------DOCUMENTS MENU---------------
+
+  {
+    path: 'docs/purchaseorders',
+    component: PurchaseordersPageComponent,
+    resolve:{purchaseOrders:PurchaseOrdersResolver},
+  },
+  {
+    path: 'docs/purchaseorders/new',
+    component: PurchaseOrderFormPageComponent,
+    resolve:{purchaseOrder:PurchaseOrderResolver},
+  }, {
+    path: 'docs/purchaseorders/:id/edit',
+    component: PurchaseOrderFormPageComponent,
+    resolve:{purchaseOrder:PurchaseOrderResolver},
   },
 ];

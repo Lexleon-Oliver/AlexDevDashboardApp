@@ -110,6 +110,18 @@ export class SidebarService {
       ]
     },
     {
+      id:"documents-nav",
+      label: "Documentos",
+      icon: "bi bi-file-word",
+      submenus:[
+        {
+          label: "Pedidos Compras",
+          url: "/docs/purchaseorders"
+        },
+
+      ]
+    },
+/*    {
       id:"computers-nav",
       label: "Parque de máquinas",
       icon: "bi bi-pc-display-horizontal",
@@ -124,7 +136,7 @@ export class SidebarService {
         },
 
       ]
-    },
+    },*/
 
   ];
 

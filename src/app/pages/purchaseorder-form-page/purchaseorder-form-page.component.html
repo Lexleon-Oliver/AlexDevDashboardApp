@@ -1,0 +1,70 @@
+<app-page-layout
+  divisor="'•'"
+  [columnClass]="'col-lg-12'"
+  [pageTitle]="purchaseOrder.id !== 0 && purchaseOrder.id > 0 ?
+  {
+    titulo: 'Editar Ordem de Compra',
+    itemMenu:'Ordem de Compra',
+    itemSubmenu:purchaseOrder.id.toString(),
+    alignment:'center',
+    homeIcon: true,
+    homeText: 'Início',
+  }:
+  {
+    titulo: 'Novo Ordem de Compra',
+    itemMenu:'Ordem de Compra',
+    itemSubmenu:'Novo',
+    alignment:'center',
+    homeIcon: true,
+    homeText: 'Início',
+  }"
+>
+  <app-simple-card
+    title="Formulário de Ordem de Compra"
+  >
+    <app-form [form]="form"
+      [buttons]="formButtons"
+    >
+      <app-input-form
+        label="Fornecedor"
+        placeholder="Fornecedor"
+        [control]="this.form.get('vendor')"
+        id="floatingName"
+        [errorMessages]="{
+          required: 'O campo Fornecedor é obrigatório.',
+          minlength: 'O campo Fornecedor deve ter no mínimo 3 caracteres',
+          maxlength: 'O campo Fornecedor deve ter no máximo 255 caracteres',
+        }"
+        class="col-md-6"
+      >
+      </app-input-form>
+      <app-datepicker-form
+        [control]="this.form.get('date')"
+        [errorMessages]="{
+          required: 'O campo data é obrigatório.',
+        }"
+        placeholder="Selecione a data"
+        id="floatingDate"
+        label="Selecione a data"
+        class="col-md-6"
+      ></app-datepicker-form>
+      <app-text-area-form
+        label="Itens"
+        placeholder="Itens solicitados"
+        [control]="this.form.get('items')"
+        id="floatingItens"
+        [errorMessages]="{
+          required: 'O campo itens é obrigatório.',
+          minlength: 'O campo itens deve ter no mínimo 3 caracteres',
+          maxlength: 'O campo itens deve ter no máximo 255 caracteres',
+        }"
+        class="col-md-12"
+      >
+      </app-text-area-form>
+
+    </app-form>
+  </app-simple-card>
+</app-page-layout>
+
+
+
