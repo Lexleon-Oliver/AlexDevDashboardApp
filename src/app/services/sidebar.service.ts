@@ -91,6 +91,10 @@ export class SidebarService {
           label: "Teclados",
           url: "/inventory/keyboards"
         },
+        {
+          label: "Toners de Impressora",
+          url: "/inventory/cartridgetoners"
+        },
       ]
     },
     {

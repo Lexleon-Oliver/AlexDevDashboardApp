@@ -29,6 +29,19 @@
   </div>
   <!-- lado direito do dashboard -->
   <div class="col-lg-6">
+    <app-simple-card
+    title="Pedidos de Compras"
+    >
+      <div class="d-flex justify-content-end">
+        <a (click)="criarNovoPedido()" class="bi bi-plus-circle me-2 text-success elemento-clicavel"></a>
+        <a (click)="irParaPedidos()" class="bi bi-list-task blue-custom elemento-clicavel" [class.disabled]="linkTaskDisabled"></a>
+      </div>
+      <div class="tasks-container">
+        <app-todo-list *ngIf="tasks$ | async as tasks"
+        [items]="tasksToDashboard"
+        ></app-todo-list>
+      </div>
+    </app-simple-card>
 
   </div>
 

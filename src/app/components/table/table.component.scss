@@ -229,4 +229,11 @@ table.datatable-table:focus {
   margin-left: 3%;
 }
 
+.table-custom td {
+  max-width: 200px; /* Define o tamanho máximo das células */
+  white-space: nowrap; /* Impede a quebra de linha */
+  overflow: hidden; /* Esconde o texto que ultrapassar o tamanho máximo */
+  text-overflow: ellipsis; /* Adiciona reticências ao texto que ultrapassar o tamanho máximo */
+}
+
 

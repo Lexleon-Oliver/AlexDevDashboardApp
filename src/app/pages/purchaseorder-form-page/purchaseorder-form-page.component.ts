@@ -73,7 +73,9 @@ export class PurchaseOrderFormPageComponent {
   onAdd() {
     this.requestService.showLoading()
     const formData = this.form.value;
-    formData.model = formData.model.toUpperCase();
+    formData.vendor = formData.vendor.toUpperCase();
+    formData.items = formData.items.toUpperCase();
+
 
     Object.assign(this.purchaseOrder, formData);
     let itemData = new PurchaseOrder(this.purchaseOrder);

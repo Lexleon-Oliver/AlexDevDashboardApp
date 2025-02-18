@@ -72,6 +72,8 @@ import { PurchaseordersPageComponent } from './pages/purchaseorders-page/purchas
 import { PurchaseOrderResolver } from './resolvers/purchase-order.resolver';
 import { PurchaseOrdersResolver } from './resolvers/purchase-orders.resolver';
 import { PurchaseOrderFormPageComponent } from './pages/purchaseorder-form-page/purchaseorder-form-page.component';
+import { CartridgeTonersPageComponent } from './pages/cartridge-toners-page/cartridge-toners-page.component';
+import { CartridgeTonersResolver } from './resolvers/cartridge-toners.resolver';
 
 export const routes: Routes = [
   {
@@ -295,6 +297,11 @@ export const routes: Routes = [
     path: 'inventory/speakers/:id/edit',
     component: SpeakerFormComponent,
     resolve: {speaker:SpeakerResolver},
+  },
+  {
+    path: 'inventory/cartridgetoners',
+    component: CartridgeTonersPageComponent,
+    resolve:{cartridgeToners:CartridgeTonersResolver},
   },
 
     // ---------------------IT ASSETS MENU---------------

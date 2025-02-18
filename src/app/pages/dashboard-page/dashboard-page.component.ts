@@ -11,7 +11,8 @@ import { BadgeValue } from '../../models/badge-value';
 import { SimpleCardComponent } from '../../components/simple-card/simple-card.component';
 import { TodoListComponent } from '../../components/dashboard-page/todo-list/todo-list.component';
 import { CommonModule } from '@angular/common';
-import { ErrorModalComponent } from '../../components/error-modal/error-modal.component';
+import { PurchaseordersService } from '../../services/purchaseorders.service';
+import { PurchaseOrder } from '../../models/purchase-order';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -26,12 +27,16 @@ import { ErrorModalComponent } from '../../components/error-modal/error-modal.co
   styleUrl: './dashboard-page.component.scss'
 })
 export class DashboardPageComponent {
+
   tasksToDashboard : CheckboxItem[] =[ ]
   tasks$!: Observable<Task[]>;
+  purchaseOrders$!: Observable<PurchaseOrder[]>;
   linkTaskDisabled: boolean = false;
+  receivedProduct: boolean = false;
 
   constructor(
     private tasksService:TasksService,
+    private purchaseOrderService:PurchaseordersService,
     public requestService: RequestService,
     private router : Router,
     ) {
@@ -39,6 +44,7 @@ export class DashboardPageComponent {
 
   ngOnInit() {
     this.setTasks();
+    this.setPurchaseOrders();
   }
 
   setTasks() {
@@ -61,6 +67,16 @@ export class DashboardPageComponent {
       })
     );
   }
+
+  setPurchaseOrders() {
+    this.purchaseOrders$ = this.purchaseOrderService.list().pipe(
+      catchError((err) => {
+        this.requestService.trataErro(err);
+        return of([]);
+      })
+    );
+  }
+
 
   calculateBadgeValues(expirationDate: string): Partial<CheckboxItem> {
     const formattedExpirationDate = expirationDate.split('/').reverse().join('-');
@@ -112,5 +128,12 @@ export class DashboardPageComponent {
     this.linkTaskDisabled =true;
     this.router.navigate(['../users/tasks']);
   }
+
+  irParaPedidos() {
+    throw new Error('Method not implemented.');
+    }
+    criarNovoPedido() {
+    throw new Error('Method not implemented.');
+    }
 }
 
