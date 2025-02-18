@@ -61,6 +61,13 @@
         class="col-md-12"
       >
       </app-text-area-form>
+      <app-checkbox
+        [disabled]="false"
+        [checked]="this.form.get('received')?.value"
+        (change)="onReceivedChange($event)"
+        [text]="'Pedido Recebido'"
+      ></app-checkbox>
+
 
     </app-form>
   </app-simple-card>

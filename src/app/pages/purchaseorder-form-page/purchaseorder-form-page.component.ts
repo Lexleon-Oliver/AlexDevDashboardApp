@@ -1,3 +1,4 @@
+import { CheckboxComponent } from './../../components/checkbox/checkbox.component';
 import { Component } from '@angular/core';
 import { PageLayoutComponent } from '../../components/page-layout/page-layout.component';
 import { SimpleCardComponent } from '../../components/simple-card/simple-card.component';
@@ -23,6 +24,7 @@ import { TextAreaFormComponent } from '../../components/text-area-form/text-area
     InputFormComponent,
     DatepickerFormComponent,
     TextAreaFormComponent,
+    CheckboxComponent
   ],
   templateUrl: './purchaseorder-form-page.component.html',
   styleUrl: './purchaseorder-form-page.component.scss'
@@ -90,5 +92,10 @@ export class PurchaseOrderFormPageComponent {
     });
 
   }
+
+  onReceivedChange(event: any) {
+    this.form.get('received')?.setValue(event.target.checked);
+  }
+
 }
 
