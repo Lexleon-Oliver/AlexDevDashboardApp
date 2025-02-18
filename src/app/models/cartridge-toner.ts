@@ -1,7 +1,7 @@
 export class CartridgeToner {
   id!: number;
   model!: string;
-  compatibility!: number;
+  compatibility!: string;
   quantity!: number;
 
   constructor(data?: Partial<CartridgeToner>) {

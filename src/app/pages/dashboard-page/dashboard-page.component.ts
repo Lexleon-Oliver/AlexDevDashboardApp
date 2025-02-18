@@ -13,6 +13,7 @@ import { TodoListComponent } from '../../components/dashboard-page/todo-list/tod
 import { CommonModule } from '@angular/common';
 import { PurchaseordersService } from '../../services/purchaseorders.service';
 import { PurchaseOrder } from '../../models/purchase-order';
+import { PurchaseOrderComponent } from '../../components/dashboard-page/purchase-order/purchase-order.component';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -22,6 +23,7 @@ import { PurchaseOrder } from '../../models/purchase-order';
     SimpleCardComponent,
     TodoListComponent,
     CommonModule,
+    PurchaseOrderComponent
   ],
   templateUrl: './dashboard-page.component.html',
   styleUrl: './dashboard-page.component.scss'

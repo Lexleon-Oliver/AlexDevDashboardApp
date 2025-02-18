@@ -37,9 +37,12 @@
         <a (click)="irParaPedidos()" class="bi bi-list-task blue-custom elemento-clicavel" [class.disabled]="linkTaskDisabled"></a>
       </div>
       <div class="tasks-container">
-        <app-todo-list *ngIf="tasks$ | async as tasks"
+        <!-- <app-todo-list *ngIf="tasks$ | async as tasks"
         [items]="tasksToDashboard"
-        ></app-todo-list>
+        ></app-todo-list> -->
+        <app-purchase-order*ngIf="purchaseOrders$ | async as purchaseOrders"
+          [items]="purchaseOrdersToDashboard"
+        ></app-purchase-order>
       </div>
     </app-simple-card>
 

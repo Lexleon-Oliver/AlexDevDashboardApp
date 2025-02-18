@@ -74,6 +74,8 @@ import { PurchaseOrdersResolver } from './resolvers/purchase-orders.resolver';
 import { PurchaseOrderFormPageComponent } from './pages/purchaseorder-form-page/purchaseorder-form-page.component';
 import { CartridgeTonersPageComponent } from './pages/cartridge-toners-page/cartridge-toners-page.component';
 import { CartridgeTonersResolver } from './resolvers/cartridge-toners.resolver';
+import { CartridgeTonerResolver } from './resolvers/cartridge-toner.resolver';
+import { CartridgeTonerFormComponent } from './pages/cartridge-toner-form/cartridge-toner-form.component';
 
 export const routes: Routes = [
   {
@@ -302,6 +304,16 @@ export const routes: Routes = [
     path: 'inventory/cartridgetoners',
     component: CartridgeTonersPageComponent,
     resolve:{cartridgeToners:CartridgeTonersResolver},
+  },
+  {
+    path: 'inventory/cartridgetoners/new',
+    component: CartridgeTonerFormComponent,
+    resolve: {cartridgeToner:CartridgeTonerResolver},
+  },
+  {
+    path: 'inventory/cartridgetoners/:id/edit',
+    component: CartridgeTonerFormComponent,
+    resolve: {cartridgeToner:CartridgeTonerResolver},
   },
 
     // ---------------------IT ASSETS MENU---------------
