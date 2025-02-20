@@ -13,6 +13,7 @@ import { RequestService } from '../../services/request.service';
 import { Location } from '@angular/common';
 import { DatepickerFormComponent } from '../../components/datepicker-form/datepicker-form.component';
 import { TextAreaFormComponent } from '../../components/text-area-form/text-area-form.component';
+import { DataHoraService } from '../../services/data-hora.service';
 
 @Component({
   selector: 'app-purchaseorder-form-page',
@@ -38,6 +39,7 @@ export class PurchaseOrderFormPageComponent {
     private formBuilder: NonNullableFormBuilder,
     private location: Location,
     private purchaseOrdersServices: PurchaseordersService,
+    private dataService: DataHoraService,
     public requestService: RequestService,
   ) {
     this.form = this.formBuilder.group({
@@ -61,6 +63,9 @@ export class PurchaseOrderFormPageComponent {
 
     if (itemData.id!==0) {
       this.purchaseOrder = new PurchaseOrder(itemData);
+      const dateFormatted = this.dataService.formatarDataForm(itemData.date);
+      itemData.date = dateFormatted;
+
       this.form.patchValue(itemData);
     }
   }
@@ -73,6 +78,7 @@ export class PurchaseOrderFormPageComponent {
   onAdd() {
     this.requestService.showLoading()
     const formData = this.form.value;
+    formData.date = this.dataService.formatarData(formData.date);
     formData.vendor = formData.vendor.toUpperCase();
     formData.items = formData.items.toUpperCase();
 

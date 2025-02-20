@@ -22,4 +22,18 @@ export class DataHoraService {
 
     return dataHoraFormatada;
   }
+
+  formatarData(dateOnForm: string): string {
+    const [ano, mes, dia] = dateOnForm.split('-');
+    const formattedExpirationDate =`${dia}/${mes}/${ano}`
+    return formattedExpirationDate;
+  }
+
+  formatarDataForm(data: string): string {
+    const partes = data.split('/');
+    const ano = partes[2];
+    const mes = partes[1].padStart(2, '0');
+    const dia = partes[0].padStart(2, '0');
+    return `${ano}-${mes}-${dia}`;
+  }
 }

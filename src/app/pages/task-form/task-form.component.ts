@@ -13,6 +13,7 @@ import { RequestService } from '../../services/request.service';
 import { Location } from '@angular/common';
 import { DatepickerFormComponent } from '../../components/datepicker-form/datepicker-form.component';
 import { SelectFormComponent } from '../../components/select-form/select-form.component';
+import { DataHoraService } from '../../services/data-hora.service';
 
 @Component({
   selector: 'app-task-form',
@@ -37,6 +38,7 @@ export class TaskFormComponent  implements OnInit {
     private formBuilder: NonNullableFormBuilder,
     private location: Location,
     private authService: AuthService,
+    private dataService: DataHoraService,
     private taskService: TasksService,
     public requestService: RequestService,
   ) {
@@ -60,7 +62,7 @@ export class TaskFormComponent  implements OnInit {
 
     if (taskData.id!==0) {
       this.task = new Task(taskData);
-      const expirationDateFormatted = this.formatarDataForm(taskData.expirationDate);
+      const expirationDateFormatted = this.dataService.formatarDataForm(taskData.expirationDate);
       taskData.expirationDate = expirationDateFormatted;
 
       this.form.patchValue(taskData);
@@ -76,7 +78,7 @@ export class TaskFormComponent  implements OnInit {
     this.requestService.showLoading()
     const formData = this.form.value;
     let taskData = new Task(formData);
-    taskData.expirationDate = this.formatarData();
+    taskData.expirationDate = this.dataService.formatarData(taskData.expirationDate);
     const usuarioLogado = this.authService.getUsuarioLogado()
     taskData.user=usuarioLogado?.id||0;
     this.taskService.save(taskData)
@@ -95,12 +97,6 @@ export class TaskFormComponent  implements OnInit {
       });
   }
 
-  formatarData(): string {
-    const expirationDateValue = this.form.get('expirationDate')?.value;
-    const [ano, mes, dia] = expirationDateValue.split('-');
-    const formattedExpirationDate =`${dia}/${mes}/${ano}`
-    return formattedExpirationDate;
-  }
 
   formatarDataForm(data: string): string {
     const partes = data.split('/');
