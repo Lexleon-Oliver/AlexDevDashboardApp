@@ -1,0 +1,17 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12">
+      <div class="list-group">
+        <div class="list-group-item">
+          @for (item of items; track $index) {
+            <p class="mb-1">Modelo: {{item.model}}</p>
+            <p class="list-group mb-3">
+              {{item.compatibility}}
+            </p>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { PageLayoutComponent } from '../../components/page-layout/page-layout.component';
 import { PageLayoutNocolumnComponent } from '../../components/page-layout-nocolumn/page-layout-nocolumn.component';
 import { Observable, catchError, of, tap } from 'rxjs';
@@ -14,6 +14,9 @@ import { CommonModule } from '@angular/common';
 import { PurchaseordersService } from '../../services/purchaseorders.service';
 import { PurchaseOrder } from '../../models/purchase-order';
 import { PurchaseOrderComponent } from '../../components/dashboard-page/purchase-order/purchase-order.component';
+import { CartridgeTonersComponent } from '../../components/dashboard-page/cartridge-toners/cartridge-toners.component';
+import { CartridgeToner } from '../../models/cartridge-toner';
+import { CartridgeTonersService } from '../../services/cartridge-toners.service';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -23,7 +26,8 @@ import { PurchaseOrderComponent } from '../../components/dashboard-page/purchase
     SimpleCardComponent,
     TodoListComponent,
     CommonModule,
-    PurchaseOrderComponent
+    PurchaseOrderComponent,
+    CartridgeTonersComponent,
   ],
   templateUrl: './dashboard-page.component.html',
   styleUrl: './dashboard-page.component.scss'
@@ -35,10 +39,14 @@ export class DashboardPageComponent {
   purchaseOrders$!: Observable<PurchaseOrder[]>;
   linkTaskDisabled: boolean = false;
   receivedProduct: boolean = false;
+  purchaseOrdersToDashboard: PurchaseOrder[] = [];
+  cartridgeToners$!: Observable<CartridgeToner[]>
+  cartridgeTonersToDashboard: CartridgeToner[] = [];
 
   constructor(
     private tasksService:TasksService,
     private purchaseOrderService:PurchaseordersService,
+    private cartridgeTonerService:CartridgeTonersService,
     public requestService: RequestService,
     private router : Router,
     ) {
@@ -47,6 +55,7 @@ export class DashboardPageComponent {
   ngOnInit() {
     this.setTasks();
     this.setPurchaseOrders();
+    this.setCartridgeToners();
   }
 
   setTasks() {
@@ -72,6 +81,21 @@ export class DashboardPageComponent {
 
   setPurchaseOrders() {
     this.purchaseOrders$ = this.purchaseOrderService.list().pipe(
+      tap((orders) => {
+        this.purchaseOrdersToDashboard = orders;
+      }),
+      catchError((err) => {
+        this.requestService.trataErro(err);
+        return of([]);
+      })
+    );
+  }
+
+  setCartridgeToners(){
+    this.cartridgeToners$ = this.cartridgeTonerService.list().pipe(
+      tap((cartridgeToners) => {
+        this.cartridgeTonersToDashboard = cartridgeToners;
+      }),
       catchError((err) => {
         this.requestService.trataErro(err);
         return of([]);
@@ -132,10 +156,17 @@ export class DashboardPageComponent {
   }
 
   irParaPedidos() {
-    throw new Error('Method not implemented.');
-    }
-    criarNovoPedido() {
-    throw new Error('Method not implemented.');
-    }
+    this.router.navigate(['../docs/purchaseorders']);
+  }
+  criarNovoPedido() {
+    this.router.navigate(['../docs/purchaseorders/new']);
+  }
+
+  irParaToners() {
+    this.router.navigate(['../inventory/cartridgetoners']);
+  }
+  criarNovoToner() {
+    this.router.navigate(['../inventory/cartridgetoners/new']);
+  }
 }
 

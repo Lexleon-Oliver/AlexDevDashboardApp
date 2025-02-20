@@ -106,10 +106,10 @@ export class SidebarService {
           label: "Sistemas operacionais",
           url: "/softwares/operationalsystems"
         },
-        {
-          label: "Pacote Office",
-          url: "/softwares/msoffices"
-        },
+        // {
+        //   label: "Pacote Office",
+        //   url: "/softwares/msoffices"
+        // },
 
       ]
     },
