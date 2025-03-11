@@ -76,6 +76,10 @@ import { CartridgeTonersPageComponent } from './pages/cartridge-toners-page/cart
 import { CartridgeTonersResolver } from './resolvers/cartridge-toners.resolver';
 import { CartridgeTonerResolver } from './resolvers/cartridge-toner.resolver';
 import { CartridgeTonerFormComponent } from './pages/cartridge-toner-form/cartridge-toner-form.component';
+import { OfficialLettersResolver } from './resolvers/official-letters.resolver';
+import { OfficialLettersPageComponent } from './pages/official-letters-page/official-letters-page.component';
+import { OfficialLetterResolver } from './resolvers/official-letter.resolver';
+import { OfficialLetterFormComponent } from './pages/official-letter-form/official-letter-form.component';
 
 export const routes: Routes = [
   {
@@ -374,5 +378,19 @@ export const routes: Routes = [
     path: 'docs/purchaseorders/:id/edit',
     component: PurchaseOrderFormPageComponent,
     resolve:{purchaseOrder:PurchaseOrderResolver},
+  },
+  {
+    path: 'docs/officialletters',
+    component: OfficialLettersPageComponent,
+    resolve:{officialLetters:OfficialLettersResolver},
+  },
+  {
+    path: 'docs/officialletters/new',
+    component:OfficialLetterFormComponent,
+    resolve:{officialLetter:OfficialLetterResolver},
+  }, {
+    path: 'docs/officialletters/:id/edit',
+    component: OfficialLetterFormComponent,
+    resolve:{officialLetter:OfficialLetterResolver},
   },
 ];

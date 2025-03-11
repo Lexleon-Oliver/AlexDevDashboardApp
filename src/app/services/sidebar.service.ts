@@ -122,10 +122,14 @@ export class SidebarService {
           label: "Pedidos Compras",
           url: "/docs/purchaseorders"
         },
+        {
+          label: "Ofícios",
+          url: "/docs/officialletters"
+        },
 
       ]
     },
-/*    {
+    {
       id:"computers-nav",
       label: "Parque de máquinas",
       icon: "bi bi-pc-display-horizontal",
@@ -134,13 +138,13 @@ export class SidebarService {
           label: "Departamentos",
           url: "/itassets/departments"
         },
-        {
+/*        {
           label: "Computadores",
           url: "/itassets/computers"
-        },
+        },*/
 
       ]
-    },*/
+    },
 
   ];
 
