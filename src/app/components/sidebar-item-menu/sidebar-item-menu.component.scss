@@ -1,0 +1,41 @@
+.nav-item {
+  margin-bottom: 5px;
+}
+
+.nav-heading {
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 10px 0 5px 15px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 600;
+  transition: 0.3;
+  padding: 10px 15px;
+  border-radius: 4px;
+}
+
+.nav-link i {
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.nav-link .bi-chevron-down {
+  margin-right: 0;
+  transition: transform 0.2s ease-in-out;
+}
+
+.nav-link:not(.collapsed) .bi-chevron-down {
+  transform: rotate(180deg);
+}
+
+.nav-content {
+  padding: 5px 0 0 0;
+  margin: 0;
+  list-style: none;
+}
+

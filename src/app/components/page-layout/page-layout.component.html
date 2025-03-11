@@ -1,0 +1,13 @@
+<app-page-title [pageTitle]="pageTitle" [divisor]="divisor"></app-page-title>
+<app-section-page [columnClass]="columnClass">
+  <ng-content></ng-content>
+</app-section-page>
+@if (requestService.errorAlert.show) {
+  <app-error-modal></app-error-modal>
+}
+@if (requestService.isLoading) {
+  <app-loading></app-loading>
+}
+@if (requestService.sucessoAlert.exibir) {
+  <app-success-alert></app-success-alert>
+}

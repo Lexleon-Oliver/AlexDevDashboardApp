@@ -1,0 +1,13 @@
+<span class="badge rounded-pill" [ngClass]="{
+  'bg': true,
+  'bg-primary': tipoSelo === 'primary',
+  'bg-secondary': tipoSelo === 'secondary',
+  'bg-danger': tipoSelo === 'danger',
+  'bg-info': tipoSelo === 'info',
+  'bg-light': tipoSelo === 'light',
+  'bg-dark': tipoSelo === 'dark',
+  'bg-success': tipoSelo === 'success',
+  'bg-warning': tipoSelo === 'warning',
+  'text-dark': ['warning', 'info', 'light'].includes(tipoSelo)
+}"
+>{{text}}</span>

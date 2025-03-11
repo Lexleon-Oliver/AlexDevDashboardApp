@@ -1,0 +1,211 @@
+<app-page-layout
+  divisor="'•'"
+  [columnClass]="'col-lg-12'"
+  [pageTitle]="computer.id !== 0 && computer.id > 0 ?
+  {
+    titulo: 'Editar Computador',
+    itemMenu:'Computador',
+    itemSubmenu:computer.id.toString(),
+    alignment:'center',
+    homeIcon: true,
+    homeText: 'Início',
+  }:
+  {
+    titulo: 'Novo Computador',
+    itemMenu:'Computador',
+    itemSubmenu:'Novo',
+    alignment:'center',
+    homeIcon: true,
+    homeText: 'Início',
+  }"
+>
+  <app-simple-card
+    title="Formulário de Computador"
+  >
+    <app-form [form]="form"
+      [buttons]="formButtons"
+    >
+      <app-input-form
+        label="Nome"
+        placeholder="Nome"
+        [control]="this.form.get('name')"
+        id="floatingName"
+        [errorMessages]="{
+          required: 'O campo de nome é obrigatório.',
+          minlength: 'O campo de nome deve ter no mínimo 3 caracteres',
+          maxlength: 'O campo de nome deve ter no máximo 255 caracteres',
+        }"
+        class="col-md-6"
+      ></app-input-form>
+      @if (this.form.value.name && !this.motherboard ) {
+        <app-generic-list-table
+          [title]="'Placa-Mãe'"
+          [service]="motherboardsService"
+          [columns]="columnsMotherboard"
+          (itemSelected)="onItemSelected($event)"
+        ></app-generic-list-table>
+      }
+      @if (this.motherboard) {
+        <app-simple-card
+          title="Placa-Mãe"
+        >
+          <app-section-page-nocolumn>
+            <div class="col-lg-6">
+              <app-input-form-disabled
+                [value]="motherboard.manufacturer"
+              ></app-input-form-disabled>
+              <app-input-form-disabled
+                [value]="motherboard.cpuType"
+              ></app-input-form-disabled>
+              <app-input-form-disabled
+                [value]="motherboard.macAddress"
+              ></app-input-form-disabled>
+            </div>
+            <div class="col-lg-6">
+              <app-input-form-disabled
+                [value]="motherboard.model"
+              ></app-input-form-disabled>
+              <app-input-form-disabled
+                [value]="motherboard.memoryType"
+              ></app-input-form-disabled>
+            </div>
+          </app-section-page-nocolumn>
+        </app-simple-card>
+      }
+      @if (this.motherboard && !this.cpu ) {
+        <app-generic-list-table
+          [title]="'CPU'"
+          [service]="cpuService"
+          [columns]="columnsCPU"
+          [searchFor]="this.motherboard.cpuType"
+          [searchIn]="'cpuType'"
+          (itemSelected)="onItemSelected($event)"
+        ></app-generic-list-table>
+      }
+      @if(this.cpu){
+        <app-simple-card
+          title="Processador"
+        >
+          <app-section-page-nocolumn>
+            <div class="col-lg-6">
+              <app-input-form-disabled
+                [value]="cpu.manufacturer"
+              ></app-input-form-disabled>
+              <app-input-form-disabled
+                [value]="cpu.cpuType"
+              ></app-input-form-disabled>
+            </div>
+            <div class="col-lg-6">
+              <app-input-form-disabled
+                [value]="cpu.model"
+              ></app-input-form-disabled>
+              <app-input-form-disabled
+                [value]="cpu.frequency"
+              ></app-input-form-disabled>
+            </div>
+          </app-section-page-nocolumn>
+        </app-simple-card>
+      }
+      @if (cpu && memories.length === 0 || addNewMemory) {
+        <app-generic-list-table
+          [title]="'Memória'"
+          [service]="memoryService"
+          [columns]="columnsMemory"
+          (itemSelected)="onItemSelected($event)"
+          [searchFor]="this.motherboard.memoryType"
+          [searchIn]="'type'"
+        ></app-generic-list-table>
+      }
+      @if (memories.length>0 ) {
+        <app-simple-card
+          title="Memorias"
+        >
+        <div class="d-flex">
+          <app-button
+            class="btn-new ms-auto mb-2"
+            text=""
+            icon="bi bi-plus-circle me-2"
+            tipoBotao="default"
+            corBotao="success"
+            tamanhoBotao=""
+            [metodoAChamar]="onAddNewMemory.bind(this)"
+            [arredondado]="false"
+            [disabled]="false"
+          ></app-button>
+        </div>
+          <app-section-page-nocolumn>
+            @for (item of this.memories; track $index) {
+              <div class="col-lg-6">
+                <app-input-form-disabled
+                  [value]="item.capacity"
+                ></app-input-form-disabled>
+                <app-input-form-disabled
+                  [value]="item.frequency"
+                ></app-input-form-disabled>
+              </div>
+              <div class="col-lg-6">
+                <app-input-form-disabled
+                  [value]="item.type"
+                ></app-input-form-disabled>
+              </div>
+
+            }
+          </app-section-page-nocolumn>
+        </app-simple-card>
+      }
+
+      <!-- <app-generic-list-table
+        [title]="'Sistema Operacional'"
+        [columns]="columns"
+        [service]="osService"
+        (itemSelected)="onItemSelected($event)"
+      ></app-generic-list-table>
+      <app-generic-list-table
+        [title]="'Gabinete'"
+        [service]="casesService"
+        [columns]="columnsCase"
+        (itemSelected)="onItemSelected($event)"
+      ></app-generic-list-table>
+      <app-generic-list-table
+        [title]="'Teclado'"
+        [service]="keyboardsService"
+        [columns]="columnsKeyboard"
+        (itemSelected)="onItemSelected($event)"
+      ></app-generic-list-table>
+      <app-generic-list-table
+        [title]="'Mouse'"
+        [service]="mousesService"
+        [columns]="columnsMouse"
+        (itemSelected)="onItemSelected($event)"
+      ></app-generic-list-table>
+      <app-generic-list-table
+        [title]="'Fonte'"
+        [service]="powerSuppliesService"
+        [columns]="columnsPowerSupply"
+        (itemSelected)="onItemSelected($event)"
+      ></app-generic-list-table>
+      <app-generic-list-table
+        [title]="'Caixa de som'"
+        [service]="speakersService"
+        [columns]="columnsSpeaker"
+        (itemSelected)="onItemSelected($event)"
+      ></app-generic-list-table>
+      <app-generic-list-table
+        [title]="'Placa de vídeo'"
+        [service]="graphicsCardsService"
+        [columns]="columnsGraphicsCard"
+        (itemSelected)="onItemSelected($event)"
+      ></app-generic-list-table>
+      <app-generic-list-table
+        [title]="'Placa de rede'"
+        [service]="networksCardsService"
+        [columns]="columnsNetwork"
+        (itemSelected)="onItemSelected($event)"
+      ></app-generic-list-table> -->
+    </app-form>
+  </app-simple-card>
+</app-page-layout>
+
+
+
+

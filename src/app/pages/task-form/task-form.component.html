@@ -1,0 +1,65 @@
+<app-page-layout
+  divisor="'•'"
+  [columnClass]="'col-lg-12'"
+  [pageTitle]="task.id !== 0 && task.id > 0 ?
+  {
+    titulo: 'Editar Tarefa',
+    itemMenu:'Tarefas',
+    itemSubmenu:task.id.toString(),
+    alignment:'center',
+    homeIcon: true,
+    homeText: 'Início',
+  }:
+  {
+    titulo: 'Nova Tarefa',
+    itemMenu:'Tarefas',
+    itemSubmenu:'Novo',
+    alignment:'center',
+    homeIcon: true,
+    homeText: 'Início',
+  }"
+>
+  <app-simple-card
+    title="Formulário de Tarefa"
+  >
+    <app-form [form]="form"
+      [buttons]="formButtons"
+    >
+      <app-input-form
+        label="Descrição"
+        placeholder="Descrição"
+        [control]="this.form.get('description')"
+        id="floatingName"
+        [errorMessages]="{
+          required: 'O campo de descrição é obrigatório.',
+          minlength: 'O campo de descrição deve ter no mínimo 3 caracteres',
+          maxlength: 'O campo de descrição deve ter no máximo 255 caracteres',
+        }"
+        class="col-md-12"
+      >
+      </app-input-form>
+
+      <app-datepicker-form
+      [control]="this.form.get('expirationDate')"
+      [errorMessages]="{
+        required: 'O campo data de expiração é obrigatório.',
+      }"
+      placeholder="Selecione a data de expiração"
+      id="floatingExpirationDate"
+      label="Selecione a data de expiração"
+      class="col-md-6"
+      ></app-datepicker-form>
+
+      <app-select-form
+        class="col-md-6"
+        [options]="[
+          { value: true, label: 'Sim' },
+          { value: false, label: 'Não' },
+        ]"
+        label="Tarefa completa"
+        id="selectId"
+        [control]="this.form.get('isCompleted')"
+      ></app-select-form>
+    </app-form>
+  </app-simple-card>
+</app-page-layout>

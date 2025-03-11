@@ -1,0 +1,15 @@
+<li class="nav-item">
+  <a class="nav-link collapsed elemento-clicavel" [attr.data-bs-target]="'#' + itemMenu.id" data-bs-toggle="collapse" (click)="!itemMenu.submenus.length && menuItemClicked()">
+    <i class="{{itemMenu.icon}}"></i><span>{{itemMenu.label}}</span>
+    @if (itemMenu.submenus.length>0) {
+      <i class="bi bi-chevron-down ms-auto"></i>
+    }
+  </a>
+  @if (itemMenu.submenus.length>0) {
+    <ul id="{{itemMenu.id}}" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+      @for (item of itemMenu.submenus; track $index) {
+        <app-sidebar-item-submenu [submenu]="item"></app-sidebar-item-submenu>
+      }
+    </ul>
+  }
+</li>

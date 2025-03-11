@@ -1,0 +1,11 @@
+<h5 class="card-title">Sobre</h5>
+<p class="small fst-italic value">{{usuario?.about}}</p>
+
+<h5 class="card-title">Detalhes do perfil</h5>
+
+@for (campo of camposPerfil; track $index) {
+  <div class="row">
+    <div class="col-lg-3 col-md-4 label">{{campo.label}}</div>
+    <div class="col-lg-9 col-md-8 value">{{campo.value}}</div>
+  </div>
+}

@@ -1,0 +1,16 @@
+
+  <app-simple-card [title]=title>
+    <app-table *ngIf="items$ | async as items; else loading"
+      [dataList]="itemsList"
+      [pageSizes]="[1, 5, 10, 25, 50, 100]"
+      [displayedColumns]="columns"
+      [buttons]="buttonsAction"
+      [searchFor]="searchFor"
+      [searchIn]="searchIn"
+    >
+    </app-table>
+    <ng-template #loading>
+      <app-loading></app-loading>
+    </ng-template>
+  </app-simple-card>
+

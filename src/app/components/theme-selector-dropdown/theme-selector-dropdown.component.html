@@ -1,0 +1,10 @@
+<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow themes">
+  @for (theme of themes; track $index) {
+    <app-theme-selector-item [theme]="theme"></app-theme-selector-item>
+    @if ($index !== themes.length - 1) {
+      <li>
+        <hr class="dropdown-divider">
+      </li>
+    }
+  }
+</ul>

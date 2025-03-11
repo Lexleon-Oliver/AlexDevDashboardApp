@@ -1,0 +1,39 @@
+<div class="modal fade" [id]="modal.id" tabindex="-1" data-bs-backdrop="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{modal.title}}</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="fecharModal()"></button>
+      </div>
+      <div class="modal-body">
+        {{modal.text}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn" [ngClass]="{
+          'btn-primary': modal.cancelClass === 'primary',
+          'btn-secondary': modal.cancelClass === 'secondary',
+          'btn-danger': modal.cancelClass === 'danger',
+          'btn-info': modal.cancelClass === 'info',
+          'btn-light': modal.cancelClass === 'light',
+          'btn-dark': modal.cancelClass === 'dark',
+          'btn-success': modal.cancelClass === 'success',
+          'btn-warning': modal.cancelClass === 'warning',
+          'btn-link': modal.cancelClass === 'link',
+        }" (click)="fecharModal()">{{modal.cancelText}}</button>
+        <button type="button" class="btn"[ngClass]="{
+          'btn-primary': modal.confirmClass === 'primary',
+          'btn-secondary': modal.confirmClass === 'secondary',
+          'btn-danger': modal.confirmClass === 'danger',
+          'btn-info': modal.confirmClass === 'info',
+          'btn-light': modal.confirmClass === 'light',
+          'btn-dark': modal.confirmClass === 'dark',
+          'btn-success': modal.confirmClass === 'success',
+          'btn-warning': modal.confirmClass === 'warning',
+          'btn-link': modal.confirmClass === 'link',
+        }"
+        (click)="confirmarAcao()"
+        >{{modal.confirmText}}</button>
+      </div>
+    </div>
+  </div>
+</div>

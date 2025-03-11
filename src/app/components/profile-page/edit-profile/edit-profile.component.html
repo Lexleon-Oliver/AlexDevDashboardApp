@@ -1,0 +1,98 @@
+<app-form [form]="formEditProfile"
+    [buttons]="formButtons"
+  >
+    <app-input-form
+      label="Nome Completo"
+      placeholder="Nome Completo"
+      [control]="this.formEditProfile.get('nomeUsuario')"
+      id="floatingNome"
+      [errorMessages]="{
+        required: 'O campo nome é obrigatório.',
+        minlength: 'O campo nome deve ter no mínimo 3 caracteres',
+        maxlength: 'O campo nome deve ter no máximo 100 caracteres',
+      }"
+      class="col-md-12"
+    >
+    </app-input-form>
+    <app-input-form
+      label="Empresa"
+      placeholder="Empresa"
+      [control]="this.formEditProfile.get('empresaUsuario')"
+      id="floatingEmpresa"
+      [errorMessages]="{
+        maxlength: 'O campo empresa deve ter no máximo 30 caracteres',
+      }"
+      class="col-md-6"
+    >
+    </app-input-form>
+    <app-input-form
+      label="Cargo"
+      placeholder="Cargo"
+      [control]="this.formEditProfile.get('cargoUsuario')"
+      id="floatingCargo"
+      [errorMessages]="{
+        required: 'O campo cargo é obrigatório.',
+        minlength: 'O campo cargo deve ter no mínimo 3 caracteres',
+        maxlength: 'O campo cargo deve ter no máximo 50 caracteres',
+      }"
+      class="col-md-6"
+    >
+    </app-input-form>
+    <app-input-form
+      label="Endereço"
+      placeholder="Endereço"
+      [control]="this.formEditProfile.get('enderecoUsuario')"
+      id="floatingEndereco"
+      [errorMessages]="{
+        maxlength: 'O campo endereço deve ter no máximo 100 caracteres',
+      }"
+      class="col-md-12"
+    >
+    </app-input-form>
+    <app-input-form
+      label="Cidade"
+      placeholder="Cidade"
+      [control]="this.formEditProfile.get('cidadeUsuario')"
+      id="floatingCidade"
+      [errorMessages]="{
+        maxlength: 'O campo cidade deve ter no máximo 30 caracteres',
+      }"
+      class="col-md-6"
+    >
+    </app-input-form>
+
+    <app-input-form
+      label="E-mail"
+      placeholder="E-mail"
+      [control]="this.formEditProfile.get('emailUsuario')"
+      id="floatingEmail"
+      [errorMessages]="{
+        required: 'O campo e-mail é obrigatório.',
+        maxlength: 'O campo e-mail deve ter no máximo 30 caracteres',
+        email: 'O texto informado não é um e-mail válido.'
+      }"
+      class="col-md-6"
+    >
+    </app-input-form>
+    <app-input-phone-form
+      label="Telefone"
+      placeholder="Telefone"
+      [control]="this.formEditProfile.get('telefoneUsuario')"
+      id="idTelefone"
+      [errorMessages]="{
+      }"
+      class="col-md-6"
+    >
+    </app-input-phone-form>
+    <app-text-area-form
+      label="Sobre"
+      placeholder="Sobre"
+      [control]="this.formEditProfile.get('sobrePerfil')"
+      id="floatingSobre"
+      [errorMessages]="{
+        maxlength: 'O campo nome deve ter no máximo 1000 caracteres',
+      }"
+      class="col-md-12"
+    >
+    </app-text-area-form>
+  </app-form>

@@ -1,0 +1,40 @@
+<ul class="col-sm-10">
+  @for (item of items; track $index) {
+    <li class="form-check d-flex justify-content-between align-items-center elemento-clicavel" [class.completed]="item.checked">
+      <div>
+        <input
+          class="form-check-input"
+          type="checkbox"
+          [value]="item.value"
+          [attr.aria-label]="item.ariaLabel"
+          [checked]="item.checked"
+          [name]="item.group"
+          (click)="onCheckboxChange(item)"
+        >
+
+        <label class="form-check-label elemento-clicavel" (click)="onCheckboxChange(item)" [for]="item.id" [class.completed]="item.checked">
+          <span class="label-task">
+            {{ item.label }}
+
+          </span>
+        </label>
+        <div class="d-flex mt-2 ">
+          <app-badge-item-pill class="me-3 badge-expiration" *ngIf="!item.checked"
+          [tipoSelo]="item.tipoSelo"
+          [text]="item.textSelo"
+          ></app-badge-item-pill>
+          <div class="date-expiration me-3">
+            <span class="label-expiration-task">
+              {{item.expiration}}
+            </span>
+          </div>
+          <i class="mdi mdi-flag ms-2 flag-color"></i>
+        </div>
+      </div>
+      <div>
+        <a (click)="editarTarefa(item.id)" class="bi bi-pencil-square text-warning elemento-clicavel" [class.disabled]="linkEditTaskDisabled"></a>
+      </div>
+    </li>
+
+  }
+</ul>

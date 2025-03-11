@@ -1,0 +1,70 @@
+<app-page-layout
+  divisor="'•'"
+  [columnClass]="'col-lg-12'"
+  [pageTitle]="case.id !== 0 && case.id > 0 ?
+  {
+    titulo: 'Editar Gabinete',
+    itemMenu:'Gabinete',
+    itemSubmenu:case.id.toString(),
+    alignment:'center',
+    homeIcon: true,
+    homeText: 'Início',
+  }:
+  {
+    titulo: 'Novo Gabinete',
+    itemMenu:'Gabinete',
+    itemSubmenu:'Novo',
+    alignment:'center',
+    homeIcon: true,
+    homeText: 'Início',
+  }"
+>
+  <app-simple-card
+    title="Formulário de Gabinete"
+  >
+    <app-form [form]="form"
+      [buttons]="formButtons"
+    >
+      <app-input-form
+        label="Cor"
+        placeholder="Cor"
+        [control]="this.form.get('color')"
+        id="floatingName"
+        [errorMessages]="{
+          required: 'O campo de cor é obrigatório.',
+          minlength: 'O campo de cor deve ter no mínimo 3 caracteres',
+          maxlength: 'O campo de cor deve ter no máximo 255 caracteres',
+        }"
+        class="col-md-6"
+      >
+      </app-input-form>
+      <app-input-number-form
+        label="Número de Baias"
+        placeholder="Numero de Baias"
+        [control]="this.form.get('numberOfBays')"
+        id="floatingName"
+        [errorMessages]="{
+          required: 'O campo número de baias é obrigatório.',
+          min: 'O campo número de baias deve ter no mínimo 0',
+          max: 'O campo número de baias deve ter no máximo 10',
+        }"
+        class="col-md-6"
+      >
+      </app-input-number-form>
+      <app-select-form
+        class="col-md-6"
+        [options]="[
+          { value: true, label: 'Sim' },
+          { value: false, label: 'Não' },
+        ]"
+        label="Possui dvd"
+        id="selectId"
+        [control]="this.form.get('hasDVD')"
+      ></app-select-form>
+
+    </app-form>
+  </app-simple-card>
+</app-page-layout>
+
+
+

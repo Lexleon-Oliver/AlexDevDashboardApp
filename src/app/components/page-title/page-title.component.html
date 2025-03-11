@@ -1,0 +1,16 @@
+<div class="pagetitle">
+  <h1 [ngClass]="{ 'text-center': pageTitle.alignment === 'center', 'text-end': pageTitle.alignment === 'right' }">{{pageTitle.titulo}}</h1>
+  <nav [ngClass]="getAlignmentClass()" [ngStyle]="{ '--bs-breadcrumb-divider': divisor }">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a class="elemento-clicavel" (click)="goHome()">
+          @if (pageTitle.homeIcon) {
+            <i class="bi bi-house-door"></i>&nbsp;{{pageTitle.homeText}}
+          }
+        </a>
+      </li>
+      <li class="breadcrumb-item">{{pageTitle.itemMenu}}</li>
+      <li class="breadcrumb-item active">{{pageTitle.itemSubmenu}}</li>
+    </ol>
+  </nav>
+</div>

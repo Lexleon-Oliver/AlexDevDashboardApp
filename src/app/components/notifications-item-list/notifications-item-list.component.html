@@ -1,0 +1,14 @@
+<a class="list-group-item list-group-item-action elemento-clicavel item-notification"  [ngClass]="{'not-lida': !notificacao.readedAt}" aria-current="true" (click)="onClick()">
+  <div class="d-flex w-100 justify-content-between" >
+    <h5 class="mb-1">
+      <i class="me-1" [ngClass]="notificacao.icon"></i>
+      <span class="notification-title" [ngClass]="{'not-lida': !notificacao.readedAt}">
+        {{notificacao.title}}
+      </span>
+    </h5>
+    <small>{{notificacao.createdAt}}</small>
+  </div>
+  <p class="mb-1">
+    {{ notificacao.message.length > 34 ? (notificacao.message | slice:0:34) + '...' : notificacao.message }}
+  </p>
+</a>

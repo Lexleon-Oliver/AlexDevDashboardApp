@@ -1,0 +1,8 @@
+<div class="form-floating">
+  <select class="form-select" [id]="id" [formControl]="control" [ngClass]="getClass()">
+    @for (option of options; track $index) {
+      <option [value]="option.value">{{ option.label }}</option>
+    }
+  </select>
+  <label [for]="id">{{ label }}</label>
+</div>

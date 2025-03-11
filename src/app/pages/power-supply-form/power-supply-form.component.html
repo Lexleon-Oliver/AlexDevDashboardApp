@@ -1,0 +1,67 @@
+<app-page-layout
+  divisor="'•'"
+  [columnClass]="'col-lg-12'"
+  [pageTitle]="powerSupply.id !== 0 && powerSupply.id > 0 ?
+  {
+    titulo: 'Editar Fonte de Energia',
+    itemMenu:'Fonte de Energia',
+    itemSubmenu:powerSupply.id.toString(),
+    alignment:'center',
+    homeIcon: true,
+    homeText: 'Início',
+  }:
+  {
+    titulo: 'Nova Fonte de Energia',
+    itemMenu:'Fonte de Energia',
+    itemSubmenu:'Novo',
+    alignment:'center',
+    homeIcon: true,
+    homeText: 'Início',
+  }"
+>
+  <app-simple-card
+    title="Formulário de Fonte de Energia"
+  >
+    <app-form [form]="form"
+      [buttons]="formButtons"
+    >
+      <app-input-form
+        label="Modelo"
+        placeholder="Modelo"
+        [control]="this.form.get('model')"
+        id="floatingName"
+        [errorMessages]="{
+          required: 'O campo de modelo é obrigatório.',
+          minlength: 'O campo de modelo deve ter no mínimo 3 caracteres',
+          maxlength: 'O campo de modelo deve ter no máximo 255 caracteres',
+        }"
+        class="col-md-6"
+      >
+      </app-input-form>
+      <app-input-number-form
+        label="Potência"
+        placeholder="Potência"
+        [control]="this.form.get('power')"
+        id="floatingName"
+        [errorMessages]="{
+          required: 'O campo de potência é obrigatório.',
+          min: 'O campo de potência deve ter no mínimo 100w',
+          max: 'O campo de potência deve ter no máximo 10000w',
+        }"
+        class="col-md-6"
+      >
+      </app-input-number-form>
+
+      <app-select-form
+        class="col-md-6"
+        [options]="voltageOptions"
+        label="Alimentação"
+        id="inputVoltageSelect"
+        [control]="form.get('inputVoltage')"
+      ></app-select-form>
+
+    </app-form>
+  </app-simple-card>
+</app-page-layout>
+
+

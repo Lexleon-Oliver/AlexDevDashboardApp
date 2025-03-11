@@ -1,0 +1,13 @@
+<app-page-title [pageTitle]="pageTitle" [divisor]="divisor"></app-page-title>
+<app-section-page-nocolumn>
+  <ng-content></ng-content>
+  @if (requestService.isLoading) {
+    <app-loading></app-loading>
+  }
+  @if (requestService.sucessoAlert.exibir) {
+    <app-success-alert></app-success-alert>
+  }
+  @if (requestService.errorAlert.show) {
+    <app-error-modal></app-error-modal>
+  }
+</app-section-page-nocolumn>

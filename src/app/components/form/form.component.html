@@ -1,0 +1,18 @@
+<form [formGroup]="form" class="row g-3">
+  <ng-content></ng-content>
+
+  <div class="text-center">
+    @for (button of buttons; track $index) {
+      <app-button
+      [text]="button.text"
+      [icon]="button.icon"
+      [tipoBotao]="button.type"
+      [corBotao]="button.color"
+      [tamanhoBotao]="button.size"
+      [metodoAChamar]="button.function"
+      [arredondado]="button.rounded"
+      [disabled]="!button.form.valid"
+      ></app-button>
+    }
+  </div>
+</form>

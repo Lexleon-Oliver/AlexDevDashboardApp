@@ -1,0 +1,23 @@
+.pagetitle {
+  margin-bottom: 10px;
+}
+
+.pagetitle h1 {
+  font-size: 24px;
+  margin-bottom: 0;
+  font-weight: 600;
+}
+
+.breadcrumb {
+  font-size: 14px;
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+}
+
+.breadcrumb a {
+  transition: 0.3s;
+}
+
+.breadcrumb .active {
+  font-weight: 600;
+}

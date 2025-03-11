@@ -1,0 +1,31 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12">
+      <div class="list-group">
+        <div class="list-group-item">
+          @for (item of items; track $index) {
+            <div class="list-group-item mb-3">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">Pedido #{{item.id}}</h5>
+                <small>Data do Pedido: {{item.date}}</small>
+              </div>
+              <p class="mb-1">Fornecedor: {{item.vendor}}</p>
+              <p class="list-group mb-3">
+               {{item.items}}
+              </p>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="receivedCheck{{item.id}}" [checked]="item.received" (change)="onReceivedChange(item, $event)">
+                <label class="form-check-label" for="receivedCheck1">
+                  Recebido
+                </label>
+                <div class="d-flex justify-content-end">
+                  <a (click)="editarOrder(item.id)" class="bi bi-pencil-square text-warning elemento-clicavel"></a>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

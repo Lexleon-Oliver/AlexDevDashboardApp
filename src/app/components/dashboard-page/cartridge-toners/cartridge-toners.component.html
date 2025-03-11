@@ -1,0 +1,28 @@
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12">
+      <div class="list-group">
+        <div class="list-group-item">
+          @for (item of items; track $index) {
+            <div class="list-group-item mb-3">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">Modelo {{item.model}}</h5>
+               <app-badge-item-pill class="me-3 badge-expiration"
+               [tipoSelo]="setTipoSelo(item.quantity)"
+               [text]="'Resta: ' + item.quantity"
+               ></app-badge-item-pill>
+              </div>
+              <p class="list-group mb-3">
+               {{item.compatibility}}
+              </p>
+              <div class="d-flex justify-content-end">
+                <a (click)="editarToner(item.id)" class="bi bi-pencil-square text-warning elemento-clicavel"></a>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

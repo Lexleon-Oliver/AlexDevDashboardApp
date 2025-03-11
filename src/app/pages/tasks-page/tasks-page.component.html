@@ -1,0 +1,52 @@
+<app-page-layout
+  divisor="'•'"
+  [pageTitle]="{
+    titulo: 'Tarefas',
+    itemMenu:'Usuário',
+    itemSubmenu:'Tarefas',
+    alignment:'center',
+    homeIcon: true,
+    homeText: 'Início',
+  }"
+  [columnClass]="'col-lg-12'"
+>
+  <app-simple-card
+    title=""
+  >
+    <app-button
+      class="btn-new"
+      text=""
+      icon="bi bi-plus-circle me-2"
+      tipoBotao="default"
+      corBotao="success"
+      tamanhoBotao=""
+      [metodoAChamar]="onAdd"
+      [arredondado]="!rounded"
+      [disabled]="disabled"
+    ></app-button>
+    <app-table *ngIf= "tasks$ | async as tasks; else loading "
+      [dataList]="_tasks"
+      [pageSizes]="[1, 5, 10, 25, 50, 100]"
+      [displayedColumns]="columns"
+      [buttons]="buttonsAction"
+      (editItem)="onEdit($event)"
+      (removeItem)="onRemove($event)"
+    >
+    </app-table>
+<app-confirm-modal
+  [modal]="{
+    id: 'removerItemTable',
+    title: 'Excluir Tarefa',
+    text: 'Tem certeza que deseja remover a tarefa? Após a confirmação, o registro será excluído e NÃO PODERÁ mais ser recuperado!',
+    cancelText: 'Cancelar',
+    cancelClass: 'secondary',
+    confirmText: 'Confirmar Exclusão',
+    confirmClass: 'danger'
+  }"
+  (confirmacaoAcao)="executarRemocao()"
+></app-confirm-modal>
+<ng-template #loading>
+  <app-loading></app-loading>
+</ng-template>
+</app-simple-card>
+</app-page-layout>

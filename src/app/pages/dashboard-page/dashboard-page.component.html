@@ -1,0 +1,61 @@
+<app-page-layout-nocolumn
+  divisor="'•'"
+  [pageTitle]="{
+    titulo: 'Dashboard',
+    itemMenu:'Dashboard',
+    itemSubmenu:'',
+    alignment:'center',
+    homeIcon: true,
+    homeText: 'Início',
+  }"
+>
+<!-- lado esquerdo do dashboard -->
+  <div class="col-lg-6">
+
+    <app-simple-card
+    title="Lista de Tarefas"
+    >
+      <div class="d-flex justify-content-end">
+        <a (click)="criarTarefa()" class="bi bi-plus-circle me-2 text-success elemento-clicavel"></a>
+        <a (click)="irParaTarefas()" class="bi bi-list-task blue-custom elemento-clicavel" [class.disabled]="linkTaskDisabled"></a>
+      </div>
+      <div class="tasks-container">
+        <app-todo-list *ngIf="tasks$ | async as tasks"
+        [items]="tasksToDashboard"
+        ></app-todo-list>
+      </div>
+    </app-simple-card>
+    <app-simple-card
+      title="Estoque de toners"
+      >
+        <div class="d-flex justify-content-end">
+          <a (click)="criarNovoToner()" class="bi bi-plus-circle me-2 text-success elemento-clicavel"></a>
+          <a (click)="irParaToners()" class="bi bi-list-task blue-custom elemento-clicavel" [class.disabled]="linkTaskDisabled"></a>
+        </div>
+        <div class="tasks-container">
+          <app-cartridge-toners *ngIf="cartridgeToners$ | async as cartridgeToners"
+          [items]="cartridgeTonersToDashboard"
+          ></app-cartridge-toners>
+        </div>
+      </app-simple-card>
+
+  </div>
+  <!-- lado direito do dashboard -->
+  <div class="col-lg-6">
+    <app-simple-card
+    title="Pedidos de Compras"
+    >
+      <div class="d-flex justify-content-end">
+        <a (click)="criarNovoPedido()" class="bi bi-plus-circle me-2 text-success elemento-clicavel"></a>
+        <a (click)="irParaPedidos()" class="bi bi-list-task blue-custom elemento-clicavel" [class.disabled]="linkTaskDisabled"></a>
+      </div>
+      <div class="tasks-container">
+        <app-purchase-order *ngIf="purchaseOrders$ | async as purchaseOrders"
+        [items]="purchaseOrdersToDashboard"
+        ></app-purchase-order>
+      </div>
+    </app-simple-card>
+
+  </div>
+
+</app-page-layout-nocolumn>

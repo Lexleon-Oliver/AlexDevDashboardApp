@@ -1,0 +1,54 @@
+<app-page-layout
+  divisor="'•'"
+  [columnClass]="'col-lg-12'"
+  [pageTitle]="keyboard.id !== 0 && keyboard.id > 0 ?
+  {
+    titulo: 'Editar Teclado',
+    itemMenu:'Teclado',
+    itemSubmenu:keyboard.id.toString(),
+    alignment:'center',
+    homeIcon: true,
+    homeText: 'Início',
+  }:
+  {
+    titulo: 'Novo Teclado',
+    itemMenu:'Teclado',
+    itemSubmenu:'Novo',
+    alignment:'center',
+    homeIcon: true,
+    homeText: 'Início',
+  }"
+>
+  <app-simple-card
+    title="Formulário de Teclado"
+  >
+    <app-form [form]="form"
+      [buttons]="formButtons"
+    >
+      <app-input-form
+        label="Modelo"
+        placeholder="Modelo"
+        [control]="this.form.get('model')"
+        id="floatingName"
+        [errorMessages]="{
+          required: 'O campo de modelo é obrigatório.',
+          minlength: 'O campo de modelo deve ter no mínimo 3 caracteres',
+          maxlength: 'O campo de modelo deve ter no máximo 255 caracteres',
+        }"
+        class="col-md-6"
+      >
+      </app-input-form>
+
+      <app-select-form
+        class="col-md-6"
+        [options]="inputConnectionsOptions"
+        label="Tipo de Conexão"
+        id="inputConnectionSelect"
+        [control]="form.get('connectionType')"
+      ></app-select-form>
+
+    </app-form>
+  </app-simple-card>
+</app-page-layout>
+
+

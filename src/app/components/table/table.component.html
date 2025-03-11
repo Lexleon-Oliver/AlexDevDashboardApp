@@ -1,0 +1,78 @@
+<div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns">
+
+  <div class="datatable-top">
+    <div class="datatable-dropdown" >
+      <label class="page-size-label">
+        <select class="datatable-selector" [(ngModel)]="selectedPageSize" (change)="onPageSizeChange()">
+          <option *ngFor="let pageSize of pageSizes" [value]="pageSize">
+            {{ pageSize }}
+          </option>
+        </select>
+        <span class="registerLabel">registros por página</span>
+      </label>
+    </div>
+    <div class="datatable-search">
+      <select class="datatable-selector column-selector" [(ngModel)]="searchField">
+        <option *ngFor="let column of displayedColumns" [value]="column.value">
+          {{ column.label }}
+        </option>
+      </select>
+      <input class="datatable-input" placeholder="Pesquisar por..." type="search" title="Search within table" [(ngModel)]="busca">
+    </div>
+  </div>
+  <div class="datatable-container">
+    <table class="table datatable table-custom">
+      <thead>
+        <tr>
+          <th *ngFor="let item of displayedColumns">
+            <a class="datatable-sorter color-label" (click)="sortData(item)">{{item.label}}</a>
+          </th>
+          <th ><span class="color-label">Ações</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of filteredData.slice(0, selectedPageSize)">
+          <ng-container *ngFor="let column of displayedColumns">
+            <td>{{ item[column.value] }}</td>
+          </ng-container>
+          <td>
+            <ng-container *ngFor="let button of buttons">
+              <app-button
+                class="me-1"
+                [text]="button.text"
+                [icon]="button.icon"
+                [tipoBotao]="button.type"
+                [corBotao]="button.color"
+                [tamanhoBotao]="button.size"
+                [arredondado]="button.rounded"
+                [disabled]="!button.form.valid || requestService.isLoading"
+                (click)="emitButtonClick(button.function, item)"
+              ></app-button>
+            </ng-container>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <nav class="datatable-pagination">
+    <ul class="datatable-pagination-list"></ul>
+  </nav>
+</div>
+<nav aria-label="...">
+  <ul class="pagination pagination-sm">
+    <li class="page-item" [class.disabled]="currentPage === 1">
+      <a class="page-link" tabindex="-1" aria-disabled="true" (click)="goToPrevious()">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li *ngFor="let page of getPageNumbers()" class="page-item" [class.active]="currentPage === page">
+      <button class="page-link" (click)="changePage(page)">{{ page }}</button>
+    </li>
+    <li class="page-item" [class.disabled]="currentPage === totalPages">
+      <!-- <a class="page-link"> -->
+      <a class="page-link" (click)="goToNext()">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>

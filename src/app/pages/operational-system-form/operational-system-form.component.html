@@ -1,0 +1,73 @@
+<app-page-layout
+  divisor="'•'"
+  [columnClass]="'col-lg-12'"
+  [pageTitle]="operationalSystem.id !== 0 && operationalSystem.id > 0 ?
+  {
+    titulo: 'Editar Sistema Operacional',
+    itemMenu:'Sistema Operacional',
+    itemSubmenu:operationalSystem.id.toString(),
+    alignment:'center',
+    homeIcon: true,
+    homeText: 'Início',
+  }:
+  {
+    titulo: 'Novo Sistema Operacional',
+    itemMenu:'Sistema Operacional',
+    itemSubmenu:'Novo',
+    alignment:'center',
+    homeIcon: true,
+    homeText: 'Início',
+  }"
+>
+  <app-simple-card
+    title="Formulário de Sistema Operacional"
+  >
+    <app-form [form]="form"
+      [buttons]="formButtons"
+    >
+      <app-select-form
+        class="col-md-6"
+        [options]="systemsOptions"
+        label="Nome"
+        id="systemsSelect"
+        [control]="form.get('name')"
+      ></app-select-form>
+      <app-datepicker-form
+        [control]="this.form.get('installationDate')"
+        [errorMessages]="{
+          required: 'O campo data de instalação é obrigatório.',
+        }"
+        placeholder="Selecione a data de instalação"
+        id="floatingInstallationDate"
+        label="Selecione a data de instalação"
+        class="col-md-6"
+      ></app-datepicker-form>
+      <app-input-serial-number
+        label="Serial"
+        placeholder="XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"
+        [control]="this.form.get('serialNumber')"
+        id="serialNumberId"
+        [errorMessages]="{
+          required: 'O campo de serial é obrigatório.',
+          pattern: 'O serial deve seguir o formato XXXXX-XXXXX-XXXXX-XXXXX-XXXXX.',
+        }"
+        class="col-md-6"
+      ></app-input-serial-number>
+      <app-input-form
+        label="Domínio/Grupo de Trabalho"
+        placeholder="Domínio/Grupo de Trabalho"
+        [control]="this.form.get('workgroup')"
+        id="floatingName"
+        [errorMessages]="{
+          required: 'O campo de Domínio/Grupo de Trabalho é obrigatório.',
+          minlength: 'O campo de Domínio/Grupo de Trabalho deve ter no mínimo 3 caracteres',
+          maxlength: 'O campo de Domínio/Grupo de Trabalho deve ter no máximo 255 caracteres',
+        }"
+        class="col-md-6"
+      ></app-input-form>
+    </app-form>
+  </app-simple-card>
+</app-page-layout>
+
+
+

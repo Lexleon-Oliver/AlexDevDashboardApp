@@ -1,0 +1,23 @@
+
+.form-check label {
+  color: white;
+}
+
+.date-expiration{
+  // color: #FFD484;
+  font-size: small;
+  margin-left: 1rem;
+
+}
+
+
+.badge-expiration{
+  font-size: small;
+  width: 91px; /* Largura desejada */
+  height: 30px; /* Altura desejada */
+}
+
+.disabled {
+  pointer-events: none; /* Impede que o link seja clicado */
+  opacity: 0.5; /* Reduz a opacidade para indicar visualmente que está desabilitado */
+}

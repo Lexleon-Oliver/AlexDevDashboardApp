@@ -1,0 +1,5 @@
+.tasks-container {
+  max-height: 400px;
+  overflow-y: auto;  /* Ativa a rolagem vertical */
+  padding-right: 15px; /* Para garantir que o conteúdo não se sobreponha à barra de rolagem */
+}
