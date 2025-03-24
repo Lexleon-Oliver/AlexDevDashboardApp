@@ -1,0 +1,115 @@
+<app-page-layout
+  divisor="'•'"
+  [columnClass]="'col-lg-12'"
+  [pageTitle]="msoffice.id !== 0 && msoffice.id > 0 ?
+  {
+    titulo: 'Editar Office',
+    itemMenu:'Office',
+    itemSubmenu:msoffice.id.toString(),
+    alignment:'center',
+    homeIcon: true,
+    homeText: 'Início',
+  }:
+  {
+    titulo: 'Novo Office',
+    itemMenu:'Office',
+    itemSubmenu:'Novo',
+    alignment:'center',
+    homeIcon: true,
+    homeText: 'Início',
+  }"
+>
+  <app-simple-card
+    title="Formulário de Office"
+  >
+    <app-form [form]="form"
+      [buttons]="formButtons"
+    ><!--
+      <app-input-number-form
+        label="N°"
+        placeholder="N°"
+        [control]="this.form.get('cod')"
+        id="floatingN"
+        [errorMessages]="{
+          required: 'O campo N° é obrigatório.',
+
+        }"
+        class="col-md-4"
+      >
+      </app-input-number-form>
+      <app-input-form
+        label="De"
+        placeholder="De"
+        [control]="this.form.get('sender')"
+        id="floatingSender"
+        [errorMessages]="{
+          required: 'O campo De é obrigatório.',
+          minlength: 'O campo De deve ter no mínimo 3 caracteres',
+          maxlength: 'O campo De deve ter no máximo 255 caracteres',
+        }"
+        class="col-md-4"
+      >
+      </app-input-form>
+      <app-input-form
+        label="Para"
+        placeholder="Para"
+        [control]="this.form.get('recipient')"
+        id="floatingRecipient"
+        [errorMessages]="{
+          required: 'O campo Para é obrigatório.',
+          minlength: 'O campo Para deve ter no mínimo 3 caracteres',
+          maxlength: 'O campo Para deve ter no máximo 255 caracteres',
+        }"
+        class="col-md-4"
+      >
+      </app-input-form>
+      <app-datepicker-form
+        [control]="this.form.get('sentAt')"
+        [errorMessages]="{
+          required: 'O campo Enviado em é obrigatório.',
+        }"
+        placeholder="Selecione a data do envio"
+        id="floatingDateSent"
+        label="Selecione a data do envio"
+        class="col-md-3"
+      ></app-datepicker-form>
+      <app-datepicker-form
+        [control]="this.form.get('receivedAt')"
+        [errorMessages]="{
+          required: 'O campo Recebido em é obrigatório.',
+        }"
+        placeholder="Selecione a data do recebimento"
+        id="floatingDateReceived"
+        label="Selecione a data do recebimento"
+        class="col-md-3"
+      ></app-datepicker-form>
+      <app-input-form
+      label="Título"
+      placeholder="Título"
+      [control]="this.form.get('title')"
+      id="floatingTitle"
+      [errorMessages]="{
+        required: 'O campo Título é obrigatório.',
+        minlength: 'O campo Título deve ter no mínimo 3 caracteres',
+        maxlength: 'O campo Título deve ter no máximo 255 caracteres',
+      }"
+      class="col-md-6"
+    >
+    </app-input-form>
+      <app-text-area-form
+        label="Conteúdo"
+        placeholder="Conteúdo"
+        [control]="this.form.get('content')"
+        id="floatingContent"
+        [errorMessages]="{
+          required: 'O campo Conteúdo é obrigatório.',
+          minlength: 'O campo Conteúdo deve ter no mínimo 3 caracteres',
+        }"
+        class="col-md-12"
+      >
+      </app-text-area-form>-->
+
+    </app-form>
+  </app-simple-card>
+</app-page-layout>
+

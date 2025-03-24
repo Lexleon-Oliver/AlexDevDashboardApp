@@ -35,7 +35,6 @@ export class OfficialLettersPageComponent {
         { value: 'id', label: '#' },
         { value: 'cod', label: 'N°' },
         { value: 'title', label: 'Assunto' },
-        { value: 'content', label: 'Conteúdo' },
         { value: 'sender', label: 'De' },
         { value: 'recipient', label: 'Para' },
         { value: 'sentAt', label: 'Enviado em' },

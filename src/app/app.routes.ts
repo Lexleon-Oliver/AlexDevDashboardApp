@@ -80,6 +80,10 @@ import { OfficialLettersResolver } from './resolvers/official-letters.resolver';
 import { OfficialLettersPageComponent } from './pages/official-letters-page/official-letters-page.component';
 import { OfficialLetterResolver } from './resolvers/official-letter.resolver';
 import { OfficialLetterFormComponent } from './pages/official-letter-form/official-letter-form.component';
+import { MsofficesPageComponent } from './pages/msoffices-page/msoffices-page.component';
+import { MsofficesResolver } from './resolvers/msoffices.resolver';
+import { MsofficeFormComponent } from './pages/msoffice-form/msoffice-form.component';
+import { MsofficeResolver } from './resolvers/msoffice.resolver';
 
 export const routes: Routes = [
   {
@@ -361,6 +365,20 @@ export const routes: Routes = [
     path: 'softwares/operationalsystems/:id/edit',
     component: OperationalSystemFormComponent,
     resolve:{operationalSystem:OperationalSystemResolver},
+  },
+  {
+    path: 'softwares/msoffices',
+    component: MsofficesPageComponent,
+    resolve:{msoffices:MsofficesResolver},
+  },
+  {
+    path: 'softwares/msoffices/new',
+    component: MsofficeFormComponent,
+    resolve:{msoffice:MsofficeResolver},
+  }, {
+    path: 'softwares/msoffices/:id/edit',
+    component: MsofficeFormComponent,
+    resolve:{msoffice:MsofficeResolver},
   },
 
   // ---------------------DOCUMENTS MENU---------------
